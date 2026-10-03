@@ -3,24 +3,27 @@
 }
 
 .links {
-  color: #fff;
+  width: 130px;
+  color: #171717;
   text-decoration: none;
-  display: block;
-  padding: 2px 50px;
-  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 22px;
+  font-size: 16px;
   font-weight: bold;
-  background-color: #000000;
-  border: 11px double #f5f3f3;
-  border-radius: 40px 0px 40px 0px;
+  background-color: #dfb135;
+  border: 2px solid #171717;
+  border-radius: 12px 0 12px 0;
   text-align: center;
   transition:
     transform 0.2s,
     background-color 0.2s;
- box-shadow: 10px 5px 3px 1px #000000;
+  box-shadow: 5px 5px 0 #171717;
 }
 
 .links:hover {
-  background-color: #f2ae30;
-  color: black;
-  transform: translateY(-10px);
+  background-color: #e8bd47;
+  transform: translateY(-3px);
 }

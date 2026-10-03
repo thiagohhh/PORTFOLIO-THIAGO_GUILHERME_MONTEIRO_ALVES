@@ -2,11 +2,17 @@
 body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  background-color: #f4f4f4;
 }
 
 .container-principal {
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
-  background-color: #f3f4f6; 
+  box-sizing: border-box;
+  background-color: #f4f4f4;
 }
+
+* {
+  box-sizing: border-box;
+}
+
