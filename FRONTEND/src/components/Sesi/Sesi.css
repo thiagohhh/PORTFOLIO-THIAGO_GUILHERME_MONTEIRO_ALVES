@@ -3,8 +3,7 @@
   flex-direction: column;
   width: 100%;
   min-height: 100vh;
-  background-color: #f4f4f4;
-  box-sizing: border-box;
+  background-color: var(--cor-fundo);
   font-family:
     system-ui,
     -apple-system,
@@ -17,7 +16,6 @@
 .sesi-main {
   flex: 1;
   padding: 30px 90px 28px;
-  box-sizing: border-box;
 }
 
 .disciplinas-header {
@@ -29,11 +27,11 @@
   font-size: 54px;
   font-weight: 900;
   line-height: 1;
-  color: #1a1a1a;
+  color: var(--cor-titulo);
 }
 
 .nome {
-  color: #dfb135;
+  color: var(--cor-amarela);
   text-shadow: 4px 4px #000000;
 }
 
@@ -48,16 +46,16 @@
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.5px;
-  background-color: #dfb135;
-  color: #1a1a1a;
-  border: 2px solid #000000;
-  box-shadow: 4px 4px 0 #000000;
+  background-color: var(--cor-amarela);
+  color: var(--cor-titulo);
+  border: 2px solid var(--cor-preto-puro);
+  box-shadow: 4px 4px 0 var(--cor-preto-puro);
 }
 
 .descricao-area {
   margin: 0 0 28px;
   font-size: 18px;
-  color: #1d1d1d;
+  color: var(--cor-texto);
 }
 
 .materias-caixa {
@@ -65,15 +63,3 @@
   grid-template-columns: repeat(2, minmax(260px, 1fr));
   gap: 24px 24px;
 }
-
-.rodape-pagina {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 52px;
-  padding: 0 90px;
-  border-top: 1px solid #d8d8d8;
-  font-size: 12px;
-  color: #1d1d1d;
-}
-

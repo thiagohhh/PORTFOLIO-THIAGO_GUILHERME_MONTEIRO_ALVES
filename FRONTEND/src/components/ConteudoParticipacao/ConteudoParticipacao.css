@@ -1,0 +1,59 @@
+.conteudo-participacao {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.cartao-participacao {
+  min-height: 108px;
+  padding: 14px;
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-branca);
+  box-shadow: 4px 4px 0 var(--cor-preta);
+}
+
+.cartao-participacao h2 {
+  margin: 0;
+  color: var(--cor-preta);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.cartao-participacao h3 {
+  margin: 10px 0 0;
+  color: #333333;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.linhas-participacao {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.linhas-participacao span {
+  display: block;
+  height: 1px;
+  background: var(--cor-linha);
+}
+
+.avaliacao-engajamento {
+  display: flex;
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.ponto-avaliacao {
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--cor-preta);
+  border-radius: 50%;
+  background: var(--cor-branca);
+}
+
+.ponto-avaliacao.marcado {
+  background: var(--cor-amarela);
+}

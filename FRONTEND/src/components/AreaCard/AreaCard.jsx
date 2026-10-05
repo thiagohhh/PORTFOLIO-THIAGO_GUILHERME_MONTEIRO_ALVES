@@ -1,6 +1,7 @@
 import "./AreaCard.css";
+import { Link } from "react-router-dom";
 
-const AreaCard = ({ titulo, descricao, icone }) => {
+const AreaCard = ({ titulo, descricao, icone, to }) => {
   return (
     <article className="card-area">
       <div className="card-header">
@@ -10,9 +11,9 @@ const AreaCard = ({ titulo, descricao, icone }) => {
 
       <p>{descricao}</p>
 
-      <button type="button" className="btn-area">
+      <Link className="btn-area" to={to}>
         Abrir
-      </button>
+      </Link>
     </article>
   );
 };

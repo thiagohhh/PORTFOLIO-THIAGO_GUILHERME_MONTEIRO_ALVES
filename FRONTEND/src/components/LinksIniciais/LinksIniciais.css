@@ -4,7 +4,7 @@
 
 .links {
   width: 130px;
-  color: #171717;
+  color: var(--cor-preta);
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -13,17 +13,17 @@
   padding: 0 22px;
   font-size: 16px;
   font-weight: bold;
-  background-color: #dfb135;
-  border: 2px solid #171717;
+  background-color: var(--cor-amarela);
+  border: 2px solid var(--cor-preta);
   border-radius: 12px 0 12px 0;
   text-align: center;
   transition:
     transform 0.2s,
     background-color 0.2s;
-  box-shadow: 5px 5px 0 #171717;
+  box-shadow: 5px 5px 0 var(--cor-preta);
 }
 
 .links:hover {
-  background-color: #e8bd47;
-  transform: translateY(-3px);
+  background-color: var(--cor-amarela-hover);
+  transform: translateY(-10px);
 }

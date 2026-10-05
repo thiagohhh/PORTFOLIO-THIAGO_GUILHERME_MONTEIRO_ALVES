@@ -4,17 +4,16 @@
   justify-content: space-between;
   min-height: 210px;
   padding: 22px 18px 14px;
-  background-color: #f4f4f4;
-  border: 2px solid #000000;
-  box-shadow: 8px 8px 0 #000000;
+  background-color: var(--cor-fundo);
+  border: 2px solid var(--cor-preto-puro);
+  box-shadow: 8px 8px 0 var(--cor-preto-puro);
   border-radius: 38px 0 38px 0;
-  box-sizing: border-box;
-  transition: all 0.3s ease ;
+  transition: all 0.3s ease;
 }
 
 .card-area:hover{
   transform: translateY(-10px);
-  box-shadow: 8px 8px 0 #dfb135;
+  box-shadow: 8px 8px 0 var(--cor-amarela);
 }
 
 .card-header {
@@ -29,10 +28,9 @@
   height: 40px;
   padding: 8px;
   border-radius: 50%;
-  background-color: #dfb135;
-  border: 2px solid #000000;
+  background-color: var(--cor-amarela);
+  border: 2px solid var(--cor-preto-puro);
   object-fit: contain;
-  box-sizing: border-box;
 }
 
 .card-area h3 {
@@ -51,21 +49,25 @@
 }
 
 .btn-area {
+  display: inline-flex;
   align-self: flex-start;
+  align-items: center;
+  justify-content: center;
   min-width: 106px;
   height: 36px;
   padding: 0 18px;
-  border: 2px solid #000000;
+  border: 2px solid var(--cor-preto-puro);
   background-color: #1d1d1d;
-  color: #ffffff;
+  color: var(--cor-branca);
+  text-decoration: none;
   font-size: 16px;
   font-weight: 700;
   border-radius: 10px 0 10px 0;
-  box-shadow: 4px 4px 0 #000000;
+  box-shadow: 4px 4px 0 var(--cor-preto-puro);
   cursor: pointer;
   transition: all 0.5s ease;
 }
 
 .btn-area:hover{
-  background-color: #dfb135;
+  background-color: var(--cor-amarela);
 }

@@ -1,4 +1,5 @@
 import LinksIniciais from "../LinksIniciais/LinksIniciais";
+import Rodape from "../Rodape/Rodape";
 import "./QuemSouEu.css";
 import traco from "../../assets/imgs/Traço.png";
 import simbolo from "../../assets/imgs/Símbolo.png";
@@ -46,10 +47,7 @@ const QuemSouEu = () => {
         </section>
       </main>
 
-      <footer className="rodape-pagina">
-        <span>Thiago Guilherme · Portfólio escolar</span>
-        <span>Aprendizados, atividades e projetos.</span>
-      </footer>
+      <Rodape />
     </div>
   );
 };

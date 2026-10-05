@@ -1,0 +1,44 @@
+.resumo-conteudo,
+.bloco-conteudo {
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-branca);
+  box-shadow: 4px 4px 0 var(--cor-preta);
+}
+
+.resumo-conteudo {
+  margin-top: 22px;
+  padding: 16px 18px 12px;
+}
+
+.resumo-conteudo h2,
+.bloco-conteudo h2 {
+  margin: 0;
+  color: var(--cor-preta);
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.linhas-anotacao {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.linhas-anotacao span {
+  display: block;
+  height: 1px;
+  background: var(--cor-linha);
+}
+
+.blocos-conteudo {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.bloco-conteudo {
+  min-height: 96px;
+  padding: 14px;
+}

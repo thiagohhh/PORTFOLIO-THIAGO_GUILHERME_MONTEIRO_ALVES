@@ -1,0 +1,11 @@
+.rodape-portfolio {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 86%;
+  min-height: 52px;
+  margin: 0 auto;
+  border-top: 1px solid var(--cor-borda-clara);
+  color: #1d1d1d;
+  font-size: 12px;
+}
