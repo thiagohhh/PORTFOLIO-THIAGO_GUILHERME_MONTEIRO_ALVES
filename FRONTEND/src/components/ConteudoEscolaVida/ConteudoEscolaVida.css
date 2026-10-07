@@ -1,0 +1,38 @@
+.conteudo-escola-vida {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.cartao-escola-vida {
+  min-height: 100px;
+  padding: 13px;
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-branca);
+  box-shadow: 4px 4px 0 var(--cor-preta);
+}
+
+.cartao-escola-vida h2 {
+  margin: 0;
+  color: var(--cor-preta);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.linhas-escola-vida {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.linhas-escola-vida span {
+  display: block;
+  height: 1px;
+  background: var(--cor-linha);
+}
+
+.cartao-escola-completo {
+  grid-column: 1 / 3;
+}

@@ -27,6 +27,7 @@
 
 .texto-amarelo{
   color: var(--cor-amarela);
+   text-shadow: 5px 5px var(--cor-preto-puro);
 }
 
 .painel-conteudo {

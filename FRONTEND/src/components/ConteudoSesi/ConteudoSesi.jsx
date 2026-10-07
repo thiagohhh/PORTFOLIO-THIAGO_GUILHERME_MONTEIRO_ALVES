@@ -5,6 +5,9 @@ import MenuSecoes from "../MenuSecoes/MenuSecoes"; //mostra os botões laterais 
 import ConteudoFundamentos from "../ConteudoFundamentos/ConteudoFundamentos";
 import ConteudoParticipacao from "../ConteudoParticipacao/ConteudoParticipacao";
 import ConteudoProjetos from "../ConteudoProjetos/ConteudoProjetos";
+import ConteudoReflexaoCritica from "../ConteudoReflexaoCritica/ConteudoReflexaoCritica";
+import ConteudoConexoesInterdisciplinares from "../ConteudoConexoesInterdisciplinares/ConteudoConexoesInterdisciplinares";
+import ConteudoEscolaVida from "../ConteudoEscolaVida/ConteudoEscolaVida";
 import "./ConteudoSesi.css";
 
 const ConteudoSesi = ({ disciplina }) => {
@@ -123,11 +126,13 @@ const ConteudoSesi = ({ disciplina }) => {
           {secaoAtiva === "Fundamentos teóricos" && <ConteudoFundamentos />}
           {secaoAtiva === "Participação em sala" && <ConteudoParticipacao />}
           {secaoAtiva === "Projetos e trabalhos" && <ConteudoProjetos />}
-          {secaoAtiva === "Reflexão crítica" && <ConteudoFundamentos />}
+          {secaoAtiva === "Reflexão crítica" && <ConteudoReflexaoCritica />}
           {secaoAtiva === "Conexões interdisciplinares" && (
-            <ConteudoFundamentos />
+            <ConteudoConexoesInterdisciplinares />
           )}
-          {secaoAtiva === "Da escola para a vida" && <ConteudoFundamentos />}
+          {secaoAtiva === "Da escola para a vida" && (
+            <ConteudoEscolaVida />
+          )}
         </section>
       </main>
 

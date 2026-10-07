@@ -1,0 +1,66 @@
+.conteudo-conexoes {
+  margin-top: 18px;
+}
+
+.mapa-conexoes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin: 0 auto 18px;
+}
+
+.linha-disciplinas {
+  display: flex;
+  justify-content: space-between;
+  width: 75%;
+}
+
+.no-conexao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 74px;
+  height: 74px;
+  padding: 8px;
+  border: 2px solid var(--cor-preta);
+  border-radius: 50%;
+  background: var(--cor-branca);
+  color: var(--cor-preta);
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.destaque-conexao {
+  width: 94px;
+  height: 94px;
+  background: var(--cor-amarela);
+}
+
+.cartao-conexoes {
+  padding: 12px 14px;
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-branca);
+  box-shadow: 4px 4px 0 var(--cor-preta);
+}
+
+.cartao-conexoes h2 {
+  margin: 0;
+  color: var(--cor-preta);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.linhas-conexoes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.linhas-conexoes span {
+  display: block;
+  height: 1px;
+  background: var(--cor-linha);
+}
