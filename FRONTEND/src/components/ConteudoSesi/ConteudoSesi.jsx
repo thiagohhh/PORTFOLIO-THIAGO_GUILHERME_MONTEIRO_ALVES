@@ -13,6 +13,11 @@ import "./ConteudoSesi.css";
 const ConteudoSesi = ({ disciplina }) => {
   const [secaoAtiva, setSecaoAtiva] = useState("Fundamentos teóricos");
   const [bimestreAtivo, setBimestreAtivo] = useState("1º bimestre");
+  const secaoAnual = [
+    "Reflexão crítica",
+    "Conexões interdisciplinares",
+    "Da escola para a vida",
+  ].includes(secaoAtiva);
 
   return (
     <div className="conteudo-sesi-container">
@@ -67,61 +72,65 @@ const ConteudoSesi = ({ disciplina }) => {
               </>
             )}
           </h1>
-          <p className="etiqueta-conteudo">BIMESTRES · 4 PÁGINAS</p>
+          {!secaoAnual && (
+            <>
+              <p className="etiqueta-conteudo">BIMESTRES · 4 PÁGINAS</p>
 
-          <div className="seletor-bimestres">
-            <button
-              className={
-                bimestreAtivo === "1º bimestre"
-                  ? "botao-bimestre ativo"
-                  : "botao-bimestre"
-              }
-              type="button"
-              onClick={() => setBimestreAtivo("1º bimestre")}
-            >
-              <span className="indicador-bimestre" />
-              1º bimestre
-            </button>
+              <div className="seletor-bimestres">
+                <button
+                  className={
+                    bimestreAtivo === "1º bimestre"
+                      ? "botao-bimestre ativo"
+                      : "botao-bimestre"
+                  }
+                  type="button"
+                  onClick={() => setBimestreAtivo("1º bimestre")}
+                >
+                  <span className="indicador-bimestre" />
+                  1º bimestre
+                </button>
 
-            <button
-              className={
-                bimestreAtivo === "2º bimestre"
-                  ? "botao-bimestre ativo"
-                  : "botao-bimestre"
-              }
-              type="button"
-              onClick={() => setBimestreAtivo("2º bimestre")}
-            >
-              <span className="indicador-bimestre" />
-              2º bimestre
-            </button>
+                <button
+                  className={
+                    bimestreAtivo === "2º bimestre"
+                      ? "botao-bimestre ativo"
+                      : "botao-bimestre"
+                  }
+                  type="button"
+                  onClick={() => setBimestreAtivo("2º bimestre")}
+                >
+                  <span className="indicador-bimestre" />
+                  2º bimestre
+                </button>
 
-            <button
-              className={
-                bimestreAtivo === "3º bimestre"
-                  ? "botao-bimestre ativo"
-                  : "botao-bimestre"
-              }
-              type="button"
-              onClick={() => setBimestreAtivo("3º bimestre")}
-            >
-              <span className="indicador-bimestre" />
-              3º bimestre
-            </button>
+                <button
+                  className={
+                    bimestreAtivo === "3º bimestre"
+                      ? "botao-bimestre ativo"
+                      : "botao-bimestre"
+                  }
+                  type="button"
+                  onClick={() => setBimestreAtivo("3º bimestre")}
+                >
+                  <span className="indicador-bimestre" />
+                  3º bimestre
+                </button>
 
-            <button
-              className={
-                bimestreAtivo === "4º bimestre"
-                  ? "botao-bimestre ativo"
-                  : "botao-bimestre"
-              }
-              type="button"
-              onClick={() => setBimestreAtivo("4º bimestre")}
-            >
-              <span className="indicador-bimestre" />
-              4º bimestre
-            </button>
-          </div>
+                <button
+                  className={
+                    bimestreAtivo === "4º bimestre"
+                      ? "botao-bimestre ativo"
+                      : "botao-bimestre"
+                  }
+                  type="button"
+                  onClick={() => setBimestreAtivo("4º bimestre")}
+                >
+                  <span className="indicador-bimestre" />
+                  4º bimestre
+                </button>
+              </div>
+            </>
+          )}
 
           {secaoAtiva === "Fundamentos teóricos" && <ConteudoFundamentos />}
           {secaoAtiva === "Participação em sala" && <ConteudoParticipacao />}
@@ -130,9 +139,7 @@ const ConteudoSesi = ({ disciplina }) => {
           {secaoAtiva === "Conexões interdisciplinares" && (
             <ConteudoConexoesInterdisciplinares />
           )}
-          {secaoAtiva === "Da escola para a vida" && (
-            <ConteudoEscolaVida />
-          )}
+          {secaoAtiva === "Da escola para a vida" && <ConteudoEscolaVida />}
         </section>
       </main>
 
