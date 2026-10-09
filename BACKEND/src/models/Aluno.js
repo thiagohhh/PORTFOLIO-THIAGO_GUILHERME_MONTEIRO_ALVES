@@ -3,31 +3,31 @@ import conn from "../config/conn.js";
 
 const Aluno = conn.define("Aluno", {
 
-    "id": {
-        "type": DataTypes.INTEGER,
-        "primaryKey": true,
-        "autoIncrement": true,
-        "allowNull": false
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false
     },
 
-    "nome": {
-        "type": DataTypes.STRING,
-        "allowNull": false
+    nome: {
+        type: DataTypes.STRING,
+        allowNull: false
 
     },
-    "email": {
-        "type": DataTypes.STRING,
-        "allowNull": false,
-        "unique": true
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
     },
-    "senha": {
-        "type": DataTypes.STRING,
-        "allowNull": false
+    senha: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
 },
     {
-        "tableName": "aluno",
-        "timestamps": false
+        tableName: "aluno",
+        timestamps: false
     })
 
 

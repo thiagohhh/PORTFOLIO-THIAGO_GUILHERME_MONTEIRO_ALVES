@@ -1,0 +1,30 @@
+.menu-senai {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  margin: 24px 0;
+}
+
+.botao-senai {
+  padding: 8px 12px;
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-branca);
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  color: var(--cor-preta);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.botao-senai:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 5px 0 var(--cor-preta);
+}
+
+.botao-senai.ativo {
+  background: var(--cor-amarela);
+}
