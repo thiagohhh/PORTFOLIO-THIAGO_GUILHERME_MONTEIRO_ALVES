@@ -1,0 +1,510 @@
+.pagina-edicao-senai {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background: var(--cor-fundo);
+  color: var(--cor-preta);
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+}
+
+.cabecalho-edicao-senai {
+  display: flex;
+  height: 62px;
+  flex: 0 0 62px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 7%;
+  background: #111111;
+  color: var(--cor-amarela);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.voltar-edicao-senai {
+  color: var(--cor-branca);
+  text-decoration: none;
+}
+
+.voltar-edicao-senai:hover {
+  color: var(--cor-amarela);
+}
+
+.cabecalho-edicao-senai > span {
+  padding-bottom: 4px;
+  border-bottom: 3px solid var(--cor-amarela);
+}
+
+.conteudo-edicao-senai {
+  display: grid;
+  flex: 1;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 70px;
+  width: 86%;
+  max-width: 1440px;
+  padding: 54px 0 48px;
+  margin: 0 auto;
+}
+
+.navegacao-edicao-senai {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 2px;
+}
+
+.item-edicao-senai {
+  display: flex;
+  min-height: 64px;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 18px;
+  border: 2px solid var(--cor-preta);
+  border-radius: 22px 0 22px 0;
+  background: var(--cor-branca);
+  box-shadow: 4px 4px 0 var(--cor-preta);
+  color: var(--cor-preta);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 750;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.item-edicao-senai.ativo {
+  background: var(--cor-amarela);
+}
+
+.icone-edicao-senai {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--cor-preta);
+  color: var(--cor-branca);
+  font-size: 20px;
+  line-height: 1;
+}
+
+.area-edicao-senai {
+  min-width: 0;
+}
+
+.titulo-edicao-senai {
+  margin-bottom: 22px;
+}
+
+.titulo-edicao-senai h1 {
+  margin: 0;
+  font-size: 54px;
+  font-weight: 900;
+  line-height: 0.98;
+}
+
+.titulo-edicao-senai h1 span {
+  color: var(--cor-amarela);
+  text-shadow: 3px 3px 0 var(--cor-preta);
+}
+
+.titulo-edicao-senai p {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 2px solid var(--cor-preta);
+  margin: 18px 0 0;
+  background: var(--cor-amarela);
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  color: var(--cor-preta);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.contexto-edicao-senai {
+  display: flex;
+  gap: 10px;
+  margin: 0 0 26px;
+}
+
+.contexto-edicao-senai span {
+  padding: 6px 14px;
+  border: 1px solid var(--cor-preta);
+  border-radius: 18px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.abas-edicao-senai {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0 0 24px;
+}
+
+.abas-edicao-senai button {
+  min-width: 0;
+  min-height: 54px;
+  padding: 8px 6px;
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-branca);
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  color: var(--cor-preta);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+
+.abas-edicao-senai button.ativa {
+  background: var(--cor-amarela);
+}
+
+.abas-edicao-senai button:focus-visible {
+  outline: 3px solid var(--cor-amarela);
+  outline-offset: 2px;
+}
+
+.formulario-edicao-senai {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.campos-edicao-senai {
+  min-width: 0;
+  padding: 16px 20px 20px;
+  border: 2px solid var(--cor-preta);
+  margin: 0;
+  background: var(--cor-branca);
+  box-shadow: 4px 4px 0 var(--cor-preta);
+}
+
+.campos-edicao-senai > legend {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  margin: 0 0 14px -4px;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.numero-edicao-senai {
+  display: inline-flex;
+  width: 27px;
+  height: 27px;
+  flex: 0 0 27px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--cor-preta);
+  color: var(--cor-branca);
+  font-size: 14px;
+}
+
+.campo-edicao-senai {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin: 0 0 20px;
+  font-size: 14px;
+  font-weight: 750;
+}
+
+.campo-edicao-senai > input,
+.campo-edicao-senai > textarea,
+.campo-edicao-senai > select {
+  width: 100%;
+  min-height: 58px;
+  padding: 14px;
+  border: 2px solid var(--cor-preta);
+  border-radius: 0;
+  background: var(--cor-branca);
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  color: var(--cor-texto);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.campo-edicao-senai > textarea {
+  min-height: 84px;
+  resize: vertical;
+}
+
+.campo-edicao-senai > .editor-codigo-edicao-senai {
+  min-height: 190px;
+  background: #181818;
+  color: #f4f1e8;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 15px;
+  line-height: 1.6;
+  tab-size: 2;
+}
+
+.campo-edicao-senai :focus-visible {
+  outline: 3px solid var(--cor-amarela);
+  outline-offset: 2px;
+}
+
+.destino-edicao-senai {
+  padding: 13px 16px;
+  border-left: 5px solid var(--cor-amarela);
+  margin: 0 0 22px;
+  background: #f5f1e5;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.entrada-etiquetas-edicao-senai {
+  display: flex;
+  gap: 10px;
+}
+
+.entrada-etiquetas-edicao-senai input {
+  min-width: 0;
+  min-height: 48px;
+  flex: 1;
+  padding: 10px 12px;
+  border: 2px solid var(--cor-preta);
+  color: var(--cor-texto);
+  font: inherit;
+  font-size: 14px;
+}
+
+.entrada-etiquetas-edicao-senai button,
+.lista-etiquetas-edicao-senai button {
+  padding: 9px 14px;
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-amarela);
+  box-shadow: 2px 2px 0 var(--cor-preta);
+  color: var(--cor-preta);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.lista-etiquetas-edicao-senai {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 12px;
+}
+
+.lista-etiquetas-edicao-senai button {
+  background: var(--cor-branca);
+}
+
+.arquivo-edicao-senai {
+  display: flex;
+  min-height: 90px;
+  align-items: center;
+  gap: 18px;
+  padding: 14px;
+  border: 2px dashed var(--cor-preta);
+  background: #f8f7f2;
+}
+
+.miniatura-edicao-senai {
+  display: flex;
+  width: 150px;
+  height: 88px;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  background: #dedbd1;
+  color: #343434;
+  font-size: 12px;
+  font-weight: 750;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.trocar-arquivo-edicao-senai {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  padding: 9px 16px;
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-amarela);
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  color: var(--cor-preta);
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.trocar-arquivo-edicao-senai input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip: rect(0, 0, 0, 0);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marcadores-edicao-senai {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.marcadores-edicao-senai button {
+  width: 36px;
+  height: 36px;
+  padding: 2px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.marcadores-edicao-senai img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.marcadores-edicao-senai > span {
+  margin-left: 10px;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.marcadores-edicao-senai.estrelas-edicao-senai button {
+  width: 44px;
+  height: 44px;
+}
+
+.percentual-edicao-senai {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.percentual-edicao-senai input {
+  width: 170px;
+  min-height: 52px;
+  padding: 10px 14px;
+  border: 2px solid var(--cor-preta);
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  color: var(--cor-texto);
+  font: inherit;
+  font-size: 16px;
+}
+
+.percentual-edicao-senai > span {
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.acoes-edicao-senai {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.acoes-edicao-senai > div {
+  display: flex;
+  gap: 12px;
+}
+
+.botao-salvar-edicao-senai,
+.botao-cancelar-edicao-senai,
+.botao-excluir-edicao-senai {
+  min-height: 48px;
+  padding: 10px 18px;
+  border: 2px solid var(--cor-preta);
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  color: var(--cor-preta);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.botao-salvar-edicao-senai {
+  background: var(--cor-amarela);
+}
+
+.botao-cancelar-edicao-senai {
+  background: var(--cor-branca);
+}
+
+.botao-excluir-edicao-senai {
+  background: #f7d8d5;
+}
+
+.mensagem-edicao-senai {
+  padding: 12px 14px;
+  border-left: 5px solid var(--cor-amarela);
+  margin: 20px 0 0;
+  background: #f5f1e5;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.fundo-confirmacao-edicao-senai {
+  position: fixed;
+  z-index: 10;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgb(0 0 0 / 65%);
+}
+
+.dialogo-confirmacao-edicao-senai {
+  width: 100%;
+  max-width: 480px;
+  padding: 28px;
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-branca);
+  box-shadow: 6px 6px 0 var(--cor-amarela);
+}
+
+.dialogo-confirmacao-edicao-senai h2 {
+  margin: 0 0 12px;
+  font-size: 25px;
+}
+
+.dialogo-confirmacao-edicao-senai p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.acoes-confirmacao-edicao-senai {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.acoes-confirmacao-edicao-senai button {
+  min-height: 44px;
+  padding: 9px 14px;
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-branca);
+  box-shadow: 2px 2px 0 var(--cor-preta);
+  color: var(--cor-preta);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.acoes-confirmacao-edicao-senai button:last-child {
+  background: #f7d8d5;
+}

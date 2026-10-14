@@ -1,0 +1,353 @@
+.pagina-admin-sesi {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background: var(--cor-fundo);
+  color: var(--cor-preta);
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+}
+
+.cabecalho-admin-sesi {
+  display: flex;
+  height: 62px;
+  flex: 0 0 62px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 7%;
+  background: #111111;
+  color: var(--cor-amarela);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.voltar-admin-sesi {
+  color: var(--cor-branca);
+  text-decoration: none;
+}
+
+.voltar-admin-sesi:hover {
+  color: var(--cor-amarela);
+}
+
+.cabecalho-admin-sesi > span {
+  padding-bottom: 4px;
+  border-bottom: 3px solid var(--cor-amarela);
+}
+
+.conteudo-admin-sesi {
+  display: grid;
+  flex: 1;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 70px;
+  width: 86%;
+  max-width: 1440px;
+  padding: 54px 0 48px;
+  margin: 0 auto;
+}
+
+.navegacao-admin-sesi {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 2px;
+}
+
+.item-navegacao-admin {
+  display: flex;
+  min-height: 64px;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 18px;
+  border: 2px solid var(--cor-preta);
+  border-radius: 22px 0 22px 0;
+  background: var(--cor-branca);
+  box-shadow: 4px 4px 0 var(--cor-preta);
+  color: var(--cor-preta);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 750;
+  text-align: left;
+  text-decoration: none;
+}
+
+.item-navegacao-admin.ativo {
+  background: var(--cor-amarela);
+}
+
+.item-navegacao-admin:disabled {
+  cursor: not-allowed;
+}
+
+.icone-navegacao-admin {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--cor-preta);
+  color: var(--cor-branca);
+  font-size: 20px;
+  line-height: 1;
+}
+
+.area-cadastro-sesi {
+  min-width: 0;
+}
+
+.titulo-cadastro-sesi {
+  margin-bottom: 28px;
+}
+
+.titulo-cadastro-sesi h1 {
+  margin: 0;
+  font-size: 54px;
+  font-weight: 900;
+  line-height: 0.98;
+}
+
+.titulo-cadastro-sesi h1 span {
+  color: var(--cor-amarela);
+  text-shadow: 3px 3px 0 var(--cor-preta);
+}
+
+.titulo-cadastro-sesi p {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 2px solid var(--cor-preta);
+  margin: 18px 0 0;
+  background: var(--cor-amarela);
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  color: var(--cor-preta);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.formulario-cadastro-sesi {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.grupo-selecao-admin,
+.bloco-campos-admin {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+
+.grupo-selecao-admin legend,
+.bloco-campos-admin > legend {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  margin-bottom: 12px;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.numero-etapa-admin {
+  display: inline-flex;
+  width: 27px;
+  height: 27px;
+  flex: 0 0 27px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--cor-preta);
+  color: var(--cor-branca);
+  font-size: 14px;
+}
+
+.opcoes-admin {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.opcao-admin {
+  min-height: 42px;
+  padding: 8px 16px;
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-branca);
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  color: var(--cor-preta);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.opcao-admin.selecionada {
+  background: var(--cor-amarela);
+}
+
+.opcao-admin:disabled {
+  color: #777777;
+  cursor: not-allowed;
+}
+
+.opcao-admin:focus-visible,
+.item-navegacao-admin:focus-visible,
+.estrela-cadastro-admin:focus-visible {
+  outline: 3px solid var(--cor-amarela);
+  outline-offset: 3px;
+}
+
+.opcoes-secoes-admin {
+  max-width: 880px;
+}
+
+.bloco-campos-admin {
+  padding: 16px 20px 20px;
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-branca);
+  box-shadow: 4px 4px 0 var(--cor-preta);
+}
+
+.bloco-campos-admin > legend {
+  margin: 0 0 14px -4px;
+}
+
+.campo-admin-sesi {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin: 0 0 18px;
+  font-size: 14px;
+  font-weight: 750;
+}
+
+.campo-admin-sesi input:not([type="file"]),
+.campo-admin-sesi textarea {
+  width: 100%;
+  min-height: 50px;
+  padding: 12px 14px;
+  border: 2px solid var(--cor-preta);
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  color: var(--cor-texto);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.campo-admin-sesi textarea {
+  min-height: 82px;
+  resize: vertical;
+}
+
+.campo-admin-sesi input::placeholder,
+.campo-admin-sesi textarea::placeholder {
+  color: #888888;
+}
+
+.campo-admin-sesi input:focus-visible,
+.campo-admin-sesi textarea:focus-visible {
+  outline: 3px solid var(--cor-amarela);
+  outline-offset: 3px;
+}
+
+.entrada-arquivo-admin {
+  min-height: 82px;
+  padding: 18px;
+  border: 2px dashed var(--cor-preta);
+  background: #f8f8f8;
+  font: inherit;
+}
+
+.avaliacao-cadastro-admin {
+  padding: 0;
+  border: 0;
+  margin: 0 0 18px;
+}
+
+.avaliacao-cadastro-admin legend {
+  padding: 0;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 750;
+}
+
+.estrelas-cadastro-admin {
+  display: flex;
+  gap: 6px;
+}
+
+.estrela-cadastro-admin {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.estrela-cadastro-admin img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.destino-atividade-admin {
+  margin: 2px 0 16px;
+  color: #606060;
+  font-size: 13px;
+}
+
+.acoes-cadastro-admin {
+  display: flex;
+  gap: 16px;
+}
+
+.botao-enviar-admin,
+.botao-cancelar-admin {
+  min-width: 150px;
+  min-height: 50px;
+  padding: 10px 22px;
+  border: 2px solid var(--cor-preta);
+  border-radius: 15px 0 15px 0;
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.botao-enviar-admin {
+  background: var(--cor-preta);
+  color: var(--cor-branca);
+}
+
+.botao-cancelar-admin {
+  background: var(--cor-branca);
+  color: var(--cor-preta);
+}
+
+.botao-enviar-admin:hover,
+.botao-cancelar-admin:hover {
+  background: var(--cor-amarela);
+  color: var(--cor-preta);
+}
+
+.mensagem-cadastro-admin {
+  margin: 16px 0 0;
+  color: #8b2b21;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.pagina-admin-sesi .rodape-portfolio {
+  width: 86%;
+  min-height: 64px;
+}

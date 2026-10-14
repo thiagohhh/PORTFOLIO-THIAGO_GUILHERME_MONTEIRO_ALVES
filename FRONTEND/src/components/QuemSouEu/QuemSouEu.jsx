@@ -1,5 +1,6 @@
 import LinksIniciais from "../LinksIniciais/LinksIniciais";
 import Rodape from "../Rodape/Rodape";
+import { Link } from "react-router-dom";
 import "./QuemSouEu.css";
 import traco from "../../assets/imgs/Traço.png";
 import simbolo from "../../assets/imgs/Símbolo.png";
@@ -12,7 +13,9 @@ const QuemSouEu = () => {
           <img src={simbolo} alt="" className="simbolo-marca" />
           <strong>PORTFÓLIO ESCOLAR</strong>
         </div>
-        <span className="texto-cabecalho">Ensino médio + formação técnica</span>
+        <Link className="texto-cabecalho acesso-aluno" to="/admin/login">
+          Área do aluno
+        </Link>
       </header>
 
       <main className="conteudo-inicial">

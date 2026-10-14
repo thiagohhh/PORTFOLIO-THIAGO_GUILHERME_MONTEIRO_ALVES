@@ -1,26 +1,23 @@
 import express from "express"
 import cors from "cors"
 
+//ROTAS
+
 
 const app = express()
 
 app.use(cors({
-    origin: "*", //url do frontend
+    origin: "*",
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    credentials: true
 }))
 
 app.use(express.json())
 
-app.get("/", (req, res) => {
-  res.json({ message: "API funcionando" });
-});
+
 
 app.use((request, response) => {
-    response.status(404).json({
-        status: 404,
-        statusError: "Not Found",
-        error: "Rota não encontrada"
-    })
-})
+    response.status(404).json({ message: "Rota não encontrada" })
+ })
 
 export default app

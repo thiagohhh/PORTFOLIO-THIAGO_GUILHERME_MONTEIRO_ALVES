@@ -1,0 +1,55 @@
+.grade-autoavaliacao {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.cartao-autoavaliacao {
+  min-width: 0;
+  min-height: 250px;
+  padding: 16px;
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-branca);
+  box-shadow: 3px 3px 0 var(--cor-preta);
+}
+
+.cartao-autoavaliacao h3 {
+  margin: 0 0 16px;
+  font-size: 16px;
+}
+
+.cartao-autoavaliacao p,
+.rotulo-autoavaliacao {
+  margin: 0;
+  font-size: 13px;
+}
+
+.marcadores-autoavaliacao {
+  display: flex;
+  gap: 7px;
+  margin: 10px 0 18px;
+}
+
+.marcadores-autoavaliacao img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.barra-autoavaliacao {
+  height: 14px;
+  border: 2px solid var(--cor-preta);
+  margin: 7px 0 18px;
+}
+
+.barra-autoavaliacao span {
+  display: block;
+  height: 100%;
+  background: var(--cor-amarela);
+}
+
+.linha-autoavaliacao {
+  height: 2px;
+  margin-top: 12px;
+  background: var(--cor-linha);
+}

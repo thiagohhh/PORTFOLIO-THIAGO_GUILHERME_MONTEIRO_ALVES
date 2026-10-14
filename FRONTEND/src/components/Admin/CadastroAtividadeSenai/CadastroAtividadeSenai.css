@@ -1,0 +1,449 @@
+.pagina-admin-senai {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background: var(--cor-fundo);
+  color: var(--cor-preta);
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+}
+
+.cabecalho-admin-senai {
+  display: flex;
+  height: 62px;
+  flex: 0 0 62px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 7%;
+  background: #111111;
+  color: var(--cor-amarela);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.voltar-admin-senai {
+  color: var(--cor-branca);
+  text-decoration: none;
+}
+
+.voltar-admin-senai:hover {
+  color: var(--cor-amarela);
+}
+
+.cabecalho-admin-senai > span {
+  padding-bottom: 4px;
+  border-bottom: 3px solid var(--cor-amarela);
+}
+
+.conteudo-admin-senai {
+  display: grid;
+  flex: 1;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 70px;
+  width: 86%;
+  max-width: 1440px;
+  padding: 54px 0 48px;
+  margin: 0 auto;
+}
+
+.navegacao-admin-senai {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 2px;
+}
+
+.item-navegacao-senai {
+  display: flex;
+  min-height: 64px;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 18px;
+  border: 2px solid var(--cor-preta);
+  border-radius: 22px 0 22px 0;
+  background: var(--cor-branca);
+  box-shadow: 4px 4px 0 var(--cor-preta);
+  color: var(--cor-preta);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 750;
+  text-align: left;
+  text-decoration: none;
+}
+
+.item-navegacao-senai.ativo {
+  background: var(--cor-amarela);
+}
+
+.item-navegacao-senai:disabled {
+  cursor: not-allowed;
+}
+
+.icone-navegacao-senai {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--cor-preta);
+  color: var(--cor-branca);
+  font-size: 20px;
+  line-height: 1;
+}
+
+.area-cadastro-senai {
+  min-width: 0;
+}
+
+.titulo-cadastro-senai {
+  margin-bottom: 28px;
+}
+
+.titulo-cadastro-senai h1 {
+  margin: 0;
+  font-size: 54px;
+  font-weight: 900;
+  line-height: 0.98;
+}
+
+.titulo-cadastro-senai h1 span {
+  color: var(--cor-amarela);
+  text-shadow: 3px 3px 0 var(--cor-preta);
+}
+
+.titulo-cadastro-senai p {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 2px solid var(--cor-preta);
+  margin: 18px 0 0;
+  background: var(--cor-amarela);
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  color: var(--cor-preta);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.formulario-cadastro-senai {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.grupo-selecao-senai,
+.bloco-conteudo-senai {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+
+.grupo-selecao-senai legend,
+.bloco-conteudo-senai > legend {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  margin-bottom: 12px;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.numero-etapa-senai {
+  display: inline-flex;
+  width: 27px;
+  height: 27px;
+  flex: 0 0 27px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--cor-preta);
+  color: var(--cor-branca);
+  font-size: 14px;
+}
+
+.opcoes-senai {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.opcao-senai {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-branca);
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  color: var(--cor-preta);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.opcao-senai.selecionada {
+  background: var(--cor-amarela);
+}
+
+.opcoes-abas-senai {
+  max-width: 880px;
+}
+
+.opcao-senai:focus-visible,
+.item-navegacao-senai:focus-visible,
+.marcadores-senai button:focus-visible {
+  outline: 3px solid var(--cor-amarela);
+  outline-offset: 3px;
+}
+
+.bloco-conteudo-senai {
+  padding: 16px 20px 20px;
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-branca);
+  box-shadow: 4px 4px 0 var(--cor-preta);
+}
+
+.bloco-conteudo-senai > legend {
+  margin: 0 0 14px -4px;
+}
+
+.campo-senai {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin: 0 0 20px;
+  font-size: 14px;
+  font-weight: 750;
+}
+
+.campo-senai > input:not([type="file"]),
+.campo-senai > textarea,
+.campo-senai > select,
+.entrada-etiquetas-senai > input,
+.entrada-percentual-senai > input {
+  width: 100%;
+  min-height: 50px;
+  padding: 12px 14px;
+  border: 2px solid var(--cor-preta);
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  background: var(--cor-branca);
+  color: var(--cor-texto);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.campo-senai > textarea {
+  min-height: 82px;
+  resize: vertical;
+}
+
+.campo-senai > textarea.editor-codigo-senai {
+  min-height: 190px;
+  background: #171717;
+  color: var(--cor-branca);
+  font-family: Consolas, "Courier New", monospace;
+  line-height: 1.6;
+}
+
+.campo-senai > input::placeholder,
+.campo-senai > textarea::placeholder,
+.entrada-etiquetas-senai > input::placeholder,
+.entrada-percentual-senai > input::placeholder {
+  color: #888888;
+}
+
+.campo-senai > input:focus-visible,
+.campo-senai > textarea:focus-visible,
+.campo-senai > select:focus-visible,
+.entrada-etiquetas-senai > input:focus-visible,
+.entrada-percentual-senai > input:focus-visible {
+  outline: 3px solid var(--cor-amarela);
+  outline-offset: 3px;
+}
+
+.area-arquivo-senai {
+  display: flex;
+  min-height: 120px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px;
+  border: 2px dashed var(--cor-preta);
+  background: #f8f8f8;
+  cursor: pointer;
+}
+
+.area-arquivo-senai img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.area-arquivo-senai strong {
+  font-size: 14px;
+}
+
+.area-arquivo-senai > span {
+  color: #666666;
+  font-size: 12px;
+}
+
+.area-arquivo-senai input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+.area-arquivo-senai:focus-within {
+  outline: 3px solid var(--cor-amarela);
+  outline-offset: 3px;
+}
+
+.entrada-etiquetas-senai {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 150px;
+  gap: 12px;
+}
+
+.entrada-etiquetas-senai > button {
+  min-height: 50px;
+  padding: 8px 14px;
+  border: 2px solid var(--cor-preta);
+  border-radius: 14px 0 14px 0;
+  background: var(--cor-preta);
+  color: var(--cor-branca);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.etiquetas-senai {
+  display: flex;
+  grid-column: 1 / -1;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.etiquetas-senai button {
+  padding: 5px 9px;
+  border: 1px solid var(--cor-preta);
+  background: var(--cor-amarela);
+  color: var(--cor-preta);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.marcadores-senai {
+  display: flex;
+  gap: 8px;
+}
+
+.marcadores-senai button {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.marcadores-senai button img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.marcadores-estrelas-senai button {
+  width: 34px;
+  height: 34px;
+}
+
+.entrada-percentual-senai {
+  display: flex;
+  width: 190px;
+  align-items: center;
+  gap: 10px;
+}
+
+.entrada-percentual-senai > input {
+  width: 140px;
+}
+
+.entrada-percentual-senai > span {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.destino-senai {
+  margin: 2px 0 16px;
+  color: #606060;
+  font-size: 13px;
+}
+
+.acoes-senai {
+  display: flex;
+  gap: 16px;
+}
+
+.botao-enviar-senai,
+.botao-cancelar-senai {
+  min-width: 150px;
+  min-height: 50px;
+  padding: 10px 22px;
+  border: 2px solid var(--cor-preta);
+  border-radius: 15px 0 15px 0;
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.botao-enviar-senai {
+  background: var(--cor-preta);
+  color: var(--cor-branca);
+}
+
+.botao-cancelar-senai {
+  background: var(--cor-branca);
+  color: var(--cor-preta);
+}
+
+.botao-enviar-senai:hover,
+.botao-cancelar-senai:hover,
+.entrada-etiquetas-senai > button:hover {
+  background: var(--cor-amarela);
+  color: var(--cor-preta);
+}
+
+.mensagem-senai {
+  margin: 16px 0 0;
+  color: #8b2b21;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.pagina-admin-senai .rodape-portfolio {
+  width: 86%;
+  min-height: 64px;
+}

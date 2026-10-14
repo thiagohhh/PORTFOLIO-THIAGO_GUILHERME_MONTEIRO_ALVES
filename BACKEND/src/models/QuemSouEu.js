@@ -12,7 +12,10 @@ const QuemSouEu = conn.define("QuemSouEu",{
     },
     aluno_id:{
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        validate:{
+            
+        }
     },
 
     titulo:{

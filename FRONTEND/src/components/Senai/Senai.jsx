@@ -2,10 +2,26 @@ import { useState } from "react";
 import Header from "../Header/Header";
 import Rodape from "../Rodape/Rodape";
 import MenuSenai from "./MenuSenai";
+import ConteudoProjetos from "./Projetos/ConteudoProjetos";
+import ConteudoCodigo from "./Codigo/ConteudoCodigo";
+import ConteudoGaleria from "./Galeria/ConteudoGaleria";
+import ConteudoRelatorios from "./Relatorios/ConteudoRelatorios";
+import ConteudoAprendizagens from "./Aprendizagens/ConteudoAprendizagens";
+import ConteudoAutoavaliacao from "./Autoavaliacao/ConteudoAutoavaliacao";
 import "./Senai.css";
+
+const conteudosSenai = {
+  Projetos: ConteudoProjetos,
+  Código: ConteudoCodigo,
+  Galeria: ConteudoGaleria,
+  Relatórios: ConteudoRelatorios,
+  Aprendizagens: ConteudoAprendizagens,
+  Autoavaliação: ConteudoAutoavaliacao,
+};
 
 const Senai = () => {
   const [secaoAtiva, setSecaoAtiva] = useState("Projetos");
+  const ConteudoAtivo = conteudosSenai[secaoAtiva];
 
   return (
     <div className="senai-container">
@@ -24,11 +40,14 @@ const Senai = () => {
           aoSelecionarSecao={setSecaoAtiva}
         />
 
-        <section className="senai-conteudo" aria-live="polite">
-          <h2 className="senai-conteudo-titulo">{secaoAtiva}</h2>
-          <p className="senai-conteudo-descricao">
-            O conteúdo da seção “{secaoAtiva}” será adicionado aqui.
-          </p>
+        <section
+          className="senai-conteudo"
+          id="painel-senai"
+          role="tabpanel"
+          aria-labelledby={`aba-senai-${secaoAtiva.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")}`}
+          aria-live="polite"
+        >
+          <ConteudoAtivo />
         </section>
       </main>
 

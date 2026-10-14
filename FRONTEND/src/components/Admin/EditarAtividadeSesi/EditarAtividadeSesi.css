@@ -1,0 +1,536 @@
+.pagina-edicao-sesi {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background: var(--cor-fundo);
+  color: var(--cor-preta);
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+}
+
+.cabecalho-edicao-sesi {
+  display: flex;
+  height: 62px;
+  flex: 0 0 62px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 7%;
+  background: #111111;
+  color: var(--cor-amarela);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.voltar-edicao-sesi {
+  color: var(--cor-branca);
+  text-decoration: none;
+}
+
+.voltar-edicao-sesi:hover {
+  color: var(--cor-amarela);
+}
+
+.cabecalho-edicao-sesi > span {
+  padding-bottom: 4px;
+  border-bottom: 3px solid var(--cor-amarela);
+}
+
+.conteudo-edicao-sesi {
+  display: grid;
+  flex: 1;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 70px;
+  width: 86%;
+  max-width: 1440px;
+  padding: 54px 0 48px;
+  margin: 0 auto;
+}
+
+.navegacao-edicao-sesi {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 2px;
+}
+
+.item-edicao-sesi {
+  display: flex;
+  min-height: 64px;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 18px;
+  border: 2px solid var(--cor-preta);
+  border-radius: 22px 0 22px 0;
+  background: var(--cor-branca);
+  box-shadow: 4px 4px 0 var(--cor-preta);
+  color: var(--cor-preta);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 750;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.item-edicao-sesi.ativo {
+  background: var(--cor-amarela);
+}
+
+.icone-edicao-sesi {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--cor-preta);
+  color: var(--cor-branca);
+  font-size: 20px;
+  line-height: 1;
+}
+
+.area-edicao-sesi {
+  min-width: 0;
+}
+
+.titulo-edicao-sesi {
+  margin-bottom: 22px;
+}
+
+.titulo-edicao-sesi h1 {
+  margin: 0;
+  font-size: 54px;
+  font-weight: 900;
+  line-height: 0.98;
+}
+
+.titulo-edicao-sesi h1 span {
+  color: var(--cor-amarela);
+  text-shadow: 3px 3px 0 var(--cor-preta);
+}
+
+.titulo-edicao-sesi p {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 2px solid var(--cor-preta);
+  margin: 18px 0 0;
+  background: var(--cor-amarela);
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  color: var(--cor-preta);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.contexto-edicao-sesi {
+  display: flex;
+  gap: 10px;
+  margin: 0 0 26px;
+}
+
+.contexto-edicao-sesi span {
+  padding: 6px 14px;
+  border: 1px solid var(--cor-preta);
+  border-radius: 18px;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.contexto-edicao-sesi label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  border: 1px solid var(--cor-preta);
+  border-radius: 18px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.contexto-edicao-sesi select {
+  max-width: 250px;
+  padding: 2px 4px;
+  border: 0;
+  background: transparent;
+  color: var(--cor-preta);
+  font: inherit;
+  font-weight: 700;
+}
+
+.contexto-edicao-sesi select:focus-visible {
+  outline: 2px solid var(--cor-amarela);
+}
+
+.formulario-edicao-sesi {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.selecao-bimestre-edicao,
+.campos-edicao-sesi {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+
+.selecao-bimestre-edicao legend,
+.campos-edicao-sesi > legend {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  margin-bottom: 14px;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.numero-edicao-sesi {
+  display: inline-flex;
+  width: 27px;
+  height: 27px;
+  flex: 0 0 27px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--cor-preta);
+  color: var(--cor-branca);
+  font-size: 14px;
+}
+
+.opcoes-bimestre-edicao {
+  display: flex;
+  gap: 12px;
+}
+
+.botao-bimestre-edicao {
+  min-height: 44px;
+  padding: 8px 18px;
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-branca);
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  color: var(--cor-preta);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.botao-bimestre-edicao.ativo {
+  background: var(--cor-amarela);
+}
+
+.campos-edicao-sesi {
+  padding: 16px 20px 20px;
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-branca);
+  box-shadow: 4px 4px 0 var(--cor-preta);
+}
+
+.campos-edicao-sesi > legend {
+  margin: 0 0 14px -4px;
+}
+
+.campo-edicao-sesi {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin: 0 0 20px;
+  font-size: 14px;
+  font-weight: 750;
+}
+
+.campo-edicao-sesi input,
+.campo-edicao-sesi textarea {
+  width: 100%;
+  min-height: 58px;
+  padding: 14px;
+  border: 2px solid var(--cor-preta);
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  color: var(--cor-texto);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.campo-edicao-sesi textarea {
+  min-height: 84px;
+  resize: vertical;
+}
+
+.campo-autoavaliacao-edicao {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 2px;
+  font-size: 14px;
+  font-weight: 750;
+}
+
+.bolinhas-edicao-sesi {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bolinhas-edicao-sesi button {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.bolinhas-edicao-sesi img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.bolinhas-edicao-sesi > span {
+  margin-left: 10px;
+  color: #606060;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.entrada-etiquetas-edicao {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 150px;
+  gap: 12px;
+}
+
+.entrada-etiquetas-edicao input {
+  min-width: 0;
+  min-height: 50px;
+  padding: 12px 14px;
+  border: 2px solid var(--cor-preta);
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  font: inherit;
+  font-size: 14px;
+}
+
+.entrada-etiquetas-edicao button {
+  border: 2px solid var(--cor-preta);
+  border-radius: 14px 0 14px 0;
+  background: var(--cor-preta);
+  color: var(--cor-branca);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.entrada-etiquetas-edicao button:hover {
+  background: var(--cor-amarela);
+  color: var(--cor-preta);
+}
+
+.lista-etiquetas-edicao {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.lista-etiquetas-edicao button {
+  padding: 6px 10px;
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-amarela);
+  box-shadow: 2px 2px 0 var(--cor-preta);
+  color: var(--cor-preta);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.arquivo-edicao-sesi {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.miniatura-arquivo-edicao {
+  display: flex;
+  width: 96px;
+  height: 92px;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-amarela);
+  font-size: 13px;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.botao-trocar-arquivo-edicao {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  padding: 8px 16px;
+  border: 2px solid var(--cor-preta);
+  border-radius: 14px 0 14px 0;
+  background: var(--cor-branca);
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.botao-trocar-arquivo-edicao:hover {
+  background: var(--cor-amarela);
+}
+
+.botao-trocar-arquivo-edicao input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+.botao-trocar-arquivo-edicao:focus-within {
+  outline: 3px solid var(--cor-amarela);
+  outline-offset: 3px;
+}
+
+.campo-edicao-sesi input:focus-visible,
+.campo-edicao-sesi textarea:focus-visible,
+.botao-bimestre-edicao:focus-visible,
+.item-edicao-sesi:focus-visible,
+.acoes-edicao-sesi button:focus-visible {
+  outline: 3px solid var(--cor-amarela);
+  outline-offset: 3px;
+}
+
+.destino-edicao-sesi {
+  margin: 2px 0 18px;
+  color: #606060;
+  font-size: 13px;
+}
+
+.acoes-edicao-sesi {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.acoes-edicao-sesi > div {
+  display: flex;
+  gap: 16px;
+}
+
+.botao-salvar-edicao-sesi,
+.botao-cancelar-edicao-sesi,
+.botao-excluir-edicao-sesi {
+  min-height: 50px;
+  padding: 10px 22px;
+  border: 2px solid var(--cor-preta);
+  border-radius: 15px 0 15px 0;
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.botao-salvar-edicao-sesi {
+  min-width: 245px;
+  background: var(--cor-preta);
+  color: var(--cor-branca);
+}
+
+.botao-cancelar-edicao-sesi,
+.botao-excluir-edicao-sesi {
+  background: var(--cor-branca);
+  color: var(--cor-preta);
+}
+
+.botao-excluir-edicao-sesi {
+  min-width: 210px;
+}
+
+.botao-salvar-edicao-sesi:hover,
+.botao-cancelar-edicao-sesi:hover,
+.botao-excluir-edicao-sesi:hover {
+  background: var(--cor-amarela);
+  color: var(--cor-preta);
+}
+
+.mensagem-edicao-sesi {
+  margin: 16px 0 0;
+  color: #8b2b21;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.fundo-confirmacao-edicao {
+  position: fixed;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  background: rgb(0 0 0 / 55%);
+  inset: 0;
+}
+
+.dialogo-confirmacao-edicao {
+  width: 560px;
+  padding: 30px;
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-branca);
+  box-shadow: 7px 7px 0 var(--cor-preta);
+}
+
+.dialogo-confirmacao-edicao h2 {
+  margin: 0 0 12px;
+  font-size: 24px;
+}
+
+.dialogo-confirmacao-edicao p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.acoes-confirmacao-edicao {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.acoes-confirmacao-edicao button {
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-branca);
+  color: var(--cor-preta);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.acoes-confirmacao-edicao button:last-child {
+  background: var(--cor-preta);
+  color: var(--cor-branca);
+}
+
+.pagina-edicao-sesi .rodape-portfolio {
+  width: 86%;
+  min-height: 64px;
+}

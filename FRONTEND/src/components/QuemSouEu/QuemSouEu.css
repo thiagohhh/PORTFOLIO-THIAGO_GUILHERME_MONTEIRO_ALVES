@@ -41,6 +41,18 @@
   font-size: 14px;
 }
 
+.acesso-aluno {
+  padding-bottom: 4px;
+  border-bottom: 2px solid var(--cor-amarela);
+  color: var(--cor-preta);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.acesso-aluno:hover {
+  color: #8f6d12;
+}
+
 .conteudo-inicial {
   flex: 1;
   display: flex;

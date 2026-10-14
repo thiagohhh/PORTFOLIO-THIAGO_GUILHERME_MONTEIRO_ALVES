@@ -6,6 +6,11 @@ import ConteudoNatureza from "./components/Natureza/Conteudo";
 import ConteudoLinguagens from "./components/Linguagens/Conteudo";
 import ConteudoHumanas from "./components/Humanas/Conteudo";
 import ConteudoMatematica from "./components/Matematica/Conteudo";
+import Login from "./components/Login/Login";
+import CadastroAtividadeSesi from "./components/Admin/CadastroAtividadeSesi/CadastroAtividadeSesi";
+import CadastroAtividadeSenai from "./components/Admin/CadastroAtividadeSenai/CadastroAtividadeSenai";
+import EditarAtividadeSesi from "./components/Admin/EditarAtividadeSesi/EditarAtividadeSesi";
+import EditarAtividadeSenai from "./components/Admin/EditarAtividadeSenai/EditarAtividadeSenai";
 import "./App.css";
 
 function App() {
@@ -31,6 +36,23 @@ function App() {
           element={<ConteudoMatematica />}
         />
         <Route path="/Senai" element={<Senai />} />
+        <Route path="/admin/login" element={<Login />} />
+        <Route
+          path="/admin/atividades/nova/sesi"
+          element={<CadastroAtividadeSesi />}
+        />
+        <Route
+          path="/admin/atividades/nova/senai"
+          element={<CadastroAtividadeSenai />}
+        />
+        <Route
+          path="/admin/atividades/editar/sesi"
+          element={<EditarAtividadeSesi />}
+        />
+        <Route
+          path="/admin/atividades/editar/senai"
+          element={<EditarAtividadeSenai />}
+        />
       </Routes>
     </div>
   );
