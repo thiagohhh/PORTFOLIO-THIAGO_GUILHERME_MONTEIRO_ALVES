@@ -10,23 +10,44 @@ const Projeto = conn.define("Projeto", {
     },
     aluno_id: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notNull: { msg: "O ID do aluno é obrigatório." },
+            isInt: { msg: "O ID do aluno deve ser um número inteiro." },
+            min: { args: [1], msg: "O ID do aluno deve ser maior que zero." }
+        }
     },
     unidade_curricular: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notNull: { msg: "A unidade curricular é obrigatória." },
+            notEmpty: { msg: "A unidade curricular não pode ser vazia." }
+        }
     },
     titulo_projeto: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notNull: { msg: "O título do projeto é obrigatório." },
+            notEmpty: { msg: "O título do projeto não pode ser vazio." }
+        }
     },
     texto_card: {
         type: DataTypes.TEXT,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notNull: { msg: "O texto do card é obrigatório." },
+            notEmpty: { msg: "O texto do card não pode ser vazio." }
+        }
     },
     url_foto: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notNull: { msg: "A URL da foto é obrigatória." },
+            notEmpty: { msg: "A URL da foto não pode ser vazia." }
+        }
     }
 }, {
     tableName: "senai_projetos",

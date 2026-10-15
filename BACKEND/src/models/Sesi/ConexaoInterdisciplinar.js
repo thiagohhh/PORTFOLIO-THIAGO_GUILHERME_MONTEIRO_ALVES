@@ -10,11 +10,20 @@ const ConexaoInterdisciplinar = conn.define("ConexaoInterdisciplinar", {
     },
     aluno_id: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notNull: { msg: "O ID do aluno é obrigatório." },
+            isInt: { msg: "O ID do aluno deve ser um número inteiro." },
+            min: { args: [1], msg: "O ID do aluno deve ser maior que zero." }
+        }
     },
     relacoes_interdisciplinares: {
         type: DataTypes.TEXT,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notNull: { msg: "As relações interdisciplinares são obrigatórias." },
+            notEmpty: { msg: "As relações interdisciplinares não podem ser vazias." }
+        }
     }
 }, {
     tableName: "conexoes_interdisciplinares",

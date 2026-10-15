@@ -10,11 +10,20 @@ const ProjetoTrabalhoTag = conn.define("ProjetoTrabalhoTag", {
     },
     projeto_id: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notNull: { msg: "O ID do projeto é obrigatório." },
+            isInt: { msg: "O ID do projeto deve ser um número inteiro." },
+            min: { args: [1], msg: "O ID do projeto deve ser maior que zero." }
+        }
     },
     tag_identificacao: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notNull: { msg: "A tag de identificação é obrigatória." },
+            notEmpty: { msg: "A tag de identificação não pode ser vazia." }
+        }
     }
 }, {
     tableName: "projetos_sesi_detalhes",

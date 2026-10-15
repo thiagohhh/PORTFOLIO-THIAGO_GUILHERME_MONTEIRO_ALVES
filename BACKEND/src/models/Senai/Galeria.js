@@ -10,27 +10,52 @@ const Galeria = conn.define("Galeria", {
     },
     aluno_id: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notNull: { msg: "O ID do aluno é obrigatório." },
+            isInt: { msg: "O ID do aluno deve ser um número inteiro." },
+            min: { args: [1], msg: "O ID do aluno deve ser maior que zero." }
+        }
     },
     unidade_curricular: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notNull: { msg: "A unidade curricular é obrigatória." },
+            notEmpty: { msg: "A unidade curricular não pode ser vazia." }
+        }
     },
     tipo_midia: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notNull: { msg: "O tipo de mídia é obrigatório." },
+            notEmpty: { msg: "O tipo de mídia não pode ser vazio." }
+        }
     },
     titulo_midia: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notNull: { msg: "O título da mídia é obrigatório." },
+            notEmpty: { msg: "O título da mídia não pode ser vazio." }
+        }
     },
     explicado_a_midia: {
         type: DataTypes.TEXT,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notNull: { msg: "A explicação da mídia é obrigatória." },
+            notEmpty: { msg: "A explicação da mídia não pode ser vazia." }
+        }
     },
     url_arquivo: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notNull: { msg: "A URL do arquivo é obrigatória." },
+            notEmpty: { msg: "A URL do arquivo não pode ser vazia." }
+        }
     }
 }, {
     tableName: "senai_galeria",

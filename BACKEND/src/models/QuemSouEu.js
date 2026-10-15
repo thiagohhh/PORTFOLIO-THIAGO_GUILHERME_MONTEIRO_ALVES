@@ -13,30 +13,52 @@ const QuemSouEu = conn.define("QuemSouEu",{
     aluno_id:{
         type: DataTypes.INTEGER,
         allowNull: false,
-        validate:{
-            
+        validate: {
+            notNull: { msg: "O ID do aluno é obrigatório." },
+            isInt: { msg: "O ID do aluno deve ser um número inteiro." },
+            min: { args: [1], msg: "O ID do aluno deve ser maior que zero." }
         }
     },
 
     titulo:{
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notNull: { msg: "O título é obrigatório." },
+            notEmpty: { msg: "O título não pode ser vazio." }
+        }
     },
     itinerario:{
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notNull: { msg: "O itinerário é obrigatório." },
+            notEmpty: { msg: "O itinerário não pode ser vazio." }
+        }
     },
     paragrafo_biografia:{
         type: DataTypes.TEXT,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notNull: { msg: "A biografia é obrigatória." },
+            notEmpty: { msg: "A biografia não pode ser vazia." }
+        }
     },
     texto_negrito:{
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notNull: { msg: "O texto em negrito é obrigatório." },
+            notEmpty: { msg: "O texto em negrito não pode ser vazio." }
+        }
     },
     url_foto:{
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notNull: { msg: "A URL da foto é obrigatória." },
+            notEmpty: { msg: "A URL da foto não pode ser vazia." }
+        }
     },
 
 
