@@ -24,5 +24,5 @@ import ReflexaoCritica from "./Sesi/ReflexaoCritica.js";
 import ReflexaoHabilidade from "./Sesi/ReflexaoHabilidade.js";
 
 
-// O "QuemSouEu" pertence ao "Aluno" através do "aluno_id"
+
 QuemSouEu.belongsTo(Aluno, { foreignKey: "aluno_id" });

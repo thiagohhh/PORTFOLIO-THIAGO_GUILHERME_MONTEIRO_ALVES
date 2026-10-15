@@ -18,6 +18,6 @@ app.use(express.json())
 
 app.use((request, response) => {
     response.status(404).json({ message: "Rota não encontrada" })
- })
+})
 
 export default app
