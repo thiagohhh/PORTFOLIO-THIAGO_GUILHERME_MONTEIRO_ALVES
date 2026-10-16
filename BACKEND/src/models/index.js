@@ -26,3 +26,25 @@ import ReflexaoHabilidade from "./Sesi/ReflexaoHabilidade.js";
 
 
 QuemSouEu.belongsTo(Aluno, { foreignKey: "aluno_id" });
+
+export {
+    Aluno,
+    QuemSouEu,
+    Aprendizagens,
+    Autoavaliacao,
+    Codigo,
+    Competencia,
+    Detalhe,
+    Galeria,
+    Projeto,
+    Relatorio,
+    ConexaoInterdisciplinar,
+    ConexaoTeia,
+    EscolaParaVida,
+    FundamentoTeorico,
+    ParticipacaoEmSala,
+    ProjetoTrabalho,
+    ProjetoTrabalhoTag,
+    ReflexaoCritica,
+    ReflexaoHabilidade
+};

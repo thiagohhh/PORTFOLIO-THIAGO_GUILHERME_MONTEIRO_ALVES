@@ -1,8 +1,7 @@
 import express from "express"
 import cors from "cors"
-
-//ROTAS
-
+import senaiRoutes from "./router/senaiRoutes.js";
+import { publicFolder } from "./config/multer.js";
 
 const app = express()
 
@@ -13,8 +12,9 @@ app.use(cors({
 }))
 
 app.use(express.json())
+app.use("/public", express.static(publicFolder));
 
-
+app.use("/senai", senaiRoutes);
 
 app.use((request, response) => {
     response.status(404).json({ message: "Rota não encontrada" })

@@ -1,5 +1,6 @@
-import { conn } from "./config/conn.js";
+import conn from "./config/conn.js";
 import app from "./app.js";
+import "./models/index.js";
 
 //exportacao noemada e by defal
 

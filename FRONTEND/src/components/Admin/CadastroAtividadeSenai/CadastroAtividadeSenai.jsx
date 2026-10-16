@@ -1,10 +1,17 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+
+// o footer do site 
 import Rodape from "../../Rodape/Rodape";
+
+// imagens----------------------------
+
 import circuloAmarelo from "../../../assets/imgs/senai/circulo-amarelo.png";
 import circuloBranco from "../../../assets/imgs/senai/circulo-branco.png";
 import estrelaAmarela from "../../../assets/imgs/senai/estrela-amarela.png";
 import estrelaBranca from "../../../assets/imgs/senai/estrela-branca.png";
+// css disso
+
 import "./CadastroAtividadeSenai.css";
 
 const abas = [
