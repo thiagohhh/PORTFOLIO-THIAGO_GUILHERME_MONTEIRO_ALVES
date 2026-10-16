@@ -1,39 +1,39 @@
 .lista-aprendizagens {
   display: grid;
-  gap: 12px;
+  gap: 16px;
 }
 
 .cartao-aprendizagem {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 150px;
+  grid-template-columns: minmax(0, 1fr) 170px;
   align-items: center;
   gap: 16px;
-  min-height: 88px;
-  padding: 14px 16px;
+  min-height: 104px;
+  padding: 18px 20px;
   border: 2px solid var(--cor-preta);
   background: var(--cor-branca);
   box-shadow: 3px 3px 0 var(--cor-preta);
 }
 
 .cartao-aprendizagem h3 {
-  margin: 0 0 6px;
-  font-size: 16px;
+  margin: 0 0 8px;
+  font-size: 19px;
 }
 
 .cartao-aprendizagem p {
   margin: 0;
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 16px;
+  line-height: 1.6;
 }
 
 .estrelas-aprendizagem {
   display: flex;
   justify-content: flex-end;
-  gap: 4px;
+  gap: 5px;
 }
 
 .estrelas-aprendizagem img {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   object-fit: contain;
 }

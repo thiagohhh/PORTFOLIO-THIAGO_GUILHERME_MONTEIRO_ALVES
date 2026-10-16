@@ -49,12 +49,12 @@ const Galeria = conn.define("Galeria", {
             notEmpty: { msg: "A explicação da mídia não pode ser vazia." }
         }
     },
-    url_arquivo: {
+    arquivo: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-            notNull: { msg: "A URL do arquivo é obrigatória." },
-            notEmpty: { msg: "A URL do arquivo não pode ser vazia." }
+            notNull: { msg: "O arquivo é obrigatório." },
+            notEmpty: { msg: "O arquivo não pode ser vazio." }
         }
     }
 }, {

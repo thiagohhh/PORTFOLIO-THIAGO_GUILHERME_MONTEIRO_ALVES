@@ -11,6 +11,7 @@ import CadastroAtividadeSesi from "./components/Admin/CadastroAtividadeSesi/Cada
 import CadastroAtividadeSenai from "./components/Admin/CadastroAtividadeSenai/CadastroAtividadeSenai";
 import EditarAtividadeSesi from "./components/Admin/EditarAtividadeSesi/EditarAtividadeSesi";
 import EditarAtividadeSenai from "./components/Admin/EditarAtividadeSenai/EditarAtividadeSenai";
+import EditarQuemSouEu from "./components/Admin/EditarQuemSouEu/EditarQuemSouEu";
 import "./App.css";
 
 function App() {
@@ -52,6 +53,10 @@ function App() {
         <Route
           path="/admin/atividades/editar/senai"
           element={<EditarAtividadeSenai />}
+        />
+        <Route
+          path="/admin/quemSouEu"
+          element={<EditarQuemSouEu />}
         />
       </Routes>
     </div>

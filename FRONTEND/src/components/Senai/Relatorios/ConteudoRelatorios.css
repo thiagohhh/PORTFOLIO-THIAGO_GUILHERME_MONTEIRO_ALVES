@@ -1,13 +1,13 @@
 .grade-senai-relatorios {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
+  gap: 22px;
 }
 
 .cartao-relatorio {
   min-width: 0;
-  min-height: 210px;
-  padding: 14px;
+  min-height: 240px;
+  padding: 18px;
   border: 2px solid var(--cor-preta);
   background: var(--cor-branca);
   box-shadow: 3px 3px 0 var(--cor-preta);
@@ -15,21 +15,21 @@
 
 .icone-relatorio {
   display: block;
-  width: 42px;
-  height: 42px;
+  width: 48px;
+  height: 48px;
   object-fit: contain;
 }
 
 .cartao-relatorio h3 {
-  margin: 12px 0 8px;
-  font-size: 16px;
+  margin: 14px 0 10px;
+  font-size: 19px;
 }
 
 .cartao-relatorio p {
-  min-height: 48px;
+  min-height: 56px;
   margin: 0;
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 16px;
+  line-height: 1.6;
 }
 
 .estado-relatorio {
@@ -37,7 +37,7 @@
   padding: 8px;
   border: 2px solid var(--cor-preta);
   margin-top: 14px;
-  font-size: 12px;
+  font-size: 14px;
   text-align: center;
 }
 

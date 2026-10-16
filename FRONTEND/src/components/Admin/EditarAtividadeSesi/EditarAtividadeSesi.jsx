@@ -30,7 +30,7 @@ const camposPorSecao = {
   "Projetos e trabalhos": [
     { nome: "titulo_projeto", rotulo: "Título do projeto" },
     { nome: "texto_card", rotulo: "Texto do card", linhas: 2 },
-    { nome: "url_foto", rotulo: "Foto do projeto", tipo: "arquivo" },
+    { nome: "foto", rotulo: "Foto do projeto", tipo: "arquivo" },
     { nome: "etiquetas", rotulo: "Etiquetas", tipo: "etiquetas" },
   ],
   "Reflexão crítica": [

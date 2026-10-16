@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Rodape from "../../Rodape/Rodape";
 import estrelaAmarela from "../../../assets/imgs/senai/estrela-amarela.png";
 import estrelaBranca from "../../../assets/imgs/senai/estrela-branca.png";
+import iconeProjeto from "../../../assets/imgs/senai/icone-projeto.svg";
 import "./CadastroAtividadeSesi.css";
 
 const secoes = [
@@ -30,7 +31,7 @@ const camposPorSecao = {
   "Projetos e trabalhos": [
     { nome: "titulo_projeto", rotulo: "Título do projeto" },
     { nome: "texto_card", rotulo: "Descrição do projeto", linhas: 2 },
-    { nome: "url_foto", rotulo: "Imagem ou evidência", tipo: "file" },
+    { nome: "foto", rotulo: "Imagem ou evidência", tipo: "file" },
   ],
   "Reflexão crítica": [
     { nome: "aprendizado_academico", rotulo: "Aprendizado acadêmico", linhas: 2 },
@@ -128,9 +129,9 @@ const CadastroAtividadeSesi = () => {
                 <button className="opcao-admin selecionada" type="button" aria-pressed="true">
                   Sesi
                 </button>
-                <button className="opcao-admin" type="button" disabled>
+                <Link className="opcao-admin" to="/admin/atividades/nova/senai">
                   Senai
-                </button>
+                </Link>
               </div>
             </fieldset>
 
@@ -194,16 +195,21 @@ const CadastroAtividadeSesi = () => {
                   <label className="campo-admin-sesi" htmlFor={chave} key={campo.nome}>
                     <span>{campo.rotulo}</span>
                     {campo.tipo === "file" ? (
-                      <input
-                        className="entrada-arquivo-admin"
-                        id={chave}
-                        name={campo.nome}
-                        type="file"
-                        accept="image/*"
-                        onChange={(evento) =>
-                          atualizarCampo(campo.nome, evento.target.files?.[0]?.name || "")
-                        }
-                      />
+                      <div className="area-arquivo-admin">
+                        <img src={iconeProjeto} alt="" />
+                        <strong>Clique para escolher uma imagem</strong>
+                        <span>{valores[chave] || "Nenhum arquivo selecionado"}</span>
+                        <input
+                          className="entrada-arquivo-admin"
+                          id={chave}
+                          name={campo.nome}
+                          type="file"
+                          accept="image/*"
+                          onChange={(evento) =>
+                            atualizarCampo(campo.nome, evento.target.files?.[0]?.name || "")
+                          }
+                        />
+                      </div>
                     ) : campo.linhas ? (
                       <textarea
                         id={chave}

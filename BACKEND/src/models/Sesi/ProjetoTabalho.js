@@ -43,12 +43,12 @@ const ProjetoTrabalho = conn.define("ProjetoTrabalho", {
             notEmpty: { msg: "O texto do card não pode ser vazio." }
         }
     },
-    url_foto: {
+    foto: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-            notNull: { msg: "A URL da foto é obrigatória." },
-            notEmpty: { msg: "A URL da foto não pode ser vazia." }
+            notNull: { msg: "A foto é obrigatória." },
+            notEmpty: { msg: "A foto não pode ser vazia." }
         }
     }
 }, {

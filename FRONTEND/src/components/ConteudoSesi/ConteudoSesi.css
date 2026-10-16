@@ -15,14 +15,14 @@
 
 .conteudo-sesi-main {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: minmax(250px, 0.8fr) minmax(0, 2.2fr);
   align-items: start;
-  gap: 64px;
+  gap: clamp(32px, 4vw, 56px);
   flex: 1;
   width: 100%;
-  max-width: 1440px;
+  max-width: 1600px;
   margin: 0 auto;
-  padding: 58px 7% 72px;
+  padding: 58px clamp(24px, 4.5vw, 72px) 72px 24px;
 }
 
 .texto-amarelo{

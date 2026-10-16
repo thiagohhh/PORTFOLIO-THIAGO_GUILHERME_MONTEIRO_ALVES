@@ -1,0 +1,279 @@
+.pagina-editar-perfil {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background: var(--cor-fundo);
+  color: var(--cor-preta);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.cabecalho-editar-perfil {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6%;
+  background: #111;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.cabecalho-editar-perfil a {
+  color: var(--cor-branca);
+  text-decoration: none;
+}
+
+.cabecalho-editar-perfil span {
+  padding-bottom: 3px;
+  border-bottom: 2px solid var(--cor-amarela);
+  color: var(--cor-amarela);
+}
+
+.conteudo-editar-perfil {
+  display: grid;
+  flex: 1;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 40px;
+  width: 88%;
+  padding: 42px 0 48px;
+  margin: 0 auto;
+}
+
+.menu-editar-perfil {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 3px;
+}
+
+.menu-editar-perfil a,
+.item-menu-perfil-ativo {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  padding: 8px 14px;
+  border: 2px solid var(--cor-preta);
+  border-radius: 16px 0 16px 0;
+  background: var(--cor-branca);
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  color: var(--cor-preta);
+  font-size: 13px;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.menu-editar-perfil .item-menu-perfil-ativo {
+  background: var(--cor-amarela);
+}
+
+.area-editar-perfil {
+  min-width: 0;
+}
+
+.titulo-editar-perfil {
+  margin-bottom: 14px;
+}
+
+.titulo-editar-perfil h1 {
+  margin: 0;
+  font-size: 38px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.titulo-editar-perfil h1 span {
+  color: var(--cor-amarela);
+  text-shadow: 2px 2px 0 var(--cor-preta);
+}
+
+.titulo-editar-perfil > p {
+  display: inline-block;
+  padding: 6px 10px;
+  border: 2px solid var(--cor-preta);
+  margin: 12px 0 0;
+  background: var(--cor-amarela);
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  color: var(--cor-branca);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.colunas-editar-perfil {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  align-items: start;
+  gap: 16px;
+}
+
+.formulario-editar-perfil,
+.previa-editar-perfil {
+  padding: 14px;
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-branca);
+  box-shadow: 4px 4px 0 var(--cor-preta);
+}
+
+.formulario-editar-perfil {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.formulario-editar-perfil > label,
+.campo-foto-perfil {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.formulario-editar-perfil input:not([type="file"]),
+.formulario-editar-perfil textarea {
+  width: 100%;
+  min-height: 38px;
+  padding: 8px 10px;
+  border: 2px solid var(--cor-preta);
+  box-shadow: 2px 2px 0 var(--cor-preta);
+  color: var(--cor-texto);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.formulario-editar-perfil textarea {
+  min-height: 78px;
+  resize: vertical;
+}
+
+.troca-foto-perfil {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.miniatura-foto-perfil,
+.foto-previa-perfil {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 2px solid var(--cor-preta);
+  border-radius: 50%;
+  background: var(--cor-amarela);
+  box-shadow: 5px 5px 0 var(--cor-preta);
+}
+
+.miniatura-foto-perfil {
+  width: 58px;
+  height: 58px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.miniatura-foto-perfil img,
+.foto-previa-perfil img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.botao-trocar-foto {
+  padding: 7px 16px;
+  border: 2px solid var(--cor-preta);
+  box-shadow: 2px 2px 0 var(--cor-preta);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.botao-trocar-foto input {
+  display: none;
+}
+
+.destino-editar-perfil {
+  margin: 0;
+  color: #777;
+  font-size: 10px;
+}
+
+.acoes-editar-perfil {
+  display: flex;
+  gap: 10px;
+}
+
+.acoes-editar-perfil button {
+  min-height: 36px;
+  padding: 7px 16px;
+  border: 2px solid var(--cor-preta);
+  border-radius: 9px 0 9px 0;
+  box-shadow: 2px 2px 0 var(--cor-preta);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.botao-salvar-perfil {
+  background: var(--cor-preta);
+  color: var(--cor-branca);
+}
+
+.botao-cancelar-perfil {
+  background: var(--cor-branca);
+  color: var(--cor-preta);
+}
+
+.previa-editar-perfil h2 {
+  margin: 0 0 18px;
+  font-size: 12px;
+}
+
+.previa-editar-perfil h3 {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.25;
+}
+
+.previa-editar-perfil h3 span {
+  color: var(--cor-amarela);
+  text-shadow: 2px 2px 0 var(--cor-preta);
+  overflow-wrap: anywhere;
+}
+
+.itinerario-previa {
+  padding: 5px 7px;
+  margin: 8px 0;
+  background: var(--cor-amarela);
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.previa-editar-perfil > p:not(.itinerario-previa) {
+  color: #555;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.previa-editar-perfil > strong {
+  display: block;
+  font-size: 10px;
+}
+
+.foto-previa-perfil {
+  width: 96px;
+  height: 96px;
+  margin: 18px auto;
+}
+
+.instituicoes-previa-perfil {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.formulario-editar-perfil [role="status"] {
+  margin: 0;
+  color: #555;
+  font-size: 12px;
+}

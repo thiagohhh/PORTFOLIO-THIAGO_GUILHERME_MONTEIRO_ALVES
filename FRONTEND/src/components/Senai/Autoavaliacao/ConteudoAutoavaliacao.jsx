@@ -27,8 +27,18 @@ const ConteudoAutoavaliacao = () => {
               />
             ))}
           </div>
-          <span className="rotulo-autoavaliacao">Progresso</span>
-          <div className="barra-autoavaliacao" aria-hidden="true">
+          <div className="cabecalho-progresso-autoavaliacao">
+            <span className="rotulo-autoavaliacao">Progresso</span>
+            <strong>{competencia.progresso}%</strong>
+          </div>
+          <div
+            className="barra-autoavaliacao"
+            role="progressbar"
+            aria-label={`Progresso de ${competencia.nome}`}
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow={competencia.progresso}
+          >
             <span style={{ width: `${competencia.progresso}%` }} />
           </div>
           <span className="rotulo-autoavaliacao">Justificativa</span>

@@ -1,39 +1,39 @@
 .grade-senai-projetos {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
+  gap: 22px;
 }
 
 .cartao-senai-projeto {
   display: flex;
   min-width: 0;
-  min-height: 270px;
+  min-height: 290px;
   flex-direction: column;
-  padding: 12px;
+  padding: 16px;
   border: 2px solid var(--cor-preta);
   background: var(--cor-branca);
   box-shadow: 3px 3px 0 var(--cor-preta);
 }
 
 .cartao-senai-projeto h3 {
-  margin: 12px 0 7px;
-  font-size: 16px;
+  margin: 14px 0 8px;
+  font-size: 19px;
 }
 
 .cartao-senai-projeto p {
   margin: 0;
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 16px;
+  line-height: 1.6;
 }
 
 .placeholder-projeto {
   display: flex;
-  min-height: 145px;
+  min-height: 160px;
   align-items: center;
   justify-content: center;
   border: 1px solid var(--cor-preta);
   background: var(--cor-amarela);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
 }
 
@@ -45,10 +45,10 @@
 }
 
 .detalhes-projeto span {
-  padding: 4px 8px;
+  padding: 5px 10px;
   border: 1px solid var(--cor-preta);
   border-radius: 8px;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 @media (max-width: 600px) {

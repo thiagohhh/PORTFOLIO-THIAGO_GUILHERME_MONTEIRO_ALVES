@@ -16,14 +16,14 @@
 .cartao-participacao h2 {
   margin: 0;
   color: var(--cor-preta);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 800;
 }
 
 .cartao-participacao h3 {
   margin: 10px 0 0;
   color: #333333;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
 }
 

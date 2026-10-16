@@ -20,14 +20,14 @@
   border: 2px solid var(--cor-preta);
   background: var(--cor-amarela);
   color: var(--cor-preta);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
 }
 
 .cartao-projeto h2 {
   margin: 12px 0 0;
   color: var(--cor-preta);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 800;
 }
 
@@ -56,5 +56,5 @@
   border: 1px solid var(--cor-preta);
   border-radius: 10px;
   color: var(--cor-preta);
-  font-size: 10px;
+  font-size: 12px;
 }

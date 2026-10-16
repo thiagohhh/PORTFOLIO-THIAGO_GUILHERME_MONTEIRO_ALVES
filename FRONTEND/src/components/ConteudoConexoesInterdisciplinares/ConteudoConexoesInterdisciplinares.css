@@ -27,7 +27,7 @@
   border-radius: 50%;
   background: var(--cor-branca);
   color: var(--cor-preta);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   text-align: center;
 }
@@ -48,7 +48,7 @@
 .cartao-conexoes h2 {
   margin: 0;
   color: var(--cor-preta);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 800;
 }
 

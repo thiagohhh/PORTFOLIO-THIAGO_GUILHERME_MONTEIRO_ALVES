@@ -8,7 +8,6 @@ const Detalhe = conn.define("Detalhe", {
         autoIncrement: true,
         allowNull: false
     },
-    // Referencia o registro identificado por tipo_origem; não é uma chave estrangeira.
     item_id: {
         type: DataTypes.INTEGER,
         allowNull: false,

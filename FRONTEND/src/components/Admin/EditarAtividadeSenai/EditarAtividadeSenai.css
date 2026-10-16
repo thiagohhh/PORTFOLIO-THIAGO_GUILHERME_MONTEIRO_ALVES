@@ -387,6 +387,7 @@
 
 .percentual-edicao-senai {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 10px;
 }
@@ -405,6 +406,13 @@
 .percentual-edicao-senai > span {
   font-size: 17px;
   font-weight: 800;
+}
+
+.percentual-edicao-senai > small {
+  flex: 0 0 100%;
+  color: #606060;
+  font-size: 12px;
+  line-height: 1.4;
 }
 
 .acoes-edicao-senai {

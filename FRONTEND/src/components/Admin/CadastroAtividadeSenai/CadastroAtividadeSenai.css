@@ -380,7 +380,9 @@
 
 .entrada-percentual-senai {
   display: flex;
-  width: 190px;
+  width: 100%;
+  max-width: 460px;
+  flex-wrap: wrap;
   align-items: center;
   gap: 10px;
 }
@@ -392,6 +394,13 @@
 .entrada-percentual-senai > span {
   font-size: 16px;
   font-weight: 700;
+}
+
+.entrada-percentual-senai > small {
+  flex: 0 0 100%;
+  color: #606060;
+  font-size: 12px;
+  line-height: 1.4;
 }
 
 .destino-senai {

@@ -10,6 +10,9 @@ import circuloAmarelo from "../../../assets/imgs/senai/circulo-amarelo.png";
 import circuloBranco from "../../../assets/imgs/senai/circulo-branco.png";
 import estrelaAmarela from "../../../assets/imgs/senai/estrela-amarela.png";
 import estrelaBranca from "../../../assets/imgs/senai/estrela-branca.png";
+import iconeRelatorio from "../../../assets/imgs/senai/icone-relatorio.png";
+import iconeProjeto from "../../../assets/imgs/senai/icone-projeto.svg";
+import iconeGaleria from "../../../assets/imgs/senai/icone-galeria.svg";
 // css disso
 
 import "./CadastroAtividadeSenai.css";
@@ -45,7 +48,7 @@ const camposPorAba = {
     },
     { nome: "titulo_midia", rotulo: "Título da mídia" },
     { nome: "explicado_a_midia", rotulo: "Descrição da mídia", tipo: "textarea", linhas: 2 },
-    { nome: "url_arquivo", rotulo: "Arquivo da galeria", tipo: "arquivo-midia" },
+    { nome: "arquivo", rotulo: "Arquivo da galeria", tipo: "arquivo-midia" },
   ],
   Relatórios: [
     { nome: "titulo_relatorio", rotulo: "Título do relatório" },
@@ -64,8 +67,13 @@ const camposPorAba = {
     { nome: "nivel_estrelas", rotulo: "Avaliação", tipo: "estrelas" },
   ],
   Autoavaliação: [
-    { nome: "nota_bolinhas", rotulo: "Avaliação", tipo: "bolinhas" },
-    { nome: "percentual", rotulo: "Percentual", tipo: "percentual" },
+    { nome: "nota_bolinhas", rotulo: "Avaliação", tipo: "estrelas" },
+    {
+      nome: "percentual",
+      rotulo: "Progresso da barra",
+      tipo: "percentual",
+      ajuda: "Digite um valor de 0 a 100 para definir o preenchimento da barra.",
+    },
     { nome: "justificativa_texto", rotulo: "Justificativa", tipo: "textarea", linhas: 3 },
   ],
   Competências: [{ nome: "titulo_competencia", rotulo: "Título da competência" }],
@@ -198,17 +206,28 @@ const CadastroAtividadeSenai = () => {
             type="number"
             min="0"
             max="100"
+            required
+            aria-describedby={`${chave}-ajuda`}
             placeholder="0"
             value={valor}
             onChange={(evento) => atualizarCampo(campo.nome, evento.target.value)}
           />
           <span>%</span>
+          <small id={`${chave}-ajuda`}>
+            {campo.ajuda}
+          </small>
         </div>
       );
     }
 
     if (campo.tipo?.startsWith("arquivo")) {
       const aceita = campo.tipo === "arquivo-pdf" ? ".pdf,application/pdf" : "image/*,video/*";
+      const iconeArquivo =
+        campo.tipo === "arquivo-pdf"
+          ? iconeRelatorio
+          : campo.tipo === "arquivo-imagem"
+            ? iconeProjeto
+            : iconeGaleria;
       return (
         <label
           className="area-arquivo-senai"
@@ -220,7 +239,7 @@ const CadastroAtividadeSenai = () => {
             if (arquivo) atualizarCampo(campo.nome, arquivo.name);
           }}
         >
-          <img src={circuloAmarelo} alt="" />
+          <img src={iconeArquivo} alt="" />
           <strong>Clique ou arraste para enviar</strong>
           <span>{valores[chave] || "Nenhum arquivo selecionado"}</span>
           <input

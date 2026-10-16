@@ -176,6 +176,9 @@
 }
 
 .opcao-admin {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
   min-height: 42px;
   padding: 8px 16px;
   border: 2px solid var(--cor-preta);
@@ -257,12 +260,48 @@
   outline-offset: 3px;
 }
 
-.entrada-arquivo-admin {
-  min-height: 82px;
-  padding: 18px;
+.area-arquivo-admin {
+  position: relative;
+  display: flex;
+  min-height: 120px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px;
   border: 2px dashed var(--cor-preta);
   background: #f8f8f8;
-  font: inherit;
+  cursor: pointer;
+}
+
+.area-arquivo-admin img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.area-arquivo-admin strong {
+  font-size: 14px;
+}
+
+.area-arquivo-admin > span {
+  color: #666666;
+  font-size: 12px;
+}
+
+.entrada-arquivo-admin {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+.area-arquivo-admin:focus-within {
+  outline: 3px solid var(--cor-amarela);
+  outline-offset: 3px;
 }
 
 .avaliacao-cadastro-admin {

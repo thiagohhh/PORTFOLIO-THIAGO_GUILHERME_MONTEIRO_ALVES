@@ -33,7 +33,7 @@ const camposPorAba = {
     { nome: "tipo_midia", rotulo: "Tipo de mídia", tipo: "select", opcoes: ["Imagem", "Vídeo"] },
     { nome: "titulo_midia", rotulo: "Título da mídia" },
     { nome: "explicado_a_midia", rotulo: "Explicação da mídia", linhas: 2 },
-    { nome: "url_arquivo", rotulo: "Arquivo da mídia", tipo: "arquivo-midia" },
+    { nome: "arquivo", rotulo: "Arquivo da mídia", tipo: "arquivo-midia" },
   ],
   Relatórios: [
     { nome: "titulo_relatorio", rotulo: "Título do relatório" },
@@ -48,7 +48,12 @@ const camposPorAba = {
   ],
   Autoavaliação: [
     { nome: "nota_bolinhas", rotulo: "Nota (bolinhas)", tipo: "bolinhas" },
-    { nome: "percentual", rotulo: "Percentual", tipo: "percentual" },
+    {
+      nome: "percentual",
+      rotulo: "Progresso da barra",
+      tipo: "percentual",
+      ajuda: "Digite um valor de 0 a 100 para definir o preenchimento da barra.",
+    },
     { nome: "justificativa_texto", rotulo: "Justificativa", linhas: 3 },
   ],
   Competências: [{ nome: "titulo_competencia", rotulo: "Título da competência" }],
@@ -258,10 +263,15 @@ const EditarAtividadeSenai = () => {
             type="number"
             min="0"
             max="100"
+            required
+            aria-describedby={`${chaveCampo(campo.nome)}-ajuda`}
             value={valor}
             onChange={(evento) => atualizarCampo(campo.nome, evento.target.value)}
           />
           <span>%</span>
+          <small id={`${chaveCampo(campo.nome)}-ajuda`}>
+            {campo.ajuda}
+          </small>
         </div>
       );
     }

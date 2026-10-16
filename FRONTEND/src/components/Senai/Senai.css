@@ -17,18 +17,18 @@
   flex: 1;
   width: 100%;
   max-width: 1440px;
-  padding: 30px 6% 40px;
+  padding: 38px 6% 48px;
   margin: 0 auto;
 }
 
 .senai-titulo {
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .senai-titulo-principal {
   margin: 0;
   color: var(--cor-titulo);
-  font-size: 54px;
+  font-size: 58px;
   font-weight: 900;
   line-height: 1;
 }
@@ -43,11 +43,11 @@
   display: inline-block;
   margin: 10px 0 4px;
   color: #555;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.5px;
 }
 
 .senai-conteudo {
-  min-height: 220px;
+  min-height: 260px;
 }

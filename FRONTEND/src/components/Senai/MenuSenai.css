@@ -1,20 +1,20 @@
 .menu-senai {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 8px;
-  margin: 8px 0 20px;
+  gap: 10px;
+  margin: 12px 0 24px;
 }
 
 .botao-senai {
-  min-height: 30px;
-  padding: 5px 8px;
-  border: 1px solid var(--cor-preta);
+  min-height: 42px;
+  padding: 8px 10px;
+  border: 2px solid var(--cor-preta);
   background: var(--cor-branca);
-  box-shadow: 2px 2px 0 var(--cor-preta);
+  box-shadow: 3px 3px 0 var(--cor-preta);
   color: var(--cor-preta);
   font: inherit;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 700;
   cursor: pointer;
   transition: background-color 0.15s ease;
 }
@@ -41,6 +41,6 @@
 
   .botao-senai {
     padding: 6px 4px;
-    font-size: 11px;
+    font-size: 12px;
   }
 }
