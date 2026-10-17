@@ -44,9 +44,13 @@ const Projeto = conn.define(
       },
     },
 
-    imagem: {
+    url_foto: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
+      validate: {
+        notNull: { msg: "A foto do projeto é obrigatória." },
+        notEmpty: { msg: "A foto do projeto não pode ser vazia." },
+      },
     },
   },
   {

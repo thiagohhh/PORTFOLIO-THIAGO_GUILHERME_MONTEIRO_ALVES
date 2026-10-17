@@ -1,4 +1,5 @@
-import { Competencia } from "../models/index.js";
+import { Competencia, Projeto } from "../models/index.js";
+import tratarErros from "../utils/tratarErros.js";
 
 // Aprendizagens
 export const criarAprendizagem = async (request, response) => {};
@@ -123,8 +124,68 @@ export const atualizarItemGaleria = async (request, response) => {};
 export const deletarItemGaleria = async (request, response) => {};
 
 // Projeto
-export const criarProjeto = async (request, response) => {};
-export const listarProjetos = async (request, response) => {};
+export const criarProjeto = async (request, response) => {
+  const {
+    aluno_id,
+    unidade_curricular,
+    titulo_projeto,
+    texto_card,
+    url_foto,
+  } = request.body;
+
+  if (!aluno_id) {
+    return response
+      .status(400)
+      .json({ message: "O ID do aluno é obrigatório." });
+  }
+
+  if (!unidade_curricular) {
+    return response.status(400).json({
+      message: "A unidade curricular é obrigatória e não pode ser vazia.",
+    });
+  }
+
+  if (!titulo_projeto) {
+    return response.status(400).json({
+      message: "O título do projeto é obrigatório e não pode ser vazio.",
+    });
+  }
+
+  if (!texto_card) {
+    return response.status(400).json({
+      message: "O texto do projeto é obrigatório e não pode ser vazio.",
+    });
+  }
+
+  if (!url_foto) {
+    return response.status(400).json({
+      message: "A foto do projeto é obrigatória.",
+    });
+  }
+
+  try {
+    const projeto = await Projeto.create({
+      aluno_id,
+      unidade_curricular,
+      titulo_projeto,
+      texto_card,
+      url_foto,
+    });
+
+    return response.status(201).json(projeto);
+  } catch {
+    return tratarErros(request, response);
+  }
+};
+export const listarProjetos = async (request, response) => {
+  try {
+    const projetos = await Projeto.findAll();
+
+    return response.status(200).json(projetos);
+  } catch {
+    return tratarErros(request, response);
+  }
+};
 export const atualizarProjeto = async (request, response) => {};
 export const deletarProjeto = async (request, response) => {};
 

@@ -1,6 +1,7 @@
 
 
-
+import { ProjetoTrabalho } from "../models/index.js";
+import tratarErros from "../utils/tratarErros.js";
 
 // Conexão Interdisplinar
 export const criarConexaoInterdisciplinar = async (request, response) => {};
@@ -33,8 +34,69 @@ export const atualizarParticipacaoEmSala = async (request, response) => {};
 export const deletarParticipacaoEmSala = async (request, response) => {};
 
 // Projeto e trabalho
-export const criarProjetoTrabalho = async (request, response) => {};
-export const listarProjetosTrabalho = async (request, response) => {};
+export const criarProjetoTrabalho = async (request, response) => {
+    const {
+        aluno_id,
+        bimestre,
+        titulo_projeto,
+        texto_card,
+        foto
+    } = request.body;
+
+    if (!aluno_id) {
+        return response
+            .status(400)
+            .json({ message: "O ID do aluno é obrigatório." });
+    }
+
+    if (!bimestre) {
+        return response.status(400).json({
+            message: "O bimestre é obrigatório."
+        });
+    }
+
+    if (!titulo_projeto) {
+        return response.status(400).json({
+            message: "O título do projeto é obrigatório e não pode ser vazio."
+        });
+    }
+
+    if (!texto_card) {
+        return response.status(400).json({
+            message: "O texto do projeto é obrigatório e não pode ser vazio."
+        });
+    }
+
+    if (!foto) {
+        return response.status(400).json({
+            message: "A foto do projeto é obrigatória."
+        });
+    }
+
+    try {
+        const projeto = await ProjetoTrabalho.create({
+            aluno_id,
+            bimestre,
+            titulo_projeto,
+            texto_card,
+            foto
+        });
+
+        return response.status(201).json(projeto);
+    } catch {
+        return tratarErros(request, response);
+    }
+};
+
+export const listarProjetosTrabalho = async (request, response) => {
+    try {
+        const projetos = await ProjetoTrabalho.findAll();
+
+        return response.status(200).json(projetos);
+    } catch {
+        return tratarErros(request, response);
+    }
+};
 export const atualizarProjetoTrabalho = async (request, response) => {};
 export const deletarProjetoTrabalho = async (request, response) => {};
 
