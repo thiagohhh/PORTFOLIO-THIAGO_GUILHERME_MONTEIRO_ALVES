@@ -21,7 +21,7 @@ const camposPorAba = {
   Projetos: [
     { nome: "titulo_projeto", rotulo: "Título do projeto" },
     { nome: "texto_card", rotulo: "Texto do card", linhas: 2 },
-    { nome: "url_foto", rotulo: "Foto do projeto", tipo: "arquivo-imagem" },
+    { nome: "foto", rotulo: "Foto do projeto", tipo: "arquivo-imagem" },
     { nome: "etiquetas", rotulo: "Etiquetas", tipo: "etiquetas" },
   ],
   Códigos: [
@@ -38,7 +38,7 @@ const camposPorAba = {
   Relatórios: [
     { nome: "titulo_relatorio", rotulo: "Título do relatório" },
     { nome: "paragrafo_relatorio", rotulo: "Parágrafo do relatório", linhas: 3 },
-    { nome: "url_pdf", rotulo: "Arquivo PDF", tipo: "arquivo-pdf" },
+    { nome: "pdf", rotulo: "Arquivo PDF", tipo: "arquivo-pdf" },
     { nome: "etiquetas", rotulo: "Etiquetas", tipo: "etiquetas" },
   ],
   Aprendizagens: [

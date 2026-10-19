@@ -33,19 +33,23 @@ import {
   atualizarRelatorio,
   deletarRelatorio,
 } from "../controller/senaiController.js";
+import upload from "../config/multer.js";
 
 const router = Router();
 
+// Aprendizagens
 router.post("/aprendizagens", criarAprendizagem);
 router.get("/aprendizagens", listarAprendizagens);
 router.put("/aprendizagens/:id", atualizarAprendizagem);
 router.delete("/aprendizagens/:id", deletarAprendizagem);
 
+// Autoavaliação
 router.post("/autoavaliacoes", criarAutoavaliacao);
 router.get("/autoavaliacoes", listarAutoavaliacoes);
 router.put("/autoavaliacoes/:id", atualizarAutoavaliacao);
 router.delete("/autoavaliacoes/:id", deletarAutoavaliacao);
 
+// Codigos
 router.post("/codigos", criarCodigo);
 router.get("/codigos", listarCodigos);
 router.put("/codigos/:id", atualizarCodigo);
@@ -61,19 +65,19 @@ router.get("/detalhes", listarDetalhes);
 router.put("/detalhes/:id", atualizarDetalhe);
 router.delete("/detalhes/:id", deletarDetalhe);
 
-router.post("/galeria", criarItemGaleria);
+router.post("/galeria", upload.single("arquivo"), criarItemGaleria);
 router.get("/galeria", listarItensGaleria);
-router.put("/galeria/:id", atualizarItemGaleria);
+router.put("/galeria/:id", upload.single("arquivo"), atualizarItemGaleria);
 router.delete("/galeria/:id", deletarItemGaleria);
 
-router.post("/projetos", criarProjeto);
+router.post("/projetos", upload.single("foto"), criarProjeto);
 router.get("/projetos", listarProjetos);
-router.put("/projetos/:id", atualizarProjeto);
+router.put("/projetos/:id", upload.single("foto"), atualizarProjeto);
 router.delete("/projetos/:id", deletarProjeto);
 
-router.post("/relatorios", criarRelatorio);
+router.post("/relatorios", upload.single("pdf"), criarRelatorio);
 router.get("/relatorios", listarRelatorios);
-router.put("/relatorios/:id", atualizarRelatorio);
+router.put("/relatorios/:id", upload.single("pdf"), atualizarRelatorio);
 router.delete("/relatorios/:id", deletarRelatorio);
 
 export default router;

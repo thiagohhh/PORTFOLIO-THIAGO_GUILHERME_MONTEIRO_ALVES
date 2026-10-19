@@ -37,6 +37,7 @@ import {
   atualizarReflexaoHabilidade,
   deletarReflexaoHabilidade,
 } from "../controller/sesiController.js";
+import upload from "../config/multer.js";
 
 const router = Router();
 
@@ -65,9 +66,9 @@ router.get("/participacoesEmSala", listarParticipacoesEmSala);
 router.put("/participacoesEmSala/:id", atualizarParticipacaoEmSala);
 router.delete("/participacoesEmSala/:id", deletarParticipacaoEmSala);
 
-router.post("/projetosTrabalhos", criarProjetoTrabalho);
+router.post("/projetosTrabalhos", upload.single("foto"), criarProjetoTrabalho);
 router.get("/projetosTrabalhos", listarProjetosTrabalho);
-router.put("/projetosTrabalhos/:id", atualizarProjetoTrabalho);
+router.put("/projetosTrabalhos/:id", upload.single("foto"), atualizarProjetoTrabalho);
 router.delete("/projetosTrabalhos/:id", deletarProjetoTrabalho);
 
 router.post("/projetosTrabalhos/:projetoId/tags", criarTagProjetoTrabalho);

@@ -41,12 +41,13 @@ const Relatorio = conn.define("Relatorio", {
             notEmpty: { msg: "O texto do relatório não pode ser vazio." }
         }
     },
-    url_pdf: {
+    pdf: {
         type: DataTypes.STRING,
+        field: "url_pdf",
         allowNull: false,
         validate: {
-            notNull: { msg: "A URL do PDF é obrigatória." },
-            notEmpty: { msg: "A URL do PDF não pode ser vazia." }
+            notNull: { msg: "O PDF é obrigatório." },
+            notEmpty: { msg: "O PDF não pode ser vazio." }
         }
     }
 }, {

@@ -1,9 +1,6 @@
 import QuemSouEu from "../models/QuemSouEu.js";
 import tratarErros from "../utils/tratarErros.js";
 
-const obterFoto = (request) =>
-  request.file ? `/uploads/${request.file.filename}` : request.body.foto;
-
 export const criarQuemSouEu = async (request, response) => {
   try {
     const {
@@ -13,7 +10,12 @@ export const criarQuemSouEu = async (request, response) => {
       paragrafo_biografia,
       texto_negrito,
     } = request.body;
-    const foto = obterFoto(request);
+
+    const foto = request.file ? request.file.filename : null;
+
+    if (!foto) {
+      return response.status(400).json({ message: "A foto é obrigatória." });
+    }
 
     if (!aluno_id) {
       return response.status(400).json({
@@ -45,12 +47,6 @@ export const criarQuemSouEu = async (request, response) => {
       });
     }
 
-    if (!foto) {
-      return response.status(400).json({
-        message: "A foto é obrigatória.",
-      });
-    }
-
     const quemSouEu = await QuemSouEu.create({
       aluno_id,
       titulo,
@@ -65,7 +61,6 @@ export const criarQuemSouEu = async (request, response) => {
     return tratarErros(request, response);
   }
 };
-
 export const listarQuemSouEu = async (request, response) => {
   try {
     const quemSouEu = await QuemSouEu.findAll();
@@ -75,7 +70,6 @@ export const listarQuemSouEu = async (request, response) => {
     return tratarErros(request, response);
   }
 };
-
 export const atualizarQuemSouEu = async (request, response) => {
   try {
     const { id } = request.params;
@@ -95,13 +89,19 @@ export const atualizarQuemSouEu = async (request, response) => {
       });
     }
 
+    let foto = quemSouEu.foto //Aqui é para nao apagar a foto antiga
+
+    if (request.file) {
+      foto = request.file.filename; //aq é se caso ele nviou foto ele atualize
+    }
+
     await quemSouEu.update({
       aluno_id,
       titulo,
       itinerario,
       paragrafo_biografia,
       texto_negrito,
-      foto: obterFoto(request) ?? quemSouEu.foto,
+      foto,
     });
 
     return response.status(200).json(quemSouEu);
@@ -109,7 +109,6 @@ export const atualizarQuemSouEu = async (request, response) => {
     return tratarErros(request, response);
   }
 };
-
 export const deletarQuemSouEu = async (request, response) => {
   try {
     const { id } = request.params;

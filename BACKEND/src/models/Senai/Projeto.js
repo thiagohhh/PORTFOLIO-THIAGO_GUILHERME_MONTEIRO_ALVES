@@ -44,8 +44,9 @@ const Projeto = conn.define(
       },
     },
 
-    url_foto: {
+    foto: {
       type: DataTypes.STRING,
+      field: "url_foto",
       allowNull: false,
       validate: {
         notNull: { msg: "A foto do projeto é obrigatória." },
