@@ -5,12 +5,13 @@ import {
   atualizarQuemSouEu,
   deletarQuemSouEu,
 } from "../controller/quemSouEuController.js";
+import upload from "../config/multer.js";
 
 const router = Router();
 
-router.post("/", criarQuemSouEu);
+router.post("/", upload.single("foto"), criarQuemSouEu);
 router.get("/", listarQuemSouEu);
-router.put("/:id", atualizarQuemSouEu);
+router.put("/:id", upload.single("foto"), atualizarQuemSouEu);
 router.delete("/:id", deletarQuemSouEu);
 
 export default router;

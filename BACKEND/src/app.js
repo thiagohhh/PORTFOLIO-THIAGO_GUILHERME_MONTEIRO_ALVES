@@ -3,6 +3,8 @@ import cors from "cors"
 import senaiRoutes from "./router/senaiRoutes.js";
 import sesiRoutes from "./router/sesiRoutes.js";
 import quemSouEuRoutes from "./router/quemSouEuRoutes.js";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const app = express()
 
@@ -13,6 +15,10 @@ app.use(cors({
 }))
 
 app.use(express.json())
+app.use(
+    "/uploads",
+    express.static(path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../public/uploads"))
+)
 
 app.use("/senai", senaiRoutes);
 app.use("/sesi", sesiRoutes);

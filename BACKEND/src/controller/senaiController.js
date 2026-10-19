@@ -1,23 +1,239 @@
-import { Competencia, Projeto } from "../models/index.js";
+import {
+  Aprendizagens,
+  Autoavaliacao,
+  Codigo,
+  Competencia,
+  Detalhe,
+  Galeria,
+  Projeto,
+  Relatorio,
+} from "../models/index.js";
 import tratarErros from "../utils/tratarErros.js";
 
+const atualizarRegistro = (registro, dados) => {
+  const { id, ...campos } = dados;
+  return registro.update(campos);
+};
+
 // Aprendizagens
-export const criarAprendizagem = async (request, response) => {};
-export const listarAprendizagens = async (request, response) => {};
-export const atualizarAprendizagem = async (request, response) => {};
-export const deletarAprendizagem = async (request, response) => {};
+export const criarAprendizagem = async (request, response) => {
+  try {
+    const {
+      aluno_id,
+      unidade_curricular,
+      titulo_aprendizagem,
+      descricao_aprendizagem,
+      nivel_estrelas,
+    } = request.body;
 
-// Autoavaliacao
-export const criarAutoavaliacao = async (request, response) => {};
-export const listarAutoavaliacoes = async (request, response) => {};
-export const atualizarAutoavaliacao = async (request, response) => {};
-export const deletarAutoavaliacao = async (request, response) => {};
+    if (!aluno_id) {
+      return response.status(400).json({ message: "O ID do aluno é obrigatório." });
+    }
+    if (!unidade_curricular) {
+      return response.status(400).json({ message: "A unidade curricular é obrigatória." });
+    }
+    if (!titulo_aprendizagem) {
+      return response.status(400).json({ message: "O título da aprendizagem é obrigatório." });
+    }
+    if (!descricao_aprendizagem) {
+      return response.status(400).json({ message: "A descrição da aprendizagem é obrigatória." });
+    }
+    if (!nivel_estrelas) {
+      return response.status(400).json({ message: "O nível de estrelas é obrigatório." });
+    }
 
-// Codigo
-export const criarCodigo = async (request, response) => {};
-export const listarCodigos = async (request, response) => {};
-export const atualizarCodigo = async (request, response) => {};
-export const deletarCodigo = async (request, response) => {};
+    const aprendizagem = await Aprendizagens.create({
+      aluno_id,
+      unidade_curricular,
+      titulo_aprendizagem,
+      descricao_aprendizagem,
+      nivel_estrelas,
+    });
+    return response.status(201).json(aprendizagem);
+  } catch {
+    return tratarErros(request, response);
+  }
+};
+
+export const listarAprendizagens = async (request, response) => {
+  try {
+    const aprendizagens = await Aprendizagens.findAll();
+    return response.status(200).json(aprendizagens);
+  } catch {
+    return tratarErros(request, response);
+  }
+};
+
+export const atualizarAprendizagem = async (request, response) => {
+  try {
+    const aprendizagem = await Aprendizagens.findByPk(request.params.id);
+    if (!aprendizagem) {
+      return response.status(404).json({ message: "Aprendizagem não encontrada." });
+    }
+    await atualizarRegistro(aprendizagem, request.body);
+    return response.status(200).json(aprendizagem);
+  } catch {
+    return tratarErros(request, response);
+  }
+};
+
+export const deletarAprendizagem = async (request, response) => {
+  try {
+    const aprendizagem = await Aprendizagens.findByPk(request.params.id);
+    if (!aprendizagem) {
+      return response.status(404).json({ message: "Aprendizagem não encontrada." });
+    }
+    await aprendizagem.destroy();
+    return response.status(204).send();
+  } catch {
+    return tratarErros(request, response);
+  }
+};
+
+// Autoavaliação
+export const criarAutoavaliacao = async (request, response) => {
+  try {
+    const {
+      aluno_id,
+      unidade_curricular,
+      nota_bolinhas,
+      percentual,
+      justificativa_texto,
+    } = request.body;
+
+    if (!aluno_id) {
+      return response.status(400).json({ message: "O ID do aluno é obrigatório." });
+    }
+    if (!unidade_curricular) {
+      return response.status(400).json({ message: "A unidade curricular é obrigatória." });
+    }
+    if (!nota_bolinhas) {
+      return response.status(400).json({ message: "A nota é obrigatória." });
+    }
+    if (!percentual) {
+      return response.status(400).json({ message: "O percentual é obrigatório." });
+    }
+    if (!justificativa_texto) {
+      return response.status(400).json({ message: "A justificativa é obrigatória." });
+    }
+
+    const autoavaliacao = await Autoavaliacao.create({
+      aluno_id,
+      unidade_curricular,
+      nota_bolinhas,
+      percentual,
+      justificativa_texto,
+    });
+    return response.status(201).json(autoavaliacao);
+  } catch {
+    return tratarErros(request, response);
+  }
+};
+
+export const listarAutoavaliacoes = async (request, response) => {
+  try {
+    const autoavaliacoes = await Autoavaliacao.findAll();
+    return response.status(200).json(autoavaliacoes);
+  } catch {
+    return tratarErros(request, response);
+  }
+};
+
+export const atualizarAutoavaliacao = async (request, response) => {
+  try {
+    const autoavaliacao = await Autoavaliacao.findByPk(request.params.id);
+    if (!autoavaliacao) {
+      return response.status(404).json({ message: "Autoavaliação não encontrada." });
+    }
+    await atualizarRegistro(autoavaliacao, request.body);
+    return response.status(200).json(autoavaliacao);
+  } catch {
+    return tratarErros(request, response);
+  }
+};
+
+export const deletarAutoavaliacao = async (request, response) => {
+  try {
+    const autoavaliacao = await Autoavaliacao.findByPk(request.params.id);
+    if (!autoavaliacao) {
+      return response.status(404).json({ message: "Autoavaliação não encontrada." });
+    }
+    await autoavaliacao.destroy();
+    return response.status(204).send();
+  } catch {
+    return tratarErros(request, response);
+  }
+};
+
+// Código
+export const criarCodigo = async (request, response) => {
+  try {
+    const { aluno_id, unidade_curricular, titulo_codigo, descricao_linguagem, bloco_codigo } =
+      request.body;
+
+    if (!aluno_id) {
+      return response.status(400).json({ message: "O ID do aluno é obrigatório." });
+    }
+    if (!unidade_curricular) {
+      return response.status(400).json({ message: "A unidade curricular é obrigatória." });
+    }
+    if (!titulo_codigo) {
+      return response.status(400).json({ message: "O título do código é obrigatório." });
+    }
+    if (!descricao_linguagem) {
+      return response.status(400).json({ message: "A linguagem do código é obrigatória." });
+    }
+    if (!bloco_codigo) {
+      return response.status(400).json({ message: "O bloco de código é obrigatório." });
+    }
+
+    const codigo = await Codigo.create({
+      aluno_id,
+      unidade_curricular,
+      titulo_codigo,
+      descricao_linguagem,
+      bloco_codigo,
+    });
+    return response.status(201).json(codigo);
+  } catch {
+    return tratarErros(request, response);
+  }
+};
+
+export const listarCodigos = async (request, response) => {
+  try {
+    const codigos = await Codigo.findAll();
+    return response.status(200).json(codigos);
+  } catch {
+    return tratarErros(request, response);
+  }
+};
+
+export const atualizarCodigo = async (request, response) => {
+  try {
+    const codigo = await Codigo.findByPk(request.params.id);
+    if (!codigo) {
+      return response.status(404).json({ message: "Código não encontrado." });
+    }
+    await atualizarRegistro(codigo, request.body);
+    return response.status(200).json(codigo);
+  } catch {
+    return tratarErros(request, response);
+  }
+};
+
+export const deletarCodigo = async (request, response) => {
+  try {
+    const codigo = await Codigo.findByPk(request.params.id);
+    if (!codigo) {
+      return response.status(404).json({ message: "Código não encontrado." });
+    }
+    await codigo.destroy();
+    return response.status(204).send();
+  } catch {
+    return tratarErros(request, response);
+  }
+};
 
 // Competência
 export const criarCompetencia = async (request, response) => {
@@ -25,21 +241,13 @@ export const criarCompetencia = async (request, response) => {
     const { aluno_id, unidade_curricular, titulo_competencia } = request.body;
 
     if (!aluno_id) {
-      return response
-        .status(400)
-        .json({ message: "O ID do aluno é obrigatório." });
+      return response.status(400).json({ message: "O ID do aluno é obrigatório." });
     }
-
     if (!unidade_curricular) {
-      return response.status(400).json({
-        message: "A unidade curricular é obrigatória e não pode ser vazia.",
-      });
+      return response.status(400).json({ message: "A unidade curricular é obrigatória." });
     }
-
     if (!titulo_competencia) {
-      return response.status(400).json({
-        message: "O título da competência é obrigatório e não pode ser vazio.",
-      });
+      return response.status(400).json({ message: "O título da competência é obrigatório." });
     }
 
     const competencia = await Competencia.create({
@@ -47,123 +255,206 @@ export const criarCompetencia = async (request, response) => {
       unidade_curricular,
       titulo_competencia,
     });
-
     return response.status(201).json(competencia);
-  } catch (error) {
-    return response.status(500).json({
-      message: "Erro interno do servidor.",
-    });
+  } catch {
+    return tratarErros(request, response);
   }
 };
+
 export const listarCompetencia = async (request, response) => {
   try {
-    const competencia = await Competencia.findAll();
-
-    return response.status(200).json(competencia);
-  } catch (error) {
-    console.error(error);
-    return response.status(500).json({
-      message: "Erro interno do servidor.",
-    });
+    const competencias = await Competencia.findAll();
+    return response.status(200).json(competencias);
+  } catch {
+    return tratarErros(request, response);
   }
 };
+
 export const atualizarCompetencia = async (request, response) => {
   try {
-    const { id } = request.params;
-    const { unidade_curricular, titulo_competencia } = request.body;
-
-    const competencia = await Competencia.findByPk(id);
-
+    const competencia = await Competencia.findByPk(request.params.id);
     if (!competencia) {
-      return response.status(404).json({
-        message: "Competência não encontrada.",
-      });
+      return response.status(404).json({ message: "Competência não encontrada." });
     }
-
-    await competencia.update({ unidade_curricular, titulo_competencia });
-
+    await atualizarRegistro(competencia, request.body);
     return response.status(200).json(competencia);
-  } catch (error) {
-    return response
-      .status(500)
-      .json({ message: "Erro interno do servidor ao tentar atualizar." });
+  } catch {
+    return tratarErros(request, response);
   }
 };
+
 export const deletarCompetencia = async (request, response) => {
   try {
-    const { id } = request.params;
-
-    const competencia = await Competencia.findByPk(id);
-
+    const competencia = await Competencia.findByPk(request.params.id);
     if (!competencia) {
-      return response.status(404).json({
-        message: "Competência não encontrada.",
-      });
+      return response.status(404).json({ message: "Competência não encontrada." });
     }
-
     await competencia.destroy();
-
     return response.status(204).send();
-  } catch (error) {
-    return response
-      .status(500)
-      .json({ message: "Erro interno do servidor ao tentar deletar." });
+  } catch {
+    return tratarErros(request, response);
   }
 };
 
 // Detalhes
-export const criarDetalhe = async (request, response) => {};
-export const listarDetalhes = async (request, response) => {};
-export const atualizarDetalhe = async (request, response) => {};
-export const deletarDetalhe = async (request, response) => {};
+export const criarDetalhe = async (request, response) => {
+  try {
+    const { item_id, tipo_origem, tag_identificacao } = request.body;
+
+    if (!item_id) {
+      return response.status(400).json({ message: "O ID do item é obrigatório." });
+    }
+    if (!tipo_origem) {
+      return response.status(400).json({ message: "O tipo de origem é obrigatório." });
+    }
+    if (!tag_identificacao) {
+      return response.status(400).json({ message: "A tag de identificação é obrigatória." });
+    }
+
+    const detalhe = await Detalhe.create({ item_id, tipo_origem, tag_identificacao });
+    return response.status(201).json(detalhe);
+  } catch {
+    return tratarErros(request, response);
+  }
+};
+
+export const listarDetalhes = async (request, response) => {
+  try {
+    const detalhes = await Detalhe.findAll();
+    return response.status(200).json(detalhes);
+  } catch {
+    return tratarErros(request, response);
+  }
+};
+
+export const atualizarDetalhe = async (request, response) => {
+  try {
+    const detalhe = await Detalhe.findByPk(request.params.id);
+    if (!detalhe) {
+      return response.status(404).json({ message: "Detalhe não encontrado." });
+    }
+    await atualizarRegistro(detalhe, request.body);
+    return response.status(200).json(detalhe);
+  } catch {
+    return tratarErros(request, response);
+  }
+};
+
+export const deletarDetalhe = async (request, response) => {
+  try {
+    const detalhe = await Detalhe.findByPk(request.params.id);
+    if (!detalhe) {
+      return response.status(404).json({ message: "Detalhe não encontrado." });
+    }
+    await detalhe.destroy();
+    return response.status(204).send();
+  } catch {
+    return tratarErros(request, response);
+  }
+};
 
 // Galeria
-export const criarItemGaleria = async (request, response) => {};
-export const listarItensGaleria = async (request, response) => {};
-export const atualizarItemGaleria = async (request, response) => {};
-export const deletarItemGaleria = async (request, response) => {};
+export const criarItemGaleria = async (request, response) => {
+  try {
+    const {
+      aluno_id,
+      unidade_curricular,
+      tipo_midia,
+      titulo_midia,
+      explicado_a_midia,
+      arquivo,
+    } = request.body;
+
+    if (!aluno_id) {
+      return response.status(400).json({ message: "O ID do aluno é obrigatório." });
+    }
+    if (!unidade_curricular) {
+      return response.status(400).json({ message: "A unidade curricular é obrigatória." });
+    }
+    if (!tipo_midia) {
+      return response.status(400).json({ message: "O tipo de mídia é obrigatório." });
+    }
+    if (!titulo_midia) {
+      return response.status(400).json({ message: "O título da mídia é obrigatório." });
+    }
+    if (!explicado_a_midia) {
+      return response.status(400).json({ message: "A explicação da mídia é obrigatória." });
+    }
+    if (!arquivo) {
+      return response.status(400).json({ message: "O arquivo é obrigatório." });
+    }
+
+    const itemGaleria = await Galeria.create({
+      aluno_id,
+      unidade_curricular,
+      tipo_midia,
+      titulo_midia,
+      explicado_a_midia,
+      arquivo,
+    });
+    return response.status(201).json(itemGaleria);
+  } catch {
+    return tratarErros(request, response);
+  }
+};
+
+export const listarItensGaleria = async (request, response) => {
+  try {
+    const itensGaleria = await Galeria.findAll();
+    return response.status(200).json(itensGaleria);
+  } catch {
+    return tratarErros(request, response);
+  }
+};
+
+export const atualizarItemGaleria = async (request, response) => {
+  try {
+    const itemGaleria = await Galeria.findByPk(request.params.id);
+    if (!itemGaleria) {
+      return response.status(404).json({ message: "Item da galeria não encontrado." });
+    }
+    await atualizarRegistro(itemGaleria, request.body);
+    return response.status(200).json(itemGaleria);
+  } catch {
+    return tratarErros(request, response);
+  }
+};
+
+export const deletarItemGaleria = async (request, response) => {
+  try {
+    const itemGaleria = await Galeria.findByPk(request.params.id);
+    if (!itemGaleria) {
+      return response.status(404).json({ message: "Item da galeria não encontrado." });
+    }
+    await itemGaleria.destroy();
+    return response.status(204).send();
+  } catch {
+    return tratarErros(request, response);
+  }
+};
 
 // Projeto
 export const criarProjeto = async (request, response) => {
-  const {
-    aluno_id,
-    unidade_curricular,
-    titulo_projeto,
-    texto_card,
-    url_foto,
-  } = request.body;
-
-  if (!aluno_id) {
-    return response
-      .status(400)
-      .json({ message: "O ID do aluno é obrigatório." });
-  }
-
-  if (!unidade_curricular) {
-    return response.status(400).json({
-      message: "A unidade curricular é obrigatória e não pode ser vazia.",
-    });
-  }
-
-  if (!titulo_projeto) {
-    return response.status(400).json({
-      message: "O título do projeto é obrigatório e não pode ser vazio.",
-    });
-  }
-
-  if (!texto_card) {
-    return response.status(400).json({
-      message: "O texto do projeto é obrigatório e não pode ser vazio.",
-    });
-  }
-
-  if (!url_foto) {
-    return response.status(400).json({
-      message: "A foto do projeto é obrigatória.",
-    });
-  }
-
   try {
+    const { aluno_id, unidade_curricular, titulo_projeto, texto_card, url_foto } =
+      request.body;
+
+    if (!aluno_id) {
+      return response.status(400).json({ message: "O ID do aluno é obrigatório." });
+    }
+    if (!unidade_curricular) {
+      return response.status(400).json({ message: "A unidade curricular é obrigatória." });
+    }
+    if (!titulo_projeto) {
+      return response.status(400).json({ message: "O título do projeto é obrigatório." });
+    }
+    if (!texto_card) {
+      return response.status(400).json({ message: "O texto do projeto é obrigatório." });
+    }
+    if (!url_foto) {
+      return response.status(400).json({ message: "A foto do projeto é obrigatória." });
+    }
+
     const projeto = await Projeto.create({
       aluno_id,
       unidade_curricular,
@@ -171,26 +462,118 @@ export const criarProjeto = async (request, response) => {
       texto_card,
       url_foto,
     });
-
     return response.status(201).json(projeto);
   } catch {
     return tratarErros(request, response);
   }
 };
+
 export const listarProjetos = async (request, response) => {
   try {
     const projetos = await Projeto.findAll();
-
     return response.status(200).json(projetos);
   } catch {
     return tratarErros(request, response);
   }
 };
-export const atualizarProjeto = async (request, response) => {};
-export const deletarProjeto = async (request, response) => {};
 
-// Relatorio
-export const criarRelatorio = async (request, response) => {};
-export const listarRelatorios = async (request, response) => {};
-export const atualizarRelatorio = async (request, response) => {};
-export const deletarRelatorio = async (request, response) => {};
+export const atualizarProjeto = async (request, response) => {
+  try {
+    const projeto = await Projeto.findByPk(request.params.id);
+    if (!projeto) {
+      return response.status(404).json({ message: "Projeto não encontrado." });
+    }
+    await atualizarRegistro(projeto, request.body);
+    return response.status(200).json(projeto);
+  } catch {
+    return tratarErros(request, response);
+  }
+};
+
+export const deletarProjeto = async (request, response) => {
+  try {
+    const projeto = await Projeto.findByPk(request.params.id);
+    if (!projeto) {
+      return response.status(404).json({ message: "Projeto não encontrado." });
+    }
+    await projeto.destroy();
+    return response.status(204).send();
+  } catch {
+    return tratarErros(request, response);
+  }
+};
+
+// Relatório
+export const criarRelatorio = async (request, response) => {
+  try {
+    const {
+      aluno_id,
+      unidade_curricular,
+      titulo_relatorio,
+      paragrafo_relatorio,
+      url_pdf,
+    } = request.body;
+
+    if (!aluno_id) {
+      return response.status(400).json({ message: "O ID do aluno é obrigatório." });
+    }
+    if (!unidade_curricular) {
+      return response.status(400).json({ message: "A unidade curricular é obrigatória." });
+    }
+    if (!titulo_relatorio) {
+      return response.status(400).json({ message: "O título do relatório é obrigatório." });
+    }
+    if (!paragrafo_relatorio) {
+      return response.status(400).json({ message: "O texto do relatório é obrigatório." });
+    }
+    if (!url_pdf) {
+      return response.status(400).json({ message: "A URL do PDF é obrigatória." });
+    }
+
+    const relatorio = await Relatorio.create({
+      aluno_id,
+      unidade_curricular,
+      titulo_relatorio,
+      paragrafo_relatorio,
+      url_pdf,
+    });
+    return response.status(201).json(relatorio);
+  } catch {
+    return tratarErros(request, response);
+  }
+};
+
+export const listarRelatorios = async (request, response) => {
+  try {
+    const relatorios = await Relatorio.findAll();
+    return response.status(200).json(relatorios);
+  } catch {
+    return tratarErros(request, response);
+  }
+};
+
+export const atualizarRelatorio = async (request, response) => {
+  try {
+    const relatorio = await Relatorio.findByPk(request.params.id);
+    if (!relatorio) {
+      return response.status(404).json({ message: "Relatório não encontrado." });
+    }
+    await atualizarRegistro(relatorio, request.body);
+    return response.status(200).json(relatorio);
+  } catch {
+    return tratarErros(request, response);
+  }
+};
+
+export const deletarRelatorio = async (request, response) => {
+  try {
+    const relatorio = await Relatorio.findByPk(request.params.id);
+    if (!relatorio) {
+      return response.status(404).json({ message: "Relatório não encontrado." });
+    }
+    await relatorio.destroy();
+    return response.status(204).send();
+  } catch {
+    return tratarErros(request, response);
+  }
+};
