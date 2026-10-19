@@ -1,46 +1,57 @@
 import { DataTypes } from "sequelize";
 import conn from "../config/conn.js";
 
-const Aluno = conn.define("Aluno", {
-
+const Aluno = conn.define(
+  "Aluno",
+  {
     id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
     },
 
     nome: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notNull: { msg: "O nome é obrigatório." },
-            notEmpty: { msg: "O nome não pode ser vazio." }
-        }
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: "O nome é obrigatório." },
+        notEmpty: { msg: "O nome não pode ser vazio." },
+      },
     },
     email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-        validate: {
-            notNull: { msg: "O e-mail é obrigatório." },
-            notEmpty: { msg: "O e-mail não pode ser vazio." },
-            isEmail: { msg: "Informe um e-mail válido." }
-        }
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        notNull: { msg: "O e-mail é obrigatório." },
+        notEmpty: { msg: "O e-mail não pode ser vazio." },
+        isEmail: { msg: "Informe um e-mail válido." },
+      },
     },
     senha: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notNull: { msg: "A senha é obrigatória." },
-            notEmpty: { msg: "A senha não pode ser vazia." }
-        }
-    }
-},
-    {
-        tableName: "aluno",
-        timestamps: false
-    })
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: "A senha é obrigatória." },
+        notEmpty: { msg: "A senha não pode ser vazia." },
+      },
+    },
+  },
+  {
+    tableName: "aluno",
+    timestamps: false,
+    defaultScope: {
+      attributes: {
+        exclude: ["senha"],
+      },
+    },
+    scopes: {
+      comSenha: {
+        attributes: {},
+      },
+    },
+  },
+);
 
-
-export default Aluno
+export default Aluno;

@@ -56,7 +56,6 @@ export const atualizarConexaoInterdisciplinar = async (request, response) => {
     return tratarErros(request, response);
   }
 };
-
 export const deletarConexaoInterdisciplinar = async (request, response) => {
   try {
     const conexao = await ConexaoInterdisciplinar.findByPk(request.params.id);
@@ -290,7 +289,6 @@ export const atualizarFundamentoTeorico = async (request, response) => {
     return tratarErros(request, response);
   }
 };
-
 export const deletarFundamentoTeorico = async (request, response) => {
   try {
     const fundamento = await FundamentoTeorico.findByPk(request.params.id);
@@ -353,7 +351,6 @@ export const criarParticipacaoEmSala = async (request, response) => {
     return tratarErros(request, response);
   }
 };
-
 export const listarParticipacoesEmSala = async (request, response) => {
   try {
     const participacoes = await ParticipacaoEmSala.findAll();
@@ -362,7 +359,6 @@ export const listarParticipacoesEmSala = async (request, response) => {
     return tratarErros(request, response);
   }
 };
-
 export const atualizarParticipacaoEmSala = async (request, response) => {
   try {
     const { id } = request.params;
@@ -395,7 +391,6 @@ export const atualizarParticipacaoEmSala = async (request, response) => {
     return tratarErros(request, response);
   }
 };
-
 export const deletarParticipacaoEmSala = async (request, response) => {
   try {
     const participacao = await ParticipacaoEmSala.findByPk(request.params.id);
@@ -444,7 +439,6 @@ export const criarProjetoTrabalho = async (request, response) => {
     return tratarErros(request, response);
   }
 };
-
 export const listarProjetosTrabalho = async (request, response) => {
   try {
     const projetos = await ProjetoTrabalho.findAll();
@@ -453,7 +447,6 @@ export const listarProjetosTrabalho = async (request, response) => {
     return tratarErros(request, response);
   }
 };
-
 export const atualizarProjetoTrabalho = async (request, response) => {
   try {
     const { id } = request.params;
@@ -481,7 +474,6 @@ export const atualizarProjetoTrabalho = async (request, response) => {
     return tratarErros(request, response);
   }
 };
-
 export const deletarProjetoTrabalho = async (request, response) => {
   try {
     const projeto = await ProjetoTrabalho.findByPk(request.params.id);
@@ -517,7 +509,6 @@ export const criarTagProjetoTrabalho = async (request, response) => {
     return tratarErros(request, response);
   }
 };
-
 export const listarTagsProjetoTrabalho = async (request, response) => {
   try {
     const { projetoId } = request.params;
@@ -529,7 +520,6 @@ export const listarTagsProjetoTrabalho = async (request, response) => {
     return tratarErros(request, response);
   }
 };
-
 export const atualizarTagProjetoTrabalho = async (request, response) => {
   try {
     const { id } = request.params;
@@ -546,7 +536,6 @@ export const atualizarTagProjetoTrabalho = async (request, response) => {
     return tratarErros(request, response);
   }
 };
-
 export const deletarTagProjetoTrabalho = async (request, response) => {
   try {
     const tag = await ProjetoTrabalhoTag.findByPk(request.params.id);
@@ -599,7 +588,6 @@ export const criarReflexaoCritica = async (request, response) => {
     return tratarErros(request, response);
   }
 };
-
 export const listarReflexoesCriticas = async (request, response) => {
   try {
     const reflexoes = await ReflexaoCritica.findAll();
@@ -608,7 +596,6 @@ export const listarReflexoesCriticas = async (request, response) => {
     return tratarErros(request, response);
   }
 };
-
 export const atualizarReflexaoCritica = async (request, response) => {
   try {
     const { id } = request.params;
@@ -637,7 +624,6 @@ export const atualizarReflexaoCritica = async (request, response) => {
     return tratarErros(request, response);
   }
 };
-
 export const deletarReflexaoCritica = async (request, response) => {
   try {
     const reflexao = await ReflexaoCritica.findByPk(request.params.id);
@@ -669,7 +655,6 @@ export const criarReflexaoHabilidade = async (request, response) => {
     return tratarErros(request, response);
   }
 };
-
 export const listarReflexoesHabilidades = async (request, response) => {
   try {
     const habilidades = await ReflexaoHabilidade.findAll();
@@ -678,7 +663,6 @@ export const listarReflexoesHabilidades = async (request, response) => {
     return tratarErros(request, response);
   }
 };
-
 export const atualizarReflexaoHabilidade = async (request, response) => {
   try {
     const { id } = request.params;
@@ -695,7 +679,6 @@ export const atualizarReflexaoHabilidade = async (request, response) => {
     return tratarErros(request, response);
   }
 };
-
 export const deletarReflexaoHabilidade = async (request, response) => {
   try {
     const habilidade = await ReflexaoHabilidade.findByPk(request.params.id);

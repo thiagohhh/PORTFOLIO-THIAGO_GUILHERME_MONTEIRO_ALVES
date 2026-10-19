@@ -1,16 +1,51 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Rodape from "../Rodape/Rodape";
 import simboloArea from "../../assets/imgs/senai/area-aluno.svg";
 import "./Login.css";
 
 const Login = () => {
   const [mensagem, setMensagem] = useState("");
+  const [enviando, setEnviando] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const entrar = (evento) => {
+  const entrar = async (evento) => {
     evento.preventDefault();
-    setMensagem("O acesso administrativo ainda não está conectado ao servidor.");
+    setMensagem("");
+    setEnviando(true);
+
+    const dados = new FormData(evento.currentTarget);
+
+    try {
+      const resposta = await fetch("http://localhost:3333/alunos/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: dados.get("email"),
+          senha: dados.get("senha"),
+        }),
+      });
+      const resultado = await resposta.json();
+
+      if (!resposta.ok) {
+        throw new Error(resultado.message || "Não foi possível entrar.");
+      }
+
+      localStorage.setItem("token", resultado.token);
+      navigate(location.state?.from?.pathname || "/admin/atividades/nova/senai", {
+        replace: true,
+      });
+    } catch (error) {
+      setMensagem(
+        error instanceof TypeError
+          ? "Não foi possível conectar ao servidor."
+          : error.message,
+      );
+    } finally {
+      setEnviando(false);
+    }
   };
 
   return (
@@ -66,8 +101,8 @@ const Login = () => {
               required
             />
 
-            <button className="botao-entrar-login" type="submit">
-              Entrar
+            <button className="botao-entrar-login" type="submit" disabled={enviando}>
+              {enviando ? "Entrando..." : "Entrar"}
             </button>
 
             {mensagem && (

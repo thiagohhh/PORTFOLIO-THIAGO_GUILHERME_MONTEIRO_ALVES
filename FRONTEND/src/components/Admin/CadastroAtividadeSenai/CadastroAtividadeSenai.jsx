@@ -318,7 +318,11 @@ const CadastroAtividadeSenai = () => {
             <span className="icone-navegacao-senai">≡</span>
             Minhas atividades
           </button>
-          <Link className="item-navegacao-senai sair-admin-senai" to="/admin/login">
+          <Link
+            className="item-navegacao-senai sair-admin-senai"
+            to="/admin/login"
+            onClick={() => localStorage.removeItem("token")}
+          >
             <span className="icone-navegacao-senai">↪</span>
             Sair
           </Link>

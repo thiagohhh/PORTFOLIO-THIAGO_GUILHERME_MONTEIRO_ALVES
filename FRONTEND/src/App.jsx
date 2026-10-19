@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import QuemSouEu from "./components/QuemSouEu/QuemSouEu";
 import Senai from "./components/Senai/Senai";
 import Sesi from "./components/Sesi/Sesi";
@@ -13,6 +13,13 @@ import EditarAtividadeSesi from "./components/Admin/EditarAtividadeSesi/EditarAt
 import EditarAtividadeSenai from "./components/Admin/EditarAtividadeSenai/EditarAtividadeSenai";
 import EditarQuemSouEu from "./components/Admin/EditarQuemSouEu/EditarQuemSouEu";
 import "./App.css";
+
+const RotaProtegida = ({ children }) => {
+  const location = useLocation();
+  const token = localStorage.getItem("token");
+
+  return token ? children : <Navigate to="/admin/login" replace state={{ from: location }} />;
+};
 
 function App() {
   return (
@@ -40,23 +47,23 @@ function App() {
         <Route path="/admin/login" element={<Login />} />
         <Route
           path="/admin/atividades/nova/sesi"
-          element={<CadastroAtividadeSesi />}
+          element={<RotaProtegida><CadastroAtividadeSesi /></RotaProtegida>}
         />
         <Route
           path="/admin/atividades/nova/senai"
-          element={<CadastroAtividadeSenai />}
+          element={<RotaProtegida><CadastroAtividadeSenai /></RotaProtegida>}
         />
         <Route
           path="/admin/atividades/editar/sesi"
-          element={<EditarAtividadeSesi />}
+          element={<RotaProtegida><EditarAtividadeSesi /></RotaProtegida>}
         />
         <Route
           path="/admin/atividades/editar/senai"
-          element={<EditarAtividadeSenai />}
+          element={<RotaProtegida><EditarAtividadeSenai /></RotaProtegida>}
         />
         <Route
           path="/admin/quemSouEu"
-          element={<EditarQuemSouEu />}
+          element={<RotaProtegida><EditarQuemSouEu /></RotaProtegida>}
         />
       </Routes>
     </div>

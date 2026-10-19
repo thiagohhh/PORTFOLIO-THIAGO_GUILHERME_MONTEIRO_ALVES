@@ -38,52 +38,53 @@ import {
   deletarReflexaoHabilidade,
 } from "../controller/sesiController.js";
 import upload from "../config/multer.js";
+import { verifyToken } from "../middleware/verifyToken.js";
 
 const router = Router();
 
-router.post("/conexoesInterdisciplinares", criarConexaoInterdisciplinar);
+router.post("/conexoesInterdisciplinares", verifyToken, criarConexaoInterdisciplinar);
 router.get("/conexoesInterdisciplinares", listarConexoesInterdisciplinares);
-router.put("/conexoesInterdisciplinares/:id", atualizarConexaoInterdisciplinar);
-router.delete("/conexoesInterdisciplinares/:id", deletarConexaoInterdisciplinar);
+router.put("/conexoesInterdisciplinares/:id", verifyToken, atualizarConexaoInterdisciplinar);
+router.delete("/conexoesInterdisciplinares/:id", verifyToken, deletarConexaoInterdisciplinar);
 
-router.post("/conexoesTeia", criarConexaoTeia);
+router.post("/conexoesTeia", verifyToken, criarConexaoTeia);
 router.get("/conexoesTeia", listarConexoesTeia);
-router.put("/conexoesTeia/:id", atualizarConexaoTeia);
-router.delete("/conexoesTeia/:id", deletarConexaoTeia);
+router.put("/conexoesTeia/:id", verifyToken, atualizarConexaoTeia);
+router.delete("/conexoesTeia/:id", verifyToken, deletarConexaoTeia);
 
-router.post("/escolaParaVida", criarEscolaParaVida);
+router.post("/escolaParaVida", verifyToken, criarEscolaParaVida);
 router.get("/escolaParaVida", listarEscolaParaVida);
-router.put("/escolaParaVida/:id", atualizarEscolaParaVida);
-router.delete("/escolaParaVida/:id", deletarEscolaParaVida);
+router.put("/escolaParaVida/:id", verifyToken, atualizarEscolaParaVida);
+router.delete("/escolaParaVida/:id", verifyToken, deletarEscolaParaVida);
 
-router.post("/fundamentosTeoricos", criarFundamentoTeorico);
+router.post("/fundamentosTeoricos", verifyToken, criarFundamentoTeorico);
 router.get("/fundamentosTeoricos", listarFundamentosTeoricos);
-router.put("/fundamentosTeoricos/:id", atualizarFundamentoTeorico);
-router.delete("/fundamentosTeoricos/:id", deletarFundamentoTeorico);
+router.put("/fundamentosTeoricos/:id", verifyToken, atualizarFundamentoTeorico);
+router.delete("/fundamentosTeoricos/:id", verifyToken, deletarFundamentoTeorico);
 
-router.post("/participacoesEmSala", criarParticipacaoEmSala);
+router.post("/participacoesEmSala", verifyToken, criarParticipacaoEmSala);
 router.get("/participacoesEmSala", listarParticipacoesEmSala);
-router.put("/participacoesEmSala/:id", atualizarParticipacaoEmSala);
-router.delete("/participacoesEmSala/:id", deletarParticipacaoEmSala);
+router.put("/participacoesEmSala/:id", verifyToken, atualizarParticipacaoEmSala);
+router.delete("/participacoesEmSala/:id", verifyToken, deletarParticipacaoEmSala);
 
-router.post("/projetosTrabalhos", upload.single("foto"), criarProjetoTrabalho);
+router.post("/projetosTrabalhos", verifyToken, upload.single("foto"), criarProjetoTrabalho);
 router.get("/projetosTrabalhos", listarProjetosTrabalho);
-router.put("/projetosTrabalhos/:id", upload.single("foto"), atualizarProjetoTrabalho);
-router.delete("/projetosTrabalhos/:id", deletarProjetoTrabalho);
+router.put("/projetosTrabalhos/:id", verifyToken, upload.single("foto"), atualizarProjetoTrabalho);
+router.delete("/projetosTrabalhos/:id", verifyToken, deletarProjetoTrabalho);
 
-router.post("/projetosTrabalhos/:projetoId/tags", criarTagProjetoTrabalho);
+router.post("/projetosTrabalhos/:projetoId/tags", verifyToken, criarTagProjetoTrabalho);
 router.get("/projetosTrabalhos/:projetoId/tags", listarTagsProjetoTrabalho);
-router.put("/projetosTrabalhos/tags/:id", atualizarTagProjetoTrabalho);
-router.delete("/projetosTrabalhos/tags/:id", deletarTagProjetoTrabalho);
+router.put("/projetosTrabalhos/tags/:id", verifyToken, atualizarTagProjetoTrabalho);
+router.delete("/projetosTrabalhos/tags/:id", verifyToken, deletarTagProjetoTrabalho);
 
-router.post("/reflexoesCriticas", criarReflexaoCritica);
+router.post("/reflexoesCriticas", verifyToken, criarReflexaoCritica);
 router.get("/reflexoesCriticas", listarReflexoesCriticas);
-router.put("/reflexoesCriticas/:id", atualizarReflexaoCritica);
-router.delete("/reflexoesCriticas/:id", deletarReflexaoCritica);
+router.put("/reflexoesCriticas/:id", verifyToken, atualizarReflexaoCritica);
+router.delete("/reflexoesCriticas/:id", verifyToken, deletarReflexaoCritica);
 
-router.post("/reflexoesHabilidades", criarReflexaoHabilidade);
+router.post("/reflexoesHabilidades", verifyToken, criarReflexaoHabilidade);
 router.get("/reflexoesHabilidades", listarReflexoesHabilidades);
-router.put("/reflexoesHabilidades/:id", atualizarReflexaoHabilidade);
-router.delete("/reflexoesHabilidades/:id", deletarReflexaoHabilidade);
+router.put("/reflexoesHabilidades/:id", verifyToken, atualizarReflexaoHabilidade);
+router.delete("/reflexoesHabilidades/:id", verifyToken, deletarReflexaoHabilidade);
 
 export default router;

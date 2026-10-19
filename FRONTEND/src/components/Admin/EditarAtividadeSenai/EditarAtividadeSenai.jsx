@@ -333,7 +333,11 @@ const EditarAtividadeSenai = () => {
             <span className="icone-edicao-senai">≡</span>
             Minhas atividades
           </button>
-          <Link className="item-edicao-senai" to="/admin/login">
+          <Link
+            className="item-edicao-senai"
+            to="/admin/login"
+            onClick={() => localStorage.removeItem("token")}
+          >
             <span className="icone-edicao-senai">↪</span>
             Sair
           </Link>

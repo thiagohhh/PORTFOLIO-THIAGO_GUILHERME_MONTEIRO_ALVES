@@ -6,12 +6,13 @@ import {
   deletarQuemSouEu,
 } from "../controller/quemSouEuController.js";
 import upload from "../config/multer.js";
+import { verifyToken } from "../middleware/verifyToken.js";
 
 const router = Router();
 
-router.post("/", upload.single("foto"), criarQuemSouEu);
+router.post("/", verifyToken, upload.single("foto"), criarQuemSouEu);
 router.get("/", listarQuemSouEu);
-router.put("/:id", upload.single("foto"), atualizarQuemSouEu);
-router.delete("/:id", deletarQuemSouEu);
+router.put("/:id", verifyToken, upload.single("foto"), atualizarQuemSouEu);
+router.delete("/:id", verifyToken, deletarQuemSouEu);
 
 export default router;

@@ -245,7 +245,11 @@ const EditarAtividadeSesi = () => {
             <span className="icone-edicao-sesi">≡</span>
             Minhas atividades
           </button>
-          <Link className="item-edicao-sesi" to="/admin/login">
+          <Link
+            className="item-edicao-sesi"
+            to="/admin/login"
+            onClick={() => localStorage.removeItem("token")}
+          >
             <span className="icone-edicao-sesi">↪</span>
             Sair
           </Link>

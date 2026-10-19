@@ -40,7 +40,9 @@ const EditarQuemSouEu = () => {
           <Link to="/admin/atividades/nova/senai">Enviar atividade</Link>
           <Link to="/admin/atividades/nova/sesi">Minhas atividades</Link>
           <span className="item-menu-perfil-ativo" aria-current="page">Quem sou eu</span>
-          <Link to="/admin/login">Sair</Link>
+          <Link to="/admin/login" onClick={() => localStorage.removeItem("token")}>
+            Sair
+          </Link>
         </aside>
 
         <section className="area-editar-perfil">
