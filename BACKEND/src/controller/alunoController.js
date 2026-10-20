@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import Aluno from "../models/Aluno.js";
 import tratarErros from "../utils/tratarErros.js";
+import { request, response } from "express";
 
 export const criarAluno = async (request, response) => {
   try {
@@ -39,3 +40,7 @@ export const criarAluno = async (request, response) => {
     return tratarErros(request, response);
   }
 };
+
+export const atualizarAluno = async (request, response) =>{
+  
+}

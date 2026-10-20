@@ -1,4 +1,5 @@
-import {conn} from "./config/conn.js";
+import 'dotenv/config'; 
+import conn from "./config/conn.js";
 import app from "./app.js";
 import "./models/index.js";
 

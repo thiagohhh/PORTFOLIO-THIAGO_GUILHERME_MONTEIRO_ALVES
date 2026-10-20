@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { criarAluno } from "../controller/alunoController.js";
 import { login } from "../controller/autenticacaoController.js";
+import { verifyToken } from "../middleware/verifyToken.js";
 
 const router = Router();
 
