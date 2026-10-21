@@ -612,8 +612,11 @@ export const criarProjeto = async (request, response) => {
       foto,
     });
     return response.status(201).json(projeto);
-  } catch {
-    return tratarErros(request, response);
+  } catch (err) {
+  
+    return response.status(500).json({ 
+      message: "Erro interno do servidor." 
+    });
   }
 };
 export const listarProjetos = async (request, response) => {

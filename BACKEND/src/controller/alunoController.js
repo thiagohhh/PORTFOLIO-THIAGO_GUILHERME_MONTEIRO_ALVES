@@ -1,27 +1,30 @@
 import bcrypt from "bcrypt";
 import Aluno from "../models/Aluno.js";
 import tratarErros from "../utils/tratarErros.js";
-import { request, response } from "express";
+
 
 export const criarAluno = async (request, response) => {
   try {
     const { nome, email, senha } = request.body;
 
     if (!nome) {
-      return response.status(400).json({
-        message: "O nome é obrigatório.",
-      });
+      return response.status(400).json({ message: "O nome é obrigatório." });
     }
 
     if (!email) {
-      return response.status(400).json({
-        message: "O e-mail é obrigatório.",
-      });
+      return response.status(400).json({ message: "O e-mail é obrigatório." });
     }
 
     if (!senha) {
+      return response.status(400).json({ message: "A senha é obrigatória." });
+    }
+
+    const totalAlunos = await Aluno.count();
+
+
+    if (totalAlunos >= 1) {
       return response.status(400).json({
-        message: "A senha é obrigatória.",
+        message: "O sistema já possui um usuário cadastrado.",
       });
     }
 
@@ -36,7 +39,7 @@ export const criarAluno = async (request, response) => {
       nome: aluno.nome,
       email: aluno.email,
     });
-  } catch {
+  } catch (error) {
     return tratarErros(request, response);
   }
 };

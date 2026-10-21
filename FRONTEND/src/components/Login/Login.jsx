@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Rodape from "../Rodape/Rodape";
@@ -34,10 +33,17 @@ const Login = () => {
       }
 
       localStorage.setItem("token", resultado.token);
-      localStorage.setItem("alunoId", resultado.usuario.id);
-      navigate(location.state?.from?.pathname || "/admin/atividades/nova/senai", {
-        replace: true,
-      });
+
+      const idDoAluno =
+        resultado.aluno?.id || resultado.usuario?.id || resultado.id;
+      localStorage.setItem("alunoId", idDoAluno);
+
+      navigate(
+        location.state?.from?.pathname || "/admin/atividades/nova/senai",
+        {
+          replace: true,
+        },
+      );
     } catch (error) {
       setMensagem(
         error instanceof TypeError
@@ -59,7 +65,10 @@ const Login = () => {
       </header>
 
       <main className="conteudo-login">
-        <section className="apresentacao-login" aria-labelledby="titulo-area-aluno">
+        <section
+          className="apresentacao-login"
+          aria-labelledby="titulo-area-aluno"
+        >
           <span className="etiqueta-login">LOGIN</span>
 
           <div className="marca-area-aluno">
@@ -102,7 +111,11 @@ const Login = () => {
               required
             />
 
-            <button className="botao-entrar-login" type="submit" disabled={enviando}>
+            <button
+              className="botao-entrar-login"
+              type="submit"
+              disabled={enviando}
+            >
               {enviando ? "Entrando..." : "Entrar"}
             </button>
 

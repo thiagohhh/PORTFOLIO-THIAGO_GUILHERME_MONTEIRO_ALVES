@@ -13,7 +13,6 @@ import iconeGaleria from "../../../assets/imgs/senai/icone-galeria.svg";
 
 import "./CadastroAtividadeSenai.css";
 
-// Abas e rotas da API
 const abas = [
   "Projetos",
   "Códigos",
@@ -23,7 +22,6 @@ const abas = [
   "Autoavaliação",
   "Competências",
 ];
-
 const rotas = {
   Projetos: "/senai/projetos",
   Códigos: "/senai/codigos",
@@ -33,8 +31,6 @@ const rotas = {
   Autoavaliação: "/senai/autoavaliacoes",
   Competências: "/senai/competencias",
 };
-
-// Quais abas enviam arquivo
 const abasComArquivo = ["Projetos", "Galeria", "Relatórios"];
 
 const CadastroAtividadeSenai = () => {
@@ -48,6 +44,7 @@ const CadastroAtividadeSenai = () => {
   const [tituloProjeto, setTituloProjeto] = useState("");
   const [textoCard, setTextoCard] = useState("");
   const [nomeFoto, setNomeFoto] = useState("");
+  const [fotoArquivo, setFotoArquivo] = useState(null);
   const [etiquetas, setEtiquetas] = useState([]);
   const [novaEtiqueta, setNovaEtiqueta] = useState("");
 
@@ -61,11 +58,13 @@ const CadastroAtividadeSenai = () => {
   const [tituloMidia, setTituloMidia] = useState("");
   const [descricaoMidia, setDescricaoMidia] = useState("");
   const [nomeArquivoGaleria, setNomeArquivoGaleria] = useState("");
+  const [arquivoGaleria, setArquivoGaleria] = useState(null);
 
   // Relatórios
   const [tituloRelatorio, setTituloRelatorio] = useState("");
   const [textoRelatorio, setTextoRelatorio] = useState("");
   const [nomePdf, setNomePdf] = useState("");
+  const [arquivoPdf, setArquivoPdf] = useState(null);
 
   // Aprendizagens
   const [tituloAprendizagem, setTituloAprendizagem] = useState("");
@@ -80,7 +79,6 @@ const CadastroAtividadeSenai = () => {
   // Competências
   const [tituloCompetencia, setTituloCompetencia] = useState("");
 
-  // ---------- Etiquetas ----------
   function adicionarEtiqueta() {
     const texto = novaEtiqueta.trim();
     if (!texto || etiquetas.includes(texto)) return;
@@ -92,12 +90,12 @@ const CadastroAtividadeSenai = () => {
     setEtiquetas(etiquetas.filter((e) => e !== etiqueta));
   }
 
-  // ---------- Limpar formulário ----------
   function limparFormulario() {
     setUnidadeCurricular("");
     setTituloProjeto("");
     setTextoCard("");
     setNomeFoto("");
+    setFotoArquivo(null);
     setEtiquetas([]);
     setNovaEtiqueta("");
     setTituloCodigo("");
@@ -119,26 +117,57 @@ const CadastroAtividadeSenai = () => {
     setTituloCompetencia("");
     setMensagem("");
   }
-
   // ---------- Enviar ----------
   async function enviarFormulario(evento) {
     evento.preventDefault();
     setMensagem("");
 
-    const alunoId = localStorage.getItem("alunoId");
+    const alunoIdArmazenado = localStorage.getItem("alunoId");
+    const alunoId =
+      alunoIdArmazenado && alunoIdArmazenado !== "undefined"
+        ? Number(alunoIdArmazenado)
+        : 1;
+
     let opcoes;
 
-    // Abas com arquivo usam FormData
     if (abasComArquivo.includes(abaAtiva)) {
-      const dados = new FormData(evento.currentTarget);
+      const dados = new FormData();
       dados.append("aluno_id", alunoId);
+      dados.append("unidade_curricular", unidadeCurricular);
 
-      // etiquetas (se tiver)
-      etiquetas.forEach((et) => dados.append("etiquetas[]", et));
+      if (abaAtiva === "Projetos") {
+        dados.append("titulo_projeto", tituloProjeto);
+        dados.append("texto_card", textoCard);
+
+        if (fotoArquivo) {
+          dados.append("foto", fotoArquivo);
+        }
+        etiquetas.forEach((et) => dados.append("etiquetas[]", et));
+      }
+
+      if (abaAtiva === "Galeria") {
+        dados.append("tipo_midia", tipoMidia);
+        dados.append("titulo_midia", tituloMidia);
+        dados.append("explicado_a_midia", descricaoMidia);
+
+        if (arquivoGaleria) {
+          dados.append("arquivo", arquivoGaleria);
+        }
+      }
+
+      if (abaAtiva === "Relatórios") {
+        dados.append("titulo_relatorio", tituloRelatorio);
+        dados.append("paragrafo_relatorio", textoRelatorio);
+
+        // CORREÇÃO: Passa o arquivo binário do PDF capturado pelo AreaArquivo
+        if (arquivoPdf) {
+          dados.append("pdf", arquivoPdf);
+        }
+        etiquetas.forEach((et) => dados.append("etiquetas[]", et));
+      }
 
       opcoes = { method: "POST", body: dados };
     } else {
-      // Abas sem arquivo usam JSON
       const dados = {
         aluno_id: alunoId,
         unidade_curricular: unidadeCurricular,
@@ -152,13 +181,14 @@ const CadastroAtividadeSenai = () => {
       if (abaAtiva === "Aprendizagens") {
         dados.titulo_aprendizagem = tituloAprendizagem;
         dados.descricao_aprendizagem = descricaoAprendizagem;
-        dados.nivel_estrelas = estrelas;
+        dados.nivel_estrelas = Number(estrelas) || 0;
       }
       if (abaAtiva === "Autoavaliação") {
-        dados.nota_bolinhas = bolinhas;
-        dados.percentual = percentual;
+        dados.nota_bolinhas = Number(bolinhas) || 0;
+        dados.percentual = Number(percentual) || 0;
         dados.justificativa_texto = justificativa;
       }
+
       if (abaAtiva === "Competências") {
         dados.titulo_competencia = tituloCompetencia;
       }
@@ -173,65 +203,69 @@ const CadastroAtividadeSenai = () => {
     try {
       const resposta = await chamarApi(rotas[abaAtiva], opcoes);
       const resultado = await resposta.json();
-      setMensagem(resposta.ok ? "Atividade enviada!" : resultado.message || "Erro ao enviar");
+
+      setMensagem(
+        resposta.ok
+          ? "Atividade enviada!"
+          : resultado.message || "Erro ao enviar",
+      );
       if (resposta.ok) limparFormulario();
     } catch {
       setMensagem("Não foi possível conectar ao servidor.");
     }
   }
 
-  // ---------- Área de arquivo (clique + arrastar) ----------
-  function AreaArquivo({ id, name, accept, icone, rotulo, nomeArquivo, setNomeArquivo }) {
+ function AreaArquivo({ id, name, accept, icone, rotulo, nomeArquivo, setNomeArquivo, setFotoArquivo }) {
+  return (
+  
+    <label htmlFor={id} className="area-arquivo-senai" style={{ cursor: "pointer" }}>
+      <img src={icone} alt="" />
+      <strong>Clique para enviar ({rotulo})</strong>
+      <span>{nomeArquivo || "Nenhum arquivo selecionado"}</span>
+      
+      <input
+        id={id}
+        name={name}
+        type="file"
+        accept={accept}
+        style={{ display: "none" }}
+        onChange={(e) => {
+          const arquivo = e.target.files?.[0];
+          if (arquivo) {
+            setNomeArquivo(arquivo.name);
+            setFotoArquivo(arquivo);
+          }
+        }}
+      />
+    </label>
+  );
+}
+
+// logica da estrela e da bolinh
+  function Marcadores({ valor, setValor, tipo }) {
+     // o ícone ativo será a estrela amarela. Se não, será o círculo amarelo.
+    const ativo = tipo === "estrelas" ? estrelaAmarela : circuloAmarelo;
+
+     // o ícone inativo será a estrela branca. Se não, será o círculo branco.
+    const inativo = tipo === "estrelas" ? estrelaBranca : circuloBranco; 
+
     return (
       <div
-        className="area-arquivo-senai"
-        onClick={() => document.getElementById(id)?.click()}
-        onDragOver={(e) => e.preventDefault()}
-        onDrop={(e) => {
-          e.preventDefault();
-          const arquivo = e.dataTransfer.files?.[0];
-          if (!arquivo) return;
-          const input = document.getElementById(id);
-          if (input) {
-            const dt = new DataTransfer();
-            dt.items.add(arquivo);
-            input.files = dt.files;
-          }
-          setNomeArquivo(arquivo.name);
-        }}
+      // Se o tipo for "estrelas", ele adiciona a classe "marcadores-estrelas-senai" junto com a classe padrão
+        className={`marcadores-senai ${tipo === "estrelas" ? "marcadores-estrelas-senai" : ""}`}
       >
-        <img src={icone} alt="" />
-        <strong>Clique ou arraste para enviar ({rotulo})</strong>
-        <span>{nomeArquivo || "Nenhum arquivo selecionado"}</span>
-        <input
-          id={id}
-          name={name}
-          type="file"
-          accept={accept}
-          style={{ display: "none" }}
-          onClick={(e) => e.stopPropagation()}
-          onChange={(e) => setNomeArquivo(e.target.files?.[0]?.name || "")}
-        />
-      </div>
-    );
-  }
-
-  // ---------- Estrelas / bolinhas ----------
-  function Marcadores({ valor, setValor, tipo }) {
-    const ativo = tipo === "estrelas" ? estrelaAmarela : circuloAmarelo;
-    const inativo = tipo === "estrelas" ? estrelaBranca : circuloBranco;
-
-    return (
-      <div className={`marcadores-senai ${tipo === "estrelas" ? "marcadores-estrelas-senai" : ""}`}>
+           {/* Cria uma lista de 1 a 5 e repete o código do botão para cada número (n) */}
         {[1, 2, 3, 4, 5].map((n) => (
+           // Quando o botão é clicado, atualiza o valor da nota para o número correspondente (n)
           <button type="button" key={n} onClick={() => setValor(n)}>
+              {/* Se o número do botão (n) for menor ou igual à nota atual (valor), 
+              mostra o ícone ativo (colorido). Caso contrário, mostra o inativo (vazio). */}
             <img src={n <= valor ? ativo : inativo} alt="" />
           </button>
         ))}
       </div>
     );
   }
-
   // ---------- Campos de cada aba ----------
   function camposDaAba() {
     if (abaAtiva === "Projetos") {
@@ -264,6 +298,7 @@ const CadastroAtividadeSenai = () => {
               rotulo="foto do projeto"
               nomeArquivo={nomeFoto}
               setNomeArquivo={setNomeFoto}
+              setFotoArquivo={setFotoArquivo}
             />
           </div>
           <div className="campo-senai">
@@ -286,7 +321,11 @@ const CadastroAtividadeSenai = () => {
               {etiquetas.length > 0 && (
                 <div className="etiquetas-senai">
                   {etiquetas.map((et) => (
-                    <button type="button" key={et} onClick={() => removerEtiqueta(et)}>
+                    <button
+                      type="button"
+                      key={et}
+                      onClick={() => removerEtiqueta(et)}
+                    >
                       {et} ×
                     </button>
                   ))}
@@ -329,7 +368,6 @@ const CadastroAtividadeSenai = () => {
         </>
       );
     }
-
     if (abaAtiva === "Galeria") {
       return (
         <>
@@ -371,12 +409,12 @@ const CadastroAtividadeSenai = () => {
               rotulo="arquivo da galeria"
               nomeArquivo={nomeArquivoGaleria}
               setNomeArquivo={setNomeArquivoGaleria}
+              setFotoArquivo={setArquivoGaleria}
             />
           </div>
         </>
       );
     }
-
     if (abaAtiva === "Relatórios") {
       return (
         <>
@@ -407,6 +445,7 @@ const CadastroAtividadeSenai = () => {
               rotulo="arquivo pdf"
               nomeArquivo={nomePdf}
               setNomeArquivo={setNomePdf}
+              setFotoArquivo={setArquivoPdf}
             />
           </div>
           <div className="campo-senai">
@@ -429,7 +468,11 @@ const CadastroAtividadeSenai = () => {
               {etiquetas.length > 0 && (
                 <div className="etiquetas-senai">
                   {etiquetas.map((et) => (
-                    <button type="button" key={et} onClick={() => removerEtiqueta(et)}>
+                    <button
+                      type="button"
+                      key={et}
+                      onClick={() => removerEtiqueta(et)}
+                    >
                       {et} ×
                     </button>
                   ))}
@@ -440,7 +483,6 @@ const CadastroAtividadeSenai = () => {
         </>
       );
     }
-
     if (abaAtiva === "Aprendizagens") {
       return (
         <>
@@ -461,17 +503,24 @@ const CadastroAtividadeSenai = () => {
             />
           </div>
           <div className="campo-senai">
-            <Marcadores valor={estrelas} setValor={setEstrelas} tipo="estrelas" />
+            <Marcadores
+              valor={estrelas}
+              setValor={setEstrelas}
+              tipo="estrelas"
+            />
           </div>
         </>
       );
     }
-
     if (abaAtiva === "Autoavaliação") {
       return (
         <>
           <div className="campo-senai">
-            <Marcadores valor={bolinhas} setValor={setBolinhas} tipo="bolinhas" />
+            <Marcadores
+              valor={bolinhas}
+              setValor={setBolinhas}
+              tipo="bolinhas"
+            />
           </div>
           <div className="campo-senai">
             <div className="entrada-percentual-senai">
@@ -484,7 +533,10 @@ const CadastroAtividadeSenai = () => {
                 onChange={(e) => setPercentual(e.target.value)}
               />
               <span>%</span>
-              <small>Digite um valor de 0 a 100 para definir o preenchimento da barra.</small>
+              <small>
+                Digite um valor de 0 a 100 para definir o preenchimento da
+                barra.
+              </small>
             </div>
           </div>
           <div className="campo-senai">
@@ -498,7 +550,6 @@ const CadastroAtividadeSenai = () => {
         </>
       );
     }
-
     if (abaAtiva === "Competências") {
       return (
         <div className="campo-senai">
@@ -511,11 +562,8 @@ const CadastroAtividadeSenai = () => {
         </div>
       );
     }
-
     return null;
   }
-
-  // ---------- Tela ----------
   return (
     <div className="pagina-admin-senai">
       <header className="cabecalho-admin-senai">
@@ -552,7 +600,10 @@ const CadastroAtividadeSenai = () => {
             <p>Nova atividade · {abaAtiva}</p>
           </header>
 
-          <form className="formulario-cadastro-senai" onSubmit={enviarFormulario}>
+          <form
+            className="formulario-cadastro-senai"
+            onSubmit={enviarFormulario}
+          >
             {/* 1 - Instituição */}
             <fieldset className="grupo-selecao-senai">
               <legend>

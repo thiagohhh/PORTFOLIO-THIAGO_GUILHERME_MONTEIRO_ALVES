@@ -12,7 +12,7 @@ export const verifyToken = async (request, response, next) => {
       });
     }
 
-  
+
     request.usuario = await getUserByToken(token);
 
 

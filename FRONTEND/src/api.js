@@ -15,7 +15,7 @@ export async function chamarApi(caminho, opcoes = {}) {
     },
   });
 
-  // Se o token estiver inválido, manda pro login
+
   if (resposta.status === 401) {
     localStorage.removeItem("token");
     window.location.href = "/admin/login";
@@ -23,3 +23,4 @@ export async function chamarApi(caminho, opcoes = {}) {
 
   return resposta;
 }
+
