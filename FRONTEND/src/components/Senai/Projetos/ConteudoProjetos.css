@@ -51,6 +51,23 @@
   font-size: 12px;
 }
 
+.placeholder-projeto {
+  width: 100%;
+  height: 180px;          /* ajuste a altura que você quiser */
+  overflow: hidden;
+  background-color: #e5a800; /* a cor amarela de fundo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholder-projeto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;      /* a imagem preenche a caixa sem distorcer */
+  display: block;
+}
+
 @media (max-width: 600px) {
   .grade-senai-projetos {
     grid-template-columns: repeat(2, minmax(0, 1fr));

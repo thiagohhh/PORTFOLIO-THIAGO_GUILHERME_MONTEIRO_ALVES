@@ -1,10 +1,11 @@
 import "./BotaoSecao.css";
 
+
 const BotaoSecao = ({ numero, texto, ativo, aoClicar }) => {
   return (
     <button
-      className={ativo ? "item-menu-conteudo ativo" : "item-menu-conteudo"}
       type="button"
+      className={ativo ? "item-menu-conteudo ativo" : "item-menu-conteudo"}
       onClick={aoClicar}
     >
       <span className="numero-menu">{numero}</span>

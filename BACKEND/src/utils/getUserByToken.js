@@ -1,26 +1,15 @@
 import jwt from "jsonwebtoken";
-import Aluno from "../models/Aluno.js";
+import { Aluno } from "../models/index.js";
 
 export const getUserByToken = async (token) => {
-  if (!token) {
-    const error = new Error("Acesso negado.");
-    error.statusCode = 401;
-    throw error;
-  }
 
-  if (!process.env.JWT_SECRET) {
-    throw new Error("JWT_SECRET não foi configurado.");
-  }
+  const dados = jwt.verify(token, process.env.JWT_SECRET);
 
-  const decoded = jwt.verify(token, process.env.JWT_SECRET, {
-    algorithms: ["HS256"],
-  });
-  const aluno = await Aluno.findByPk(decoded.id);
-
+  const aluno = await Aluno.findByPk(dados.id);
   if (!aluno) {
-    const error = new Error("Aluno não encontrado.");
-    error.statusCode = 401;
-    throw error;
+    const erro = new Error("Usuário não encontrado.");
+    erro.statusCode = 401;
+    throw erro;
   }
 
   return aluno;

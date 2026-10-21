@@ -34,6 +34,7 @@ const Login = () => {
       }
 
       localStorage.setItem("token", resultado.token);
+      localStorage.setItem("alunoId", resultado.usuario.id);
       navigate(location.state?.from?.pathname || "/admin/atividades/nova/senai", {
         replace: true,
       });

@@ -1,34 +1,22 @@
 import jwt from "jsonwebtoken";
-import { tratarErro } from "./errorHandle.js";
 
-export const createUserToken = async (usuario, response) => {
-  try {
-    if (!process.env.JWT_SECRET) {
-      throw new Error("JWT_SECRET não foi configurado.");
-    }
+export const createUserToken = (aluno, response) => {
 
-    const token = jwt.sign(
-      {
-        id: usuario.id,
-        email: usuario.email,
-      },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "12h",
-      },
-    );
+  const payload = {
+    id: aluno.id,
+    nome: aluno.nome,
+    email: aluno.email,
+  };
 
-    return response.status(200).json({
-      success: true,
-      message: "Autenticação realizada.",
-      token,
-      usuario: {
-        id: usuario.id,
-        nome: usuario.nome,
-        email: usuario.email,
-      },
-    });
-  } catch (error) {
-    return tratarErro(error, response);
-  }
+
+  const token = jwt.sign(payload, process.env.JWT_SECRET, {
+    expiresIn: "7d", 
+  });
+
+  return response.status(200).json({
+    message: "Login realizado com sucesso.",
+    token,
+    alunoId: aluno.id, 
+    nome: aluno.nome,
+  });
 };

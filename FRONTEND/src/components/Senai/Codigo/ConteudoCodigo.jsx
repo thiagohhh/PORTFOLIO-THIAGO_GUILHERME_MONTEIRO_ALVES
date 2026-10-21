@@ -1,25 +1,38 @@
+import { useEffect, useState } from "react";
+import { chamarApi } from "../../../api";
 import "./ConteudoCodigo.css";
 
-const exemplos = [
-  {
-    titulo: "Estrutura HTML básica",
-    codigo: `<main>\n  <h1>Meu projeto</h1>\n  <p>Descrição do conteúdo</p>\n</main>`,
-  },
-  {
-    titulo: "Manipulação do DOM",
-    codigo: `const botao = document.querySelector("button");\n\nbotao.addEventListener("click", () => {\n  console.log("Ação executada");\n});`,
-  },
-];
-
 const ConteudoCodigo = () => {
+  const [codigos, setCodigos] = useState([]);
+  const [carregando, setCarregando] = useState(true);
+
+  useEffect(() => {
+    async function buscar() {
+      try {
+        const resposta = await chamarApi("/senai/codigos");
+        const dados = await resposta.json();
+        setCodigos(Array.isArray(dados) ? dados : []);
+      } catch (erro) {
+        console.error(erro);
+        setCodigos([]);
+      } finally {
+        setCarregando(false);
+      }
+    }
+    buscar();
+  }, []);
+
+  if (carregando) return <p>Carregando códigos...</p>;
+  if (codigos.length === 0) return <p>Nenhum código cadastrado ainda.</p>;
+
   return (
     <div className="grade-senai-codigo">
-      {exemplos.map((exemplo) => (
-        <article className="cartao-codigo" key={exemplo.titulo}>
-          <h3>{exemplo.titulo}</h3>
-          <p>Exemplo de código para documentar neste portfólio.</p>
+      {codigos.map((item) => (
+        <article className="cartao-codigo" key={item.id}>
+          <h3>{item.titulo_codigo}</h3>
+          <p>{item.descricao_linguagem}</p>
           <pre>
-            <code>{exemplo.codigo}</code>
+            <code>{item.bloco_codigo}</code>
           </pre>
         </article>
       ))}

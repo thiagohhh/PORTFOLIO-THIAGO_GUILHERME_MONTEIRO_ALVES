@@ -1,27 +1,46 @@
+import { useEffect, useState } from "react";
+import { chamarApi } from "../../../api";
 import "./ConteudoGaleria.css";
 
-const itensGaleria = [
-  { titulo: "Imagem 01", tipo: "Imagem" },
-  { titulo: "Vídeo 01", tipo: "Vídeo" },
-  { titulo: "Imagem 02", tipo: "Imagem" },
-];
-
 const ConteudoGaleria = () => {
+  const [itens, setItens] = useState([]);
+  const [carregando, setCarregando] = useState(true);
+
+  useEffect(() => {
+    async function buscar() {
+      try {
+        const resposta = await chamarApi("/senai/galeria");
+        const dados = await resposta.json();
+        setItens(Array.isArray(dados) ? dados : []);
+      } catch (erro) {
+        console.error(erro);
+        setItens([]);
+      } finally {
+        setCarregando(false);
+      }
+    }
+    buscar();
+  }, []);
+
+  if (carregando) return <p>Carregando galeria...</p>;
+  if (itens.length === 0) return <p>Nenhuma mídia cadastrada ainda.</p>;
+
   return (
     <div className="grade-senai-galeria">
-      {itensGaleria.map((item) => (
-        <article className="cartao-galeria" key={item.titulo}>
-          <div className="midia-galeria">
-            {item.tipo === "Vídeo" ? (
-              <span className="play-galeria" aria-label="Vídeo">
-                ▶
-              </span>
+      {itens.map((item) => (
+        <article className="cartao-galeria" key={item.id}>
+          <div className="area-midia">
+            {item.arquivo ? (
+              <img
+                src={`http://localhost:3333/${item.arquivo}`}
+                alt={item.titulo_midia}
+              />
             ) : (
-              "Imagem da atividade"
+              "Mídia"
             )}
           </div>
-          <h3>{item.titulo}</h3>
-          <p>Adicione uma legenda para esta evidência.</p>
+          <h3>{item.titulo_midia}</h3>
+          <p>{item.explicado_a_midia}</p>
         </article>
       ))}
     </div>

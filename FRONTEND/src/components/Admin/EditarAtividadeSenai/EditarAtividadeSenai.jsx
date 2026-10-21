@@ -1,10 +1,16 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Rodape from "../../Rodape/Rodape";
+import { chamarApi } from "../../../api";
+
 import circuloAmarelo from "../../../assets/imgs/senai/circulo-amarelo.png";
 import circuloBranco from "../../../assets/imgs/senai/circulo-branco.png";
 import estrelaAmarela from "../../../assets/imgs/senai/estrela-amarela.png";
 import estrelaBranca from "../../../assets/imgs/senai/estrela-branca.png";
+import iconeRelatorio from "../../../assets/imgs/senai/icone-relatorio.png";
+import iconeProjeto from "../../../assets/imgs/senai/icone-projeto.svg";
+import iconeGaleria from "../../../assets/imgs/senai/icone-galeria.svg";
+
 import "./EditarAtividadeSenai.css";
 
 const abas = [
@@ -17,477 +23,596 @@ const abas = [
   "Competências",
 ];
 
-const camposPorAba = {
-  Projetos: [
-    { nome: "titulo_projeto", rotulo: "Título do projeto" },
-    { nome: "texto_card", rotulo: "Texto do card", linhas: 2 },
-    { nome: "foto", rotulo: "Foto do projeto", tipo: "arquivo-imagem" },
-    { nome: "etiquetas", rotulo: "Etiquetas", tipo: "etiquetas" },
-  ],
-  Códigos: [
-    { nome: "titulo_codigo", rotulo: "Título do código" },
-    { nome: "descricao_linguagem", rotulo: "Linguagem" },
-    { nome: "bloco_codigo", rotulo: "Bloco de código", tipo: "codigo", linhas: 8 },
-  ],
-  Galeria: [
-    { nome: "tipo_midia", rotulo: "Tipo de mídia", tipo: "select", opcoes: ["Imagem", "Vídeo"] },
-    { nome: "titulo_midia", rotulo: "Título da mídia" },
-    { nome: "explicado_a_midia", rotulo: "Explicação da mídia", linhas: 2 },
-    { nome: "arquivo", rotulo: "Arquivo da mídia", tipo: "arquivo-midia" },
-  ],
-  Relatórios: [
-    { nome: "titulo_relatorio", rotulo: "Título do relatório" },
-    { nome: "paragrafo_relatorio", rotulo: "Parágrafo do relatório", linhas: 3 },
-    { nome: "pdf", rotulo: "Arquivo PDF", tipo: "arquivo-pdf" },
-    { nome: "etiquetas", rotulo: "Etiquetas", tipo: "etiquetas" },
-  ],
-  Aprendizagens: [
-    { nome: "titulo_aprendizagem", rotulo: "Título da aprendizagem" },
-    { nome: "descricao_aprendizagem", rotulo: "Descrição da aprendizagem", linhas: 2 },
-    { nome: "nivel_estrelas", rotulo: "Nível (estrelas)", tipo: "estrelas" },
-  ],
-  Autoavaliação: [
-    { nome: "nota_bolinhas", rotulo: "Nota (bolinhas)", tipo: "bolinhas" },
-    {
-      nome: "percentual",
-      rotulo: "Progresso da barra",
-      tipo: "percentual",
-      ajuda: "Digite um valor de 0 a 100 para definir o preenchimento da barra.",
-    },
-    { nome: "justificativa_texto", rotulo: "Justificativa", linhas: 3 },
-  ],
-  Competências: [{ nome: "titulo_competencia", rotulo: "Título da competência" }],
+const rotas = {
+  Projetos: "/senai/projetos",
+  Códigos: "/senai/codigos",
+  Galeria: "/senai/galeria",
+  Relatórios: "/senai/relatorios",
+  Aprendizagens: "/senai/aprendizagens",
+  Autoavaliação: "/senai/autoavaliacoes",
+  Competências: "/senai/competencias",
 };
 
-const valoresIniciais = {
-  "Projetos-unidade_curricular": "Desenvolvimento Front-end",
-  "Projetos-titulo_projeto": "Loja virtual",
-  "Projetos-texto_card": "Texto já escrito pelo aluno.",
-  "Códigos-unidade_curricular": "Desenvolvimento Front-end",
-  "Códigos-titulo_codigo": "Manipulação DOM",
-  "Códigos-descricao_linguagem": "JavaScript",
-  "Códigos-bloco_codigo": "function somar(a, b) {\n  return a + b;\n}",
-  "Galeria-unidade_curricular": "Desenvolvimento Front-end",
-  "Galeria-tipo_midia": "Vídeo",
-  "Galeria-titulo_midia": "Demonstração do projeto",
-  "Galeria-explicado_a_midia": "Texto já escrito pelo aluno.",
-  "Relatórios-unidade_curricular": "Desenvolvimento Front-end",
-  "Relatórios-titulo_relatorio": "Relatório técnico 1",
-  "Relatórios-paragrafo_relatorio": "Texto já escrito pelo aluno.",
-  "Aprendizagens-unidade_curricular": "Desenvolvimento Front-end",
-  "Aprendizagens-titulo_aprendizagem": "Modelagem de dados",
-  "Aprendizagens-descricao_aprendizagem": "Texto já escrito pelo aluno.",
-  "Autoavaliação-unidade_curricular": "Desenvolvimento Front-end",
-  "Autoavaliação-percentual": "80",
-  "Autoavaliação-justificativa_texto": "Texto já escrito pelo aluno.",
-  "Competências-unidade_curricular": "Desenvolvimento Front-end",
-  "Competências-titulo_competencia": "Desenvolver aplicações web",
-};
-
-const etiquetasIniciais = {
-  "Projetos-etiquetas": ["HTML", "CSS", "JS"],
-  "Relatórios-etiquetas": ["Banco de dados", "API"],
-};
+const abasComArquivo = ["Projetos", "Galeria", "Relatórios"];
 
 const EditarAtividadeSenai = () => {
   const [abaAtiva, setAbaAtiva] = useState("Projetos");
-  const [valores, setValores] = useState(valoresIniciais);
-  const [avaliacoes, setAvaliacoes] = useState({
-    Aprendizagens: 4,
-    Autoavaliação: 4,
-  });
-  const [etiquetas, setEtiquetas] = useState(etiquetasIniciais);
-  const [etiquetaDigitada, setEtiquetaDigitada] = useState("");
-  const [arquivos, setArquivos] = useState({
-    Projetos: "atual",
-    Galeria: "atual",
-    Relatórios: "atual",
-  });
   const [mensagem, setMensagem] = useState("");
-  const [confirmarExclusao, setConfirmarExclusao] = useState(false);
-  const campos = camposPorAba[abaAtiva];
+  const [idItem, setIdItem] = useState(""); // id do item que será editado
 
-  const chaveCampo = (nome) => `${abaAtiva}-${nome}`;
+  const [unidadeCurricular, setUnidadeCurricular] = useState("");
 
-  const atualizarCampo = (nome, valor) => {
-    setValores((atuais) => ({ ...atuais, [chaveCampo(nome)]: valor }));
+  // Projetos
+  const [tituloProjeto, setTituloProjeto] = useState("");
+  const [textoCard, setTextoCard] = useState("");
+  const [nomeFoto, setNomeFoto] = useState("");
+  const [etiquetas, setEtiquetas] = useState([]);
+  const [novaEtiqueta, setNovaEtiqueta] = useState("");
+
+  // Códigos
+  const [tituloCodigo, setTituloCodigo] = useState("");
+  const [linguagem, setLinguagem] = useState("");
+  const [blocoCodigo, setBlocoCodigo] = useState("");
+
+  // Galeria
+  const [tipoMidia, setTipoMidia] = useState("");
+  const [tituloMidia, setTituloMidia] = useState("");
+  const [descricaoMidia, setDescricaoMidia] = useState("");
+  const [nomeArquivoGaleria, setNomeArquivoGaleria] = useState("");
+
+  // Relatórios
+  const [tituloRelatorio, setTituloRelatorio] = useState("");
+  const [textoRelatorio, setTextoRelatorio] = useState("");
+  const [nomePdf, setNomePdf] = useState("");
+
+  // Aprendizagens
+  const [tituloAprendizagem, setTituloAprendizagem] = useState("");
+  const [descricaoAprendizagem, setDescricaoAprendizagem] = useState("");
+  const [estrelas, setEstrelas] = useState(0);
+
+  // Autoavaliação
+  const [bolinhas, setBolinhas] = useState(0);
+  const [percentual, setPercentual] = useState("");
+  const [justificativa, setJustificativa] = useState("");
+
+  // Competências
+  const [tituloCompetencia, setTituloCompetencia] = useState("");
+
+  function adicionarEtiqueta() {
+    const texto = novaEtiqueta.trim();
+    if (!texto || etiquetas.includes(texto)) return;
+    setEtiquetas([...etiquetas, texto]);
+    setNovaEtiqueta("");
+  }
+
+  function removerEtiqueta(etiqueta) {
+    setEtiquetas(etiquetas.filter((e) => e !== etiqueta));
+  }
+
+  function limparFormulario() {
+    setIdItem("");
+    setUnidadeCurricular("");
+    setTituloProjeto("");
+    setTextoCard("");
+    setNomeFoto("");
+    setEtiquetas([]);
+    setNovaEtiqueta("");
+    setTituloCodigo("");
+    setLinguagem("");
+    setBlocoCodigo("");
+    setTipoMidia("");
+    setTituloMidia("");
+    setDescricaoMidia("");
+    setNomeArquivoGaleria("");
+    setTituloRelatorio("");
+    setTextoRelatorio("");
+    setNomePdf("");
+    setTituloAprendizagem("");
+    setDescricaoAprendizagem("");
+    setEstrelas(0);
+    setBolinhas(0);
+    setPercentual("");
+    setJustificativa("");
+    setTituloCompetencia("");
     setMensagem("");
-  };
+  }
 
-  const adicionarEtiqueta = (nome) => {
-    const etiqueta = etiquetaDigitada.trim();
-    const chave = chaveCampo(nome);
-    const atuais = etiquetas[chave] || [];
-    if (!etiqueta || atuais.includes(etiqueta)) return;
-
-    setEtiquetas((todas) => ({ ...todas, [chave]: [...atuais, etiqueta] }));
-    setEtiquetaDigitada("");
-  };
-
-  const removerEtiqueta = (nome, etiquetaRemover) => {
-    const chave = chaveCampo(nome);
-    setEtiquetas((todas) => ({
-      ...todas,
-      [chave]: (todas[chave] || []).filter((etiqueta) => etiqueta !== etiquetaRemover),
-    }));
-  };
-
-  const salvarAlteracoes = (evento) => {
+  async function salvarFormulario(evento) {
     evento.preventDefault();
-    setMensagem("Alterações não salvas: a edição ainda não está conectada ao servidor.");
-  };
+    setMensagem("");
 
-  const cancelarAlteracoes = () => {
-    setValores(valoresIniciais);
-    setAvaliacoes({ Aprendizagens: 4, Autoavaliação: 4 });
-    setEtiquetas(etiquetasIniciais);
-    setArquivos({ Projetos: "atual", Galeria: "atual", Relatórios: "atual" });
-    setMensagem("As alterações desta tela foram descartadas.");
-    setConfirmarExclusao(false);
-  };
+    if (!idItem) {
+      setMensagem("Informe o ID da atividade que deseja editar.");
+      return;
+    }
 
-  const renderizarEtiquetas = (campo) => {
-    const chave = chaveCampo(campo.nome);
-    const itens = etiquetas[chave] || [];
-    const id = `etiqueta-${abaAtiva.replace(/\s+/g, "-")}`;
+    const alunoId = localStorage.getItem("alunoId");
+    const caminho = `${rotas[abaAtiva]}/${idItem}`;
 
+    try {
+      let resposta;
+
+      if (abasComArquivo.includes(abaAtiva)) {
+        const dados = new FormData(evento.currentTarget);
+        dados.append("aluno_id", alunoId);
+        etiquetas.forEach((et) => dados.append("etiquetas[]", et));
+
+        resposta = await chamarApi(caminho, {
+          method: "PUT",
+          body: dados,
+        });
+      } else {
+        const dados = {
+          aluno_id: alunoId,
+          unidade_curricular: unidadeCurricular,
+        };
+
+        if (abaAtiva === "Códigos") {
+          dados.titulo_codigo = tituloCodigo;
+          dados.descricao_linguagem = linguagem;
+          dados.bloco_codigo = blocoCodigo;
+        }
+        if (abaAtiva === "Aprendizagens") {
+          dados.titulo_aprendizagem = tituloAprendizagem;
+          dados.descricao_aprendizagem = descricaoAprendizagem;
+          dados.nivel_estrelas = estrelas;
+        }
+        if (abaAtiva === "Autoavaliação") {
+          dados.nota_bolinhas = bolinhas;
+          dados.percentual = percentual;
+          dados.justificativa_texto = justificativa;
+        }
+        if (abaAtiva === "Competências") {
+          dados.titulo_competencia = tituloCompetencia;
+        }
+
+        resposta = await chamarApi(caminho, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(dados),
+        });
+      }
+
+      const resultado = await resposta.json();
+      setMensagem(
+        resposta.ok ? "Alterações salvas!" : resultado.message || "Erro ao salvar"
+      );
+    } catch {
+      setMensagem("Não foi possível conectar ao servidor.");
+    }
+  }
+
+  function AreaArquivo({ id, name, accept, icone, rotulo, nomeArquivo, setNomeArquivo }) {
     return (
-      <>
-        <div className="entrada-etiquetas-edicao-senai">
-          <input
-            id={id}
-            type="text"
-            placeholder="Digite e clique em Adicionar"
-            value={etiquetaDigitada}
-            onChange={(evento) => setEtiquetaDigitada(evento.target.value)}
-            onKeyDown={(evento) => {
-              if (evento.key === "Enter") {
-                evento.preventDefault();
-                adicionarEtiqueta(campo.nome);
-              }
-            }}
-          />
-          <button type="button" onClick={() => adicionarEtiqueta(campo.nome)}>
-            Adicionar
-          </button>
-        </div>
-        {itens.length > 0 && (
-          <div className="lista-etiquetas-edicao-senai">
-            {itens.map((etiqueta) => (
-              <button
-                type="button"
-                key={etiqueta}
-                aria-label={`Remover etiqueta ${etiqueta}`}
-                onClick={() => removerEtiqueta(campo.nome, etiqueta)}
-              >
-                {etiqueta} ×
-              </button>
-            ))}
-          </div>
-        )}
-      </>
+      <div
+        className="area-arquivo-senai"
+        onClick={() => document.getElementById(id)?.click()}
+        onDragOver={(e) => e.preventDefault()}
+        onDrop={(e) => {
+          e.preventDefault();
+          const arquivo = e.dataTransfer.files?.[0];
+          if (!arquivo) return;
+          const input = document.getElementById(id);
+          if (input) {
+            const dt = new DataTransfer();
+            dt.items.add(arquivo);
+            input.files = dt.files;
+          }
+          setNomeArquivo(arquivo.name);
+        }}
+      >
+        <img src={icone} alt="" />
+        <strong>Clique ou arraste para enviar ({rotulo})</strong>
+        <span>{nomeArquivo || "Nenhum arquivo selecionado"}</span>
+        <input
+          id={id}
+          name={name}
+          type="file"
+          accept={accept}
+          style={{ display: "none" }}
+          onClick={(e) => e.stopPropagation()}
+          onChange={(e) => setNomeArquivo(e.target.files?.[0]?.name || "")}
+        />
+      </div>
     );
-  };
+  }
 
-  const renderizarMarcadores = (campo) => {
-    const ehEstrela = campo.tipo === "estrelas";
-    const nota = avaliacoes[abaAtiva] || 0;
-    const selecionado = ehEstrela ? estrelaAmarela : circuloAmarelo;
-    const vazio = ehEstrela ? estrelaBranca : circuloBranco;
+  function Marcadores({ valor, setValor, tipo }) {
+    const ativo = tipo === "estrelas" ? estrelaAmarela : circuloAmarelo;
+    const inativo = tipo === "estrelas" ? estrelaBranca : circuloBranco;
 
     return (
       <div
-        className={`marcadores-edicao-senai ${ehEstrela ? "estrelas-edicao-senai" : ""}`}
-        role="group"
-        aria-label={`${campo.rotulo}: ${nota} de 5`}
+        className={`marcadores-senai ${tipo === "estrelas" ? "marcadores-estrelas-senai" : ""}`}
       >
-        {[1, 2, 3, 4, 5].map((valor) => (
-          <button
-            type="button"
-            key={valor}
-            aria-label={`${valor} de 5`}
-            aria-pressed={nota === valor}
-            onClick={() => setAvaliacoes((atuais) => ({ ...atuais, [abaAtiva]: valor }))}
-          >
-            <img src={valor <= nota ? selecionado : vazio} alt="" />
+        {[1, 2, 3, 4, 5].map((n) => (
+          <button type="button" key={n} onClick={() => setValor(n)}>
+            <img src={n <= valor ? ativo : inativo} alt="" />
           </button>
         ))}
-        <span>{nota} de 5</span>
       </div>
     );
-  };
+  }
 
-  const renderizarArquivo = (campo) => {
-    const id = `arquivo-${abaAtiva.replace(/\s+/g, "-")}`;
-    const aceita =
-      campo.tipo === "arquivo-pdf"
-        ? ".pdf,application/pdf"
-        : campo.tipo === "arquivo-imagem"
-          ? "image/*"
-          : "image/*,video/*";
-
-    return (
-      <div className="arquivo-edicao-senai">
-        <div className="miniatura-edicao-senai">{arquivos[abaAtiva] || "atual"}</div>
-        <label className="trocar-arquivo-edicao-senai" htmlFor={id}>
-          Trocar arquivo
-          <input
-            id={id}
-            type="file"
-            accept={aceita}
-            onChange={(evento) =>
-              setArquivos((atuais) => ({
-                ...atuais,
-                [abaAtiva]: evento.target.files?.[0]?.name || "atual",
-              }))
-            }
-          />
-        </label>
-      </div>
-    );
-  };
-
-  const renderizarCampo = (campo) => {
-    if (campo.tipo === "etiquetas") return renderizarEtiquetas(campo);
-    if (campo.tipo?.startsWith("arquivo")) return renderizarArquivo(campo);
-    if (campo.tipo === "estrelas" || campo.tipo === "bolinhas") {
-      return renderizarMarcadores(campo);
-    }
-    if (campo.tipo === "percentual") {
-      const valor = valores[chaveCampo(campo.nome)] ?? "";
+  function camposDaAba() {
+    if (abaAtiva === "Projetos") {
       return (
-        <div className="percentual-edicao-senai">
+        <>
+          <div className="campo-senai">
+            <input
+              name="titulo_projeto"
+              type="text"
+              placeholder="Título do projeto..."
+              value={tituloProjeto}
+              onChange={(e) => setTituloProjeto(e.target.value)}
+            />
+          </div>
+          <div className="campo-senai">
+            <textarea
+              name="texto_card"
+              rows={2}
+              placeholder="Texto do card..."
+              value={textoCard}
+              onChange={(e) => setTextoCard(e.target.value)}
+            />
+          </div>
+          <div className="campo-senai">
+            <AreaArquivo
+              id="foto-editar-projeto"
+              name="foto"
+              accept="image/*"
+              icone={iconeProjeto}
+              rotulo="foto do projeto"
+              nomeArquivo={nomeFoto}
+              setNomeArquivo={setNomeFoto}
+            />
+          </div>
+          <div className="campo-senai">
+            <div className="entrada-etiquetas-senai">
+              <input
+                type="text"
+                placeholder="Digite e pressione Enter ou Adicionar"
+                value={novaEtiqueta}
+                onChange={(e) => setNovaEtiqueta(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    adicionarEtiqueta();
+                  }
+                }}
+              />
+              <button type="button" onClick={adicionarEtiqueta}>
+                Adicionar
+              </button>
+              {etiquetas.length > 0 && (
+                <div className="etiquetas-senai">
+                  {etiquetas.map((et) => (
+                    <button type="button" key={et} onClick={() => removerEtiqueta(et)}>
+                      {et} ×
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </>
+      );
+    }
+
+    if (abaAtiva === "Códigos") {
+      return (
+        <>
+          <div className="campo-senai">
+            <input
+              type="text"
+              placeholder="Título do código..."
+              value={tituloCodigo}
+              onChange={(e) => setTituloCodigo(e.target.value)}
+            />
+          </div>
+          <div className="campo-senai">
+            <input
+              type="text"
+              placeholder="Linguagem..."
+              value={linguagem}
+              onChange={(e) => setLinguagem(e.target.value)}
+            />
+          </div>
+          <div className="campo-senai">
+            <textarea
+              className="editor-codigo-senai"
+              rows={8}
+              placeholder="Código..."
+              value={blocoCodigo}
+              onChange={(e) => setBlocoCodigo(e.target.value)}
+            />
+          </div>
+        </>
+      );
+    }
+
+    if (abaAtiva === "Galeria") {
+      return (
+        <>
+          <div className="campo-senai">
+            <select
+              name="tipo_midia"
+              value={tipoMidia}
+              onChange={(e) => setTipoMidia(e.target.value)}
+            >
+              <option value="">Selecione tipo de mídia...</option>
+              <option value="Imagem">Imagem</option>
+              <option value="Vídeo">Vídeo</option>
+            </select>
+          </div>
+          <div className="campo-senai">
+            <input
+              name="titulo_midia"
+              type="text"
+              placeholder="Título da mídia..."
+              value={tituloMidia}
+              onChange={(e) => setTituloMidia(e.target.value)}
+            />
+          </div>
+          <div className="campo-senai">
+            <textarea
+              name="explicado_a_midia"
+              rows={2}
+              placeholder="Descrição da mídia..."
+              value={descricaoMidia}
+              onChange={(e) => setDescricaoMidia(e.target.value)}
+            />
+          </div>
+          <div className="campo-senai">
+            <AreaArquivo
+              id="arquivo-editar-galeria"
+              name="arquivo"
+              accept="image/*,video/*"
+              icone={iconeGaleria}
+              rotulo="arquivo da galeria"
+              nomeArquivo={nomeArquivoGaleria}
+              setNomeArquivo={setNomeArquivoGaleria}
+            />
+          </div>
+        </>
+      );
+    }
+
+    if (abaAtiva === "Relatórios") {
+      return (
+        <>
+          <div className="campo-senai">
+            <input
+              name="titulo_relatorio"
+              type="text"
+              placeholder="Título do relatório..."
+              value={tituloRelatorio}
+              onChange={(e) => setTituloRelatorio(e.target.value)}
+            />
+          </div>
+          <div className="campo-senai">
+            <textarea
+              name="paragrafo_relatorio"
+              rows={3}
+              placeholder="Texto do relatório..."
+              value={textoRelatorio}
+              onChange={(e) => setTextoRelatorio(e.target.value)}
+            />
+          </div>
+          <div className="campo-senai">
+            <AreaArquivo
+              id="arquivo-editar-pdf"
+              name="pdf"
+              accept=".pdf,application/pdf"
+              icone={iconeRelatorio}
+              rotulo="arquivo pdf"
+              nomeArquivo={nomePdf}
+              setNomeArquivo={setNomePdf}
+            />
+          </div>
+        </>
+      );
+    }
+
+    if (abaAtiva === "Aprendizagens") {
+      return (
+        <>
+          <div className="campo-senai">
+            <input
+              type="text"
+              placeholder="Título da aprendizagem..."
+              value={tituloAprendizagem}
+              onChange={(e) => setTituloAprendizagem(e.target.value)}
+            />
+          </div>
+          <div className="campo-senai">
+            <textarea
+              rows={2}
+              placeholder="Descrição..."
+              value={descricaoAprendizagem}
+              onChange={(e) => setDescricaoAprendizagem(e.target.value)}
+            />
+          </div>
+          <div className="campo-senai">
+            <Marcadores valor={estrelas} setValor={setEstrelas} tipo="estrelas" />
+          </div>
+        </>
+      );
+    }
+
+    if (abaAtiva === "Autoavaliação") {
+      return (
+        <>
+          <div className="campo-senai">
+            <Marcadores valor={bolinhas} setValor={setBolinhas} tipo="bolinhas" />
+          </div>
+          <div className="campo-senai">
+            <div className="entrada-percentual-senai">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="0"
+                value={percentual}
+                onChange={(e) => setPercentual(e.target.value)}
+              />
+              <span>%</span>
+            </div>
+          </div>
+          <div className="campo-senai">
+            <textarea
+              rows={3}
+              placeholder="Justificativa..."
+              value={justificativa}
+              onChange={(e) => setJustificativa(e.target.value)}
+            />
+          </div>
+        </>
+      );
+    }
+
+    if (abaAtiva === "Competências") {
+      return (
+        <div className="campo-senai">
           <input
-            id={chaveCampo(campo.nome)}
-            name={campo.nome}
-            type="number"
-            min="0"
-            max="100"
-            required
-            aria-describedby={`${chaveCampo(campo.nome)}-ajuda`}
-            value={valor}
-            onChange={(evento) => atualizarCampo(campo.nome, evento.target.value)}
+            type="text"
+            placeholder="Título da competência..."
+            value={tituloCompetencia}
+            onChange={(e) => setTituloCompetencia(e.target.value)}
           />
-          <span>%</span>
-          <small id={`${chaveCampo(campo.nome)}-ajuda`}>
-            {campo.ajuda}
-          </small>
         </div>
       );
     }
-    if (campo.tipo === "select") {
-      const valor = valores[chaveCampo(campo.nome)] ?? "";
-      return (
-        <select
-          id={chaveCampo(campo.nome)}
-          name={campo.nome}
-          value={valor}
-          onChange={(evento) => atualizarCampo(campo.nome, evento.target.value)}
-        >
-          {campo.opcoes.map((opcao) => (
-            <option value={opcao} key={opcao}>
-              {opcao}
-            </option>
-          ))}
-        </select>
-      );
-    }
 
-    const valor = valores[chaveCampo(campo.nome)] ?? "";
-    return campo.linhas ? (
-      <textarea
-        id={chaveCampo(campo.nome)}
-        name={campo.nome}
-        rows={campo.linhas}
-        className={campo.tipo === "codigo" ? "editor-codigo-edicao-senai" : ""}
-        value={valor}
-        onChange={(evento) => atualizarCampo(campo.nome, evento.target.value)}
-      />
-    ) : (
-      <input
-        id={chaveCampo(campo.nome)}
-        name={campo.nome}
-        type="text"
-        value={valor}
-        onChange={(evento) => atualizarCampo(campo.nome, evento.target.value)}
-      />
-    );
-  };
+    return null;
+  }
 
   return (
-    <div className="pagina-edicao-senai">
-      <header className="cabecalho-edicao-senai">
-        <Link className="voltar-edicao-senai" to="/">
+    <div className="pagina-admin-senai">
+      <header className="cabecalho-admin-senai">
+        <Link className="voltar-admin-senai" to="/">
           ← Portfólio
         </Link>
         <span>Área do aluno</span>
       </header>
 
-      <main className="conteudo-edicao-senai">
-        <aside className="navegacao-edicao-senai" aria-label="Navegação administrativa">
-          <Link className="item-edicao-senai" to="/admin/atividades/nova/senai">
-            <span className="icone-edicao-senai">+</span>
-            Enviar atividade
+      <main className="conteudo-admin-senai">
+        <aside className="navegacao-admin-senai">
+          <Link className="item-navegacao-senai" to="/admin/atividades/nova/senai">
+            <span className="icone-navegacao-senai">+</span> Enviar atividade
           </Link>
-          <button className="item-edicao-senai ativo" type="button" aria-current="page">
-            <span className="icone-edicao-senai">≡</span>
-            Minhas atividades
+          <button className="item-navegacao-senai ativo" type="button">
+            <span className="icone-navegacao-senai">≡</span> Editar atividade
           </button>
           <Link
-            className="item-edicao-senai"
+            className="item-navegacao-senai sair-admin-senai"
             to="/admin/login"
             onClick={() => localStorage.removeItem("token")}
           >
-            <span className="icone-edicao-senai">↪</span>
-            Sair
+            <span className="icone-navegacao-senai">↪</span> Sair
           </Link>
         </aside>
 
-        <section className="area-edicao-senai" aria-labelledby="titulo-edicao-senai">
-          <header className="titulo-edicao-senai">
-            <h1 id="titulo-edicao-senai">
+        <section className="area-cadastro-senai">
+          <header className="titulo-cadastro-senai">
+            <h1>
               Editar
               <br />
               <span>atividade</span>
             </h1>
-            <p>Alterando · {abaAtiva}</p>
+            <p>Editar · {abaAtiva}</p>
           </header>
 
-          <div className="contexto-edicao-senai">
-            <span>Instituição: Senai</span>
-            <span>Aba: {abaAtiva}</span>
-          </div>
-
-          <div className="abas-edicao-senai" role="tablist" aria-label="Tipo de atividade Senai">
-            {abas.map((aba) => (
-              <button
-                key={aba}
-                id={`aba-senai-${aba.replace(/\s+/g, "-")}`}
-                className={abaAtiva === aba ? "ativa" : ""}
-                type="button"
-                role="tab"
-                aria-selected={abaAtiva === aba}
-                aria-controls="painel-edicao-senai"
-                onClick={() => {
-                  setAbaAtiva(aba);
-                  setMensagem("");
-                  setEtiquetaDigitada("");
-                }}
-              >
-                {aba}
-              </button>
-            ))}
-          </div>
-
-          <form className="formulario-edicao-senai" onSubmit={salvarAlteracoes}>
-            <fieldset
-              className="campos-edicao-senai"
-              id="painel-edicao-senai"
-              role="tabpanel"
-              aria-labelledby={`aba-senai-${abaAtiva.replace(/\s+/g, "-")}`}
-            >
+          <form className="formulario-cadastro-senai" onSubmit={salvarFormulario}>
+            <fieldset className="grupo-selecao-senai">
               <legend>
-                <span className="numero-edicao-senai">1</span>
-                Conteúdo
+                <span className="numero-etapa-senai">1</span>Instituição
+              </legend>
+              <div className="opcoes-senai">
+                <Link className="opcao-senai" to="/admin/atividades/editar/sesi">
+                  Sesi
+                </Link>
+                <button className="opcao-senai selecionada" type="button">
+                  Senai
+                </button>
+              </div>
+            </fieldset>
+
+            <fieldset className="grupo-selecao-senai">
+              <legend>
+                <span className="numero-etapa-senai">2</span>Aba
+              </legend>
+              <div className="opcoes-senai opcoes-abas-senai">
+                {abas.map((aba) => (
+                  <button
+                    key={aba}
+                    type="button"
+                    className={`opcao-senai ${abaAtiva === aba ? "selecionada" : ""}`}
+                    onClick={() => {
+                      setAbaAtiva(aba);
+                      setMensagem("");
+                    }}
+                  >
+                    {aba}
+                  </button>
+                ))}
+              </div>
+            </fieldset>
+
+            <fieldset className="bloco-conteudo-senai">
+              <legend>
+                <span className="numero-etapa-senai">3</span>Conteúdo
               </legend>
 
-              <label className="campo-edicao-senai" htmlFor={`unidade-${abaAtiva}`}>
-                <span>Unidade curricular</span>
+              <div className="campo-senai">
+                <label htmlFor="id-item">ID da atividade</label>
                 <input
-                  id={`unidade-${abaAtiva}`}
+                  id="id-item"
                   type="text"
-                  placeholder="Digite a unidade curricular"
-                  value={valores[`${abaAtiva}-unidade_curricular`] ?? ""}
-                  onChange={(evento) =>
-                    setValores((atuais) => ({
-                      ...atuais,
-                      [`${abaAtiva}-unidade_curricular`]: evento.target.value,
-                    }))
-                  }
+                  placeholder="Ex: 1"
+                  value={idItem}
+                  onChange={(e) => setIdItem(e.target.value)}
                 />
-              </label>
+              </div>
 
-              {campos.map((campo) => {
-                const id =
-                  campo.tipo === "etiquetas"
-                    ? `etiqueta-${abaAtiva.replace(/\s+/g, "-")}`
-                    : campo.tipo?.startsWith("arquivo")
-                      ? `arquivo-${abaAtiva.replace(/\s+/g, "-")}`
-                      : chaveCampo(campo.nome);
+              <div className="campo-senai">
+                <label htmlFor="unidade-curricular">Unidade Curricular</label>
+                <input
+                  id="unidade-curricular"
+                  name="unidade_curricular"
+                  type="text"
+                  placeholder="Unidade curricular..."
+                  value={unidadeCurricular}
+                  onChange={(e) => setUnidadeCurricular(e.target.value)}
+                />
+              </div>
 
-                return (
-                  <div className="campo-edicao-senai" key={campo.nome}>
-                    <label htmlFor={id}>{campo.rotulo}</label>
-                    {renderizarCampo(campo)}
-                  </div>
-                );
-              })}
+              {camposDaAba()}
 
-              <p className="destino-edicao-senai">Vai aparecer em: Senai › {abaAtiva}</p>
+              <p className="destino-senai">
+                Vai atualizar em: Senai › {abaAtiva}
+              </p>
 
-              <div className="acoes-edicao-senai">
-                <div>
-                  <button className="botao-salvar-edicao-senai" type="submit">
-                    Salvar alterações
-                  </button>
-                  <button
-                    className="botao-cancelar-edicao-senai"
-                    type="button"
-                    onClick={cancelarAlteracoes}
-                  >
-                    Cancelar
-                  </button>
-                </div>
+              <div className="acoes-senai">
+                <button className="botao-enviar-senai" type="submit">
+                  Salvar
+                </button>
                 <button
-                  className="botao-excluir-edicao-senai"
+                  className="botao-cancelar-senai"
                   type="button"
-                  onClick={() => setConfirmarExclusao(true)}
+                  onClick={limparFormulario}
                 >
-                  Excluir atividade
+                  Cancelar
                 </button>
               </div>
 
-              {mensagem && (
-                <p className="mensagem-edicao-senai" role="status">
-                  {mensagem}
-                </p>
-              )}
+              {mensagem && <p className="mensagem-senai">{mensagem}</p>}
             </fieldset>
           </form>
         </section>
       </main>
 
       <Rodape />
-
-      {confirmarExclusao && (
-        <div className="fundo-confirmacao-edicao-senai" role="presentation">
-          <section
-            className="dialogo-confirmacao-edicao-senai"
-            role="alertdialog"
-            aria-labelledby="titulo-confirmacao-edicao-senai"
-            aria-describedby="texto-confirmacao-edicao-senai"
-          >
-            <h2 id="titulo-confirmacao-edicao-senai">Excluir atividade?</h2>
-            <p id="texto-confirmacao-edicao-senai">
-              Esta ação removeria a atividade de {abaAtiva}.
-            </p>
-            <div className="acoes-confirmacao-edicao-senai">
-              <button type="button" onClick={() => setConfirmarExclusao(false)}>
-                Manter atividade
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setConfirmarExclusao(false);
-                  setMensagem("Atividade não excluída: a edição ainda não está conectada ao servidor.");
-                }}
-              >
-                Confirmar exclusão
-              </button>
-            </div>
-          </section>
-        </div>
-      )}
     </div>
   );
 };

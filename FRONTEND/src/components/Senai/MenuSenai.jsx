@@ -1,29 +1,25 @@
 import "./MenuSenai.css";
 
-const secoesSenai = [
-  { nome: "Projetos", id: "projetos" },
-  { nome: "Código", id: "codigo" },
-  { nome: "Galeria", id: "galeria" },
-  { nome: "Relatórios", id: "relatorios" },
-  { nome: "Aprendizagens", id: "aprendizagens" },
-  { nome: "Autoavaliação", id: "autoavaliacao" },
+const abas = [
+  "Projetos",
+  "Código",
+  "Galeria",
+  "Relatórios",
+  "Aprendizagens",
+  "Autoavaliação",
 ];
 
-const MenuSenai = ({ secaoAtiva, aoSelecionarSecao }) => {
+const MenuSenai = ({ abaAtual, aoClicarNaAba }) => {
   return (
-    <nav className="menu-senai" role="tablist" aria-label="Seções do portfólio Senai">
-      {secoesSenai.map((secao) => (
+    <nav className="menu-senai">
+      {abas.map((nome) => (
         <button
-          key={secao.nome}
-          id={`aba-senai-${secao.id}`}
-          className={`botao-senai ${secaoAtiva === secao.nome ? "ativo" : ""}`}
-          role="tab"
-          aria-selected={secaoAtiva === secao.nome}
-          aria-controls="painel-senai"
+          key={nome}
           type="button"
-          onClick={() => aoSelecionarSecao(secao.nome)}
+          className={`botao-senai ${abaAtual === nome ? "ativo" : ""}`}
+          onClick={() => aoClicarNaAba(nome)}
         >
-          {secao.nome}
+          {nome}
         </button>
       ))}
     </nav>

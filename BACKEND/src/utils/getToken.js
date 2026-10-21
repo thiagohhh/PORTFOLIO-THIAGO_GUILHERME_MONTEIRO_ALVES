@@ -1,7 +1,11 @@
 export const getToken = (request) => {
-  const authHeader = request.headers.authorization;
-  if (!authHeader) return null;
 
-  const [scheme, token, extra] = authHeader.split(" ");
-  return scheme === "Bearer" && token && !extra ? token : null;
+  const auth = request.headers.authorization;
+  if (!auth) return null;
+
+  const partes = auth.split(" "); 
+  if (partes.length !== 2) return null;
+  if (partes[0] !== "Bearer") return null;
+
+  return partes[1]; 
 };

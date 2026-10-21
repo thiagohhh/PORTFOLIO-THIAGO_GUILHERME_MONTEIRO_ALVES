@@ -9,3 +9,4 @@ router.post("/login", login);
 router.post("/", criarAluno);
 
 export default router;
+

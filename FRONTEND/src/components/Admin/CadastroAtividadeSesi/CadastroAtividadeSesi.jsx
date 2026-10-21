@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Rodape from "../../Rodape/Rodape";
+import { chamarApi } from "../../../api";
 import estrelaAmarela from "../../../assets/imgs/senai/estrela-amarela.png";
 import estrelaBranca from "../../../assets/imgs/senai/estrela-branca.png";
 import iconeProjeto from "../../../assets/imgs/senai/icone-projeto.svg";
@@ -15,74 +16,239 @@ const secoes = [
   "Da escola para a vida",
 ];
 
-const camposPorSecao = {
-  "Fundamentos teóricos": [
-    { nome: "resumo_teorico", rotulo: "Resumo teórico", linhas: 2 },
-    { nome: "teorias", rotulo: "Teorias" },
-    { nome: "conceitos", rotulo: "Conceitos" },
-    { nome: "metodologias", rotulo: "Metodologias" },
-  ],
-  "Participação em sala": [
-    { nome: "registro_atividades", rotulo: "Registro das atividades", linhas: 2 },
-    { nome: "o_que_chamou_atencao", rotulo: "O que chamou atenção" },
-    { nome: "reflexao_pratica", rotulo: "Reflexão prática" },
-    { nome: "justificativa_autoavaliacao", rotulo: "Justificativa da autoavaliação", linhas: 2 },
-  ],
-  "Projetos e trabalhos": [
-    { nome: "titulo_projeto", rotulo: "Título do projeto" },
-    { nome: "texto_card", rotulo: "Descrição do projeto", linhas: 2 },
-    { nome: "foto", rotulo: "Imagem ou evidência", tipo: "file" },
-  ],
-  "Reflexão crítica": [
-    { nome: "aprendizado_academico", rotulo: "Aprendizado acadêmico", linhas: 2 },
-    { nome: "aplicacao_pratica", rotulo: "Aplicação prática" },
-    { nome: "melhorias_necessarias", rotulo: "Melhorias necessárias" },
-    { nome: "momentos_desafiadores", rotulo: "Momentos desafiadores" },
-  ],
-  "Conexões interdisciplinares": [
-    { nome: "relacoes_interdisciplinares", rotulo: "Relações interdisciplinares", linhas: 3 },
-  ],
-  "Da escola para a vida": [
-    { nome: "reflexao_experiencia", rotulo: "Reflexão sobre a experiência", linhas: 2 },
-    { nome: "aplicacao_conhecimentos", rotulo: "Aplicação dos conhecimentos" },
-    { nome: "influencia_forma_agir_pensar", rotulo: "Como influenciou sua forma de agir e pensar" },
-    { nome: "habilidades_desenvolvidas", rotulo: "Habilidades desenvolvidas" },
-    { nome: "desafios_novas_etapas", rotulo: "Desafios e próximas etapas" },
-  ],
-};
-
 const secoesAnuais = [
   "Reflexão crítica",
   "Conexões interdisciplinares",
   "Da escola para a vida",
 ];
 
+// Rota da API de cada seção
+const rotas = {
+  "Fundamentos teóricos": "/sesi/fundamentosTeoricos",
+  "Participação em sala": "/sesi/participacoesEmSala",
+  "Projetos e trabalhos": "/sesi/projetosTrabalhos",
+  "Reflexão crítica": "/sesi/reflexoesCriticas",
+  "Conexões interdisciplinares": "/sesi/conexoesInterdisciplinares",
+  "Da escola para a vida": "/sesi/escolaParaVida",
+};
+
 const CadastroAtividadeSesi = () => {
-  const [secaoAtiva, setSecaoAtiva] = useState(secoes[0]);
-  const [bimestreAtivo, setBimestreAtivo] = useState(2);
-  const [valores, setValores] = useState({});
-  const [autoavaliacao, setAutoavaliacao] = useState(0);
+  const [secaoAtiva, setSecaoAtiva] = useState("Fundamentos teóricos");
+  const [bimestreAtivo, setBimestreAtivo] = useState(1);
   const [mensagem, setMensagem] = useState("");
-  const secaoAnual = secoesAnuais.includes(secaoAtiva);
-  const campos = camposPorSecao[secaoAtiva];
+  const [autoavaliacao, setAutoavaliacao] = useState(0);
+  const [nomeArquivo, setNomeArquivo] = useState("");
+  const [campos, setCampos] = useState({});
 
-  const atualizarCampo = (nome, valor) => {
-    setValores((valoresAtuais) => ({
-      ...valoresAtuais,
-      [`${secaoAtiva}-${bimestreAtivo}-${nome}`]: valor,
-    }));
-  };
+  const ehSecaoAnual = secoesAnuais.includes(secaoAtiva);
 
-  const enviarFormulario = (evento) => {
-    evento.preventDefault();
-    setMensagem("Atividade não enviada: o cadastro ainda não está conectado ao servidor.");
-  };
+  function atualizarCampo(nome, valor) {
+    setCampos((antigos) => ({ ...antigos, [nome]: valor }));
+  }
 
-  const cancelarFormulario = () => {
-    setValores({});
+  function limpar() {
+    setCampos({});
     setAutoavaliacao(0);
+    setNomeArquivo("");
     setMensagem("");
-  };
+  }
+
+  async function enviar(evento) {
+    evento.preventDefault();
+    setMensagem("");
+
+    const alunoId = localStorage.getItem("alunoId");
+
+    try {
+      let resposta;
+
+      // Projetos usa FormData (tem foto)
+      if (secaoAtiva === "Projetos e trabalhos") {
+        const dados = new FormData(evento.currentTarget);
+        dados.append("aluno_id", alunoId);
+        dados.append("bimestre", bimestreAtivo);
+        resposta = await chamarApi(rotas[secaoAtiva], {
+          method: "POST",
+          body: dados,
+        });
+      } else {
+        // Demais seções usam JSON
+        const dados = {
+          aluno_id: alunoId,
+          ...campos,
+        };
+
+        // Bimestre só nas seções que não são anuais
+        if (!ehSecaoAnual) {
+          dados.bimestre = bimestreAtivo;
+        }
+
+        // Participação tem autoavaliação
+        if (secaoAtiva === "Participação em sala") {
+          dados.autoavaliacao = autoavaliacao;
+        }
+
+        resposta = await chamarApi(rotas[secaoAtiva], {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(dados),
+        });
+      }
+
+      const resultado = await resposta.json();
+      if (resposta.ok) {
+        setMensagem("Atividade enviada!");
+        limpar();
+      } else {
+        setMensagem(resultado.message || "Erro ao enviar");
+      }
+    } catch {
+      setMensagem("Não foi possível conectar ao servidor.");
+    }
+  }
+
+  function CampoTexto({ nome, rotulo, linhas }) {
+    if (linhas) {
+      return (
+        <label className="campo-admin-sesi">
+          <span>{rotulo}</span>
+          <textarea
+            name={nome}
+            rows={linhas}
+            placeholder="Escreva aqui..."
+            value={campos[nome] || ""}
+            onChange={(e) => atualizarCampo(nome, e.target.value)}
+          />
+        </label>
+      );
+    }
+    return (
+      <label className="campo-admin-sesi">
+        <span>{rotulo}</span>
+        <input
+          name={nome}
+          type="text"
+          placeholder="Escreva aqui..."
+          value={campos[nome] || ""}
+          onChange={(e) => atualizarCampo(nome, e.target.value)}
+        />
+      </label>
+    );
+  }
+
+  function camposDaSecao() {
+    if (secaoAtiva === "Fundamentos teóricos") {
+      return (
+        <>
+          <CampoTexto nome="resumo_teorico" rotulo="Resumo teórico" linhas={2} />
+          <CampoTexto nome="teorias" rotulo="Teorias" />
+          <CampoTexto nome="conceitos" rotulo="Conceitos" />
+          <CampoTexto nome="metodologias" rotulo="Metodologias" />
+        </>
+      );
+    }
+
+    if (secaoAtiva === "Participação em sala") {
+      return (
+        <>
+          <CampoTexto nome="registro_atividades" rotulo="Registro das atividades" linhas={2} />
+          <CampoTexto nome="o_que_chamou_atencao" rotulo="O que chamou atenção" />
+          <CampoTexto nome="reflexao_pratica" rotulo="Reflexão prática" />
+          <CampoTexto
+            nome="justificativa_autoavaliacao"
+            rotulo="Justificativa da autoavaliação"
+            linhas={2}
+          />
+          <fieldset className="avaliacao-cadastro-admin">
+            <legend>Autoavaliação</legend>
+            <div className="estrelas-cadastro-admin">
+              {[1, 2, 3, 4, 5].map((n) => (
+                <button
+                  key={n}
+                  type="button"
+                  className="estrela-cadastro-admin"
+                  onClick={() => setAutoavaliacao(n)}
+                >
+                  <img
+                    src={n <= autoavaliacao ? estrelaAmarela : estrelaBranca}
+                    alt=""
+                  />
+                </button>
+              ))}
+            </div>
+          </fieldset>
+        </>
+      );
+    }
+
+    if (secaoAtiva === "Projetos e trabalhos") {
+      return (
+        <>
+          <CampoTexto nome="titulo_projeto" rotulo="Título do projeto" />
+          <CampoTexto nome="texto_card" rotulo="Descrição do projeto" linhas={2} />
+          <label className="campo-admin-sesi">
+            <span>Imagem ou evidência</span>
+            <div
+              className="area-arquivo-admin"
+              onClick={() => document.getElementById("foto-sesi")?.click()}
+            >
+              <img src={iconeProjeto} alt="" />
+              <strong>Clique para escolher uma imagem</strong>
+              <span>{nomeArquivo || "Nenhum arquivo selecionado"}</span>
+              <input
+                id="foto-sesi"
+                className="entrada-arquivo-admin"
+                name="foto"
+                type="file"
+                accept="image/*"
+                style={{ display: "none" }}
+                onClick={(e) => e.stopPropagation()}
+                onChange={(e) => setNomeArquivo(e.target.files?.[0]?.name || "")}
+              />
+            </div>
+          </label>
+        </>
+      );
+    }
+
+    if (secaoAtiva === "Reflexão crítica") {
+      return (
+        <>
+          <CampoTexto nome="aprendizado_academico" rotulo="Aprendizado acadêmico" linhas={2} />
+          <CampoTexto nome="aplicacao_pratica" rotulo="Aplicação prática" />
+          <CampoTexto nome="melhorias_necessarias" rotulo="Melhorias necessárias" />
+          <CampoTexto nome="momentos_desafiadores" rotulo="Momentos desafiadores" />
+        </>
+      );
+    }
+
+    if (secaoAtiva === "Conexões interdisciplinares") {
+      return (
+        <CampoTexto
+          nome="relacoes_interdisciplinares"
+          rotulo="Relações interdisciplinares"
+          linhas={3}
+        />
+      );
+    }
+
+    if (secaoAtiva === "Da escola para a vida") {
+      return (
+        <>
+          <CampoTexto nome="reflexao_experiencia" rotulo="Reflexão sobre a experiência" linhas={2} />
+          <CampoTexto nome="aplicacao_conhecimentos" rotulo="Aplicação dos conhecimentos" />
+          <CampoTexto
+            nome="influencia_forma_agir_pensar"
+            rotulo="Como influenciou sua forma de agir e pensar"
+          />
+          <CampoTexto nome="habilidades_desenvolvidas" rotulo="Habilidades desenvolvidas" />
+          <CampoTexto nome="desafios_novas_etapas" rotulo="Desafios para novas etapas" />
+        </>
+      );
+    }
+
+    return null;
+  }
 
   return (
     <div className="pagina-admin-sesi">
@@ -94,8 +260,8 @@ const CadastroAtividadeSesi = () => {
       </header>
 
       <main className="conteudo-admin-sesi">
-        <aside className="navegacao-admin-sesi" aria-label="Navegação administrativa">
-          <button className="item-navegacao-admin ativo" type="button" aria-current="page">
+        <aside className="navegacao-admin-sesi">
+          <button className="item-navegacao-admin ativo" type="button">
             <span className="icone-navegacao-admin">+</span>
             Enviar atividade
           </button>
@@ -113,24 +279,26 @@ const CadastroAtividadeSesi = () => {
           </Link>
         </aside>
 
-        <section className="area-cadastro-sesi" aria-labelledby="titulo-cadastro-sesi">
+        <section className="area-cadastro-sesi">
           <header className="titulo-cadastro-sesi">
-            <h1 id="titulo-cadastro-sesi">
+            <h1>
               Enviar
               <br />
               <span>atividade</span>
             </h1>
-            <p>Nova atividade · {secaoAtiva}</p>
+            <p>
+              Nova atividade · {secaoAtiva}
+              {!ehSecaoAnual && ` · ${bimestreAtivo}º bimestre`}
+            </p>
           </header>
 
-          <form className="formulario-cadastro-sesi" onSubmit={enviarFormulario}>
+          <form className="formulario-cadastro-sesi" onSubmit={enviar}>
             <fieldset className="grupo-selecao-admin">
               <legend>
-                <span className="numero-etapa-admin">1</span>
-                Instituição
+                <span className="numero-etapa-admin">1</span>Instituição
               </legend>
               <div className="opcoes-admin">
-                <button className="opcao-admin selecionada" type="button" aria-pressed="true">
+                <button className="opcao-admin selecionada" type="button">
                   Sesi
                 </button>
                 <Link className="opcao-admin" to="/admin/atividades/nova/senai">
@@ -141,19 +309,18 @@ const CadastroAtividadeSesi = () => {
 
             <fieldset className="grupo-selecao-admin">
               <legend>
-                <span className="numero-etapa-admin">2</span>
-                Seção
+                <span className="numero-etapa-admin">2</span>Seção
               </legend>
               <div className="opcoes-admin opcoes-secoes-admin">
                 {secoes.map((secao) => (
                   <button
-                    className={`opcao-admin ${secaoAtiva === secao ? "selecionada" : ""}`}
                     key={secao}
                     type="button"
-                    aria-pressed={secaoAtiva === secao}
+                    className={`opcao-admin ${secaoAtiva === secao ? "selecionada" : ""}`}
                     onClick={() => {
                       setSecaoAtiva(secao);
                       setMensagem("");
+                      setCampos({});
                     }}
                   >
                     {secao}
@@ -162,127 +329,49 @@ const CadastroAtividadeSesi = () => {
               </div>
             </fieldset>
 
-            {!secaoAnual && (
+            {!ehSecaoAnual && (
               <fieldset className="grupo-selecao-admin">
                 <legend>
-                  <span className="numero-etapa-admin">3</span>
-                  Bimestre
+                  <span className="numero-etapa-admin">3</span>Bimestre
                 </legend>
                 <div className="opcoes-admin">
-                  {[1, 2, 3, 4].map((bimestre) => (
+                  {[1, 2, 3, 4].map((n) => (
                     <button
-                      className={`opcao-admin ${bimestreAtivo === bimestre ? "selecionada" : ""}`}
-                      key={bimestre}
+                      key={n}
                       type="button"
-                      aria-pressed={bimestreAtivo === bimestre}
-                      onClick={() => {
-                        setBimestreAtivo(bimestre);
-                        setMensagem("");
-                      }}
+                      className={`opcao-admin ${bimestreAtivo === n ? "selecionada" : ""}`}
+                      onClick={() => setBimestreAtivo(n)}
                     >
-                      {bimestre}º bimestre
+                      {n}º bimestre
                     </button>
                   ))}
                 </div>
               </fieldset>
             )}
 
-            <fieldset className="bloco-campos-admin">
+            <fieldset className="bloco-conteudo-admin">
               <legend>
-                <span className="numero-etapa-admin">{secaoAnual ? "3" : "4"}</span>
+                <span className="numero-etapa-admin">{ehSecaoAnual ? 3 : 4}</span>
                 Conteúdo
               </legend>
 
-              {campos.map((campo) => {
-                const chave = `${secaoAtiva}-${bimestreAtivo}-${campo.nome}`;
-                return (
-                  <label className="campo-admin-sesi" htmlFor={chave} key={campo.nome}>
-                    <span>{campo.rotulo}</span>
-                    {campo.tipo === "file" ? (
-                      <div className="area-arquivo-admin">
-                        <img src={iconeProjeto} alt="" />
-                        <strong>Clique para escolher uma imagem</strong>
-                        <span>{valores[chave] || "Nenhum arquivo selecionado"}</span>
-                        <input
-                          className="entrada-arquivo-admin"
-                          id={chave}
-                          name={campo.nome}
-                          type="file"
-                          accept="image/*"
-                          onChange={(evento) =>
-                            atualizarCampo(campo.nome, evento.target.files?.[0]?.name || "")
-                          }
-                        />
-                      </div>
-                    ) : campo.linhas ? (
-                      <textarea
-                        id={chave}
-                        name={campo.nome}
-                        rows={campo.linhas}
-                        placeholder="Escreva aqui..."
-                        value={valores[chave] || ""}
-                        onChange={(evento) => atualizarCampo(campo.nome, evento.target.value)}
-                      />
-                    ) : (
-                      <input
-                        id={chave}
-                        name={campo.nome}
-                        type="text"
-                        placeholder="Escreva aqui..."
-                        value={valores[chave] || ""}
-                        onChange={(evento) => atualizarCampo(campo.nome, evento.target.value)}
-                      />
-                    )}
-                  </label>
-                );
-              })}
-
-              {secaoAtiva === "Participação em sala" && (
-                <fieldset className="avaliacao-cadastro-admin">
-                  <legend>Autoavaliação</legend>
-                  <div className="estrelas-cadastro-admin" aria-label={`Autoavaliação: ${autoavaliacao} de 5`}>
-                    {[1, 2, 3, 4, 5].map((estrela) => (
-                      <button
-                        className="estrela-cadastro-admin"
-                        key={estrela}
-                        type="button"
-                        aria-label={`${estrela} de 5 estrelas`}
-                        aria-pressed={autoavaliacao === estrela}
-                        onClick={() => setAutoavaliacao(estrela)}
-                      >
-                        <img
-                          src={estrela <= autoavaliacao ? estrelaAmarela : estrelaBranca}
-                          alt=""
-                        />
-                      </button>
-                    ))}
-                  </div>
-                </fieldset>
-              )}
+              {camposDaSecao()}
 
               <p className="destino-atividade-admin">
                 Vai aparecer em: Sesi › {secaoAtiva}
-                {!secaoAnual && ` › ${bimestreAtivo}º bimestre`}
+                {!ehSecaoAnual && ` › ${bimestreAtivo}º bimestre`}
               </p>
 
               <div className="acoes-cadastro-admin">
                 <button className="botao-enviar-admin" type="submit">
                   Enviar
                 </button>
-                <button
-                  className="botao-cancelar-admin"
-                  type="reset"
-                  onClick={cancelarFormulario}
-                >
+                <button className="botao-cancelar-admin" type="button" onClick={limpar}>
                   Cancelar
                 </button>
               </div>
 
-              {mensagem && (
-                <p className="mensagem-cadastro-admin" role="status">
-                  {mensagem}
-                </p>
-              )}
+              {mensagem && <p className="mensagem-admin">{mensagem}</p>}
             </fieldset>
           </form>
         </section>

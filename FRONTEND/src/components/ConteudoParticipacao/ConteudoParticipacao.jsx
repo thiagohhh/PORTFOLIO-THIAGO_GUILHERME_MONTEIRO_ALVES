@@ -1,53 +1,77 @@
+import { useEffect, useState } from "react";
+import { chamarApi } from "../../api";
 import "./ConteudoParticipacao.css";
 
-const ConteudoParticipacao = () => {
+const ConteudoParticipacao = ({ bimestre }) => {
+  const [lista, setLista] = useState([]);
+  const [carregando, setCarregando] = useState(true);
+
+  // Converte "1º bimestre" → 1
+  const numeroBimestre = Number(String(bimestre || "1").replace(/\D/g, "")) || 1;
+
+  useEffect(() => {
+    async function buscar() {
+      setCarregando(true);
+      try {
+        const resposta = await chamarApi("/sesi/participacoesEmSala");
+        const dados = await resposta.json();
+        const todos = Array.isArray(dados) ? dados : [];
+
+        // Filtra pelo bimestre atual
+        const filtrados = todos.filter(
+          (item) => Number(item.bimestre) === numeroBimestre
+        );
+        setLista(filtrados);
+      } catch (erro) {
+        console.error(erro);
+        setLista([]);
+      } finally {
+        setCarregando(false);
+      }
+    }
+    buscar();
+  }, [numeroBimestre]);
+
+  if (carregando) return <p>Carregando...</p>;
+  if (lista.length === 0) {
+    return <p>Nenhuma participação cadastrada neste bimestre.</p>;
+  }
+
+  // Mostra o primeiro registro do bimestre (ou você pode mapear vários)
+  const item = lista[0];
+
   return (
     <div className="conteudo-participacao">
       <article className="cartao-participacao">
         <h2>Registro de atividades</h2>
-        <div className="linhas-participacao">
-          <span />
-          <span />
-          <span />
-        </div>
+        <p>{item.registro_atividades}</p>
       </article>
 
       <article className="cartao-participacao">
         <h2>O que mais chamou minha atenção</h2>
-        <div className="linhas-participacao">
-          <span />
-          <span />
-          <span />
-        </div>
+        <p>{item.o_que_chamou_atencao}</p>
       </article>
 
       <article className="cartao-participacao">
         <h2>Reflexão prática</h2>
-        <h3>Conceito aprendido</h3>
-        <div className="linhas-participacao">
-          <span />
-          <span />
-        </div>
-        <h3>Como uso no dia a dia</h3>
-        <div className="linhas-participacao">
-          <span />
-          <span />
-        </div>
+        <p>{item.reflexao_pratica}</p>
       </article>
 
       <article className="cartao-participacao">
         <h2>Autoavaliação do engajamento</h2>
-        <div className="avaliacao-engajamento" aria-label="Engajamento: 4 de 5">
-          <span className="ponto-avaliacao marcado" />
-          <span className="ponto-avaliacao marcado" />
-          <span className="ponto-avaliacao marcado" />
-          <span className="ponto-avaliacao marcado" />
-          <span className="ponto-avaliacao" />
+        <div className="avaliacao-engajamento">
+          {[1, 2, 3, 4, 5].map((n) => (
+            <span
+              key={n}
+              className={
+                n <= (item.autoavaliacao || 0)
+                  ? "ponto-avaliacao marcado"
+                  : "ponto-avaliacao"
+              }
+            />
+          ))}
         </div>
-        <div className="linhas-participacao">
-          <span />
-          <span />
-        </div>
+        <p>{item.justificativa_autoavaliacao}</p>
       </article>
     </div>
   );

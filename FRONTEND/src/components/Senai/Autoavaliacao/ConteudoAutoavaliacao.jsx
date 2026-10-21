@@ -1,48 +1,60 @@
-import "./ConteudoAutoavaliacao.css";
+import { useEffect, useState } from "react";
+import { chamarApi } from "../../../api";
 import circuloAmarelo from "../../../assets/imgs/senai/circulo-amarelo.png";
 import circuloBranco from "../../../assets/imgs/senai/circulo-branco.png";
-
-const competencias = [
-  { nome: "Front-end", avaliacao: 4, progresso: 75 },
-  { nome: "Back-end", avaliacao: 3, progresso: 50 },
-  { nome: "Banco de dados", avaliacao: 4, progresso: 75 },
-];
+import "./ConteudoAutoavaliacao.css";
 
 const ConteudoAutoavaliacao = () => {
+  const [lista, setLista] = useState([]);
+  const [carregando, setCarregando] = useState(true);
+
+  useEffect(() => {
+    async function buscar() {
+      try {
+        const resposta = await chamarApi("/senai/autoavaliacoes");
+        const dados = await resposta.json();
+        setLista(Array.isArray(dados) ? dados : []);
+      } catch (erro) {
+        console.error(erro);
+        setLista([]);
+      } finally {
+        setCarregando(false);
+      }
+    }
+    buscar();
+  }, []);
+
+  if (carregando) return <p>Carregando autoavaliações...</p>;
+  if (lista.length === 0) return <p>Nenhuma autoavaliação cadastrada ainda.</p>;
+
   return (
     <div className="grade-autoavaliacao">
-      {competencias.map((competencia) => (
-        <article className="cartao-autoavaliacao" key={competencia.nome}>
-          <h3>{competencia.nome}</h3>
+      {lista.map((item) => (
+        <article className="cartao-autoavaliacao" key={item.id}>
+          <h3>{item.unidade_curricular || "Autoavaliação"}</h3>
+
           <span className="rotulo-autoavaliacao">Avaliação</span>
-          <div
-            className="marcadores-autoavaliacao"
-            aria-label={`${competencia.avaliacao} de 5 círculos selecionados`}
-          >
-            {Array.from({ length: 5 }, (_, indice) => (
+          <div className="marcadores-autoavaliacao">
+            {[1, 2, 3, 4, 5].map((n) => (
               <img
-                key={indice}
-                src={indice < competencia.avaliacao ? circuloAmarelo : circuloBranco}
+                key={n}
+                src={n <= (item.nota_bolinhas || 0) ? circuloAmarelo : circuloBranco}
                 alt=""
               />
             ))}
           </div>
+
           <div className="cabecalho-progresso-autoavaliacao">
             <span className="rotulo-autoavaliacao">Progresso</span>
-            <strong>{competencia.progresso}%</strong>
+            <strong>{item.percentual || 0}%</strong>
           </div>
-          <div
-            className="barra-autoavaliacao"
-            role="progressbar"
-            aria-label={`Progresso de ${competencia.nome}`}
-            aria-valuemin="0"
-            aria-valuemax="100"
-            aria-valuenow={competencia.progresso}
-          >
-            <span style={{ width: `${competencia.progresso}%` }} />
+
+          <div className="barra-autoavaliacao">
+            <span style={{ width: `${item.percentual || 0}%` }} />
           </div>
+
           <span className="rotulo-autoavaliacao">Justificativa</span>
-          <div className="linha-autoavaliacao" />
+          <p>{item.justificativa_texto || ""}</p>
         </article>
       ))}
     </div>

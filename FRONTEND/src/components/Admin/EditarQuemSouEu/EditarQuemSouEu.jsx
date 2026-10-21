@@ -1,156 +1,202 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Rodape from "../../Rodape/Rodape";
 import LinksIniciais from "../../LinksIniciais/LinksIniciais";
+import { chamarApi } from "../../../api";
 import "./EditarQuemSouEu.css";
 
-const valoresIniciais = {
-  titulo: "Thiago Guilherme",
-  itinerario: "Técnico em Informática para Internet",
-  paragrafo_biografia:
-    "Sou Thiago Guilherme, estudante do ensino médio e do curso Técnico em Informática para Internet.",
-  texto_negrito: "Explore meu portfólio: Sesi ou Senai.",
-};
-
 const EditarQuemSouEu = () => {
-  const [valores, setValores] = useState(valoresIniciais);
+  const [id, setId] = useState("");
+  const [titulo, setTitulo] = useState("");
+  const [itinerario, setItinerario] = useState("");
+  const [paragrafo, setParagrafo] = useState("");
+  const [textoNegrito, setTextoNegrito] = useState("");
+  const [fotoPreview, setFotoPreview] = useState("");
   const [mensagem, setMensagem] = useState("");
-  const [foto, setFoto] = useState("");
 
-  const atualizarCampo = (evento) => {
-    const { name, value } = evento.target;
-    setValores((atuais) => ({ ...atuais, [name]: value }));
-  };
+  // Carrega o que já existe
+  useEffect(() => {
+    async function carregar() {
+      try {
+        const resposta = await chamarApi("/quemSouEu");
+        const lista = await resposta.json();
+        const item = Array.isArray(lista) ? lista[0] : null;
+        if (!item) return;
 
-  const cancelar = () => {
-    setValores(valoresIniciais);
-    setFoto("");
-    setMensagem("As alterações desta tela foram descartadas.");
-  };
+        setId(item.id);
+        setTitulo(item.titulo || "");
+        setItinerario(item.itinerario || "");
+        setParagrafo(item.paragrafo_biografia || "");
+        setTextoNegrito(item.texto_negrito || "");
+        if (item.foto) {
+          setFotoPreview(`http://localhost:3333/${item.foto}`);
+        }
+      } catch (erro) {
+        console.error(erro);
+      }
+    }
+    carregar();
+  }, []);
+
+  function limpar() {
+    setTitulo("");
+    setItinerario("");
+    setParagrafo("");
+    setTextoNegrito("");
+    setFotoPreview("");
+    setMensagem("");
+  }
+
+  async function salvar(evento) {
+    evento.preventDefault();
+    setMensagem("");
+
+    const alunoId = localStorage.getItem("alunoId");
+    const dados = new FormData(evento.currentTarget);
+    dados.append("aluno_id", alunoId);
+    // Garante os campos de texto no FormData
+    dados.set("titulo", titulo);
+    dados.set("itinerario", itinerario);
+    dados.set("paragrafo_biografia", paragrafo);
+    dados.set("texto_negrito", textoNegrito);
+
+    try {
+      // Se já existe id → PUT; senão → POST
+      const caminho = id ? `/quemSouEu/${id}` : "/quemSouEu";
+      const metodo = id ? "PUT" : "POST";
+
+      const resposta = await chamarApi(caminho, {
+        method: metodo,
+        body: dados,
+      });
+      const resultado = await resposta.json();
+
+      if (resposta.ok) {
+        setMensagem("Salvo com sucesso!");
+        if (resultado.id) setId(resultado.id);
+      } else {
+        setMensagem(resultado.message || "Erro ao salvar");
+      }
+    } catch {
+      setMensagem("Não foi possível conectar ao servidor.");
+    }
+  }
 
   return (
     <div className="pagina-editar-perfil">
       <header className="cabecalho-editar-perfil">
-        <Link to="/">← Portfólio</Link>
+        <Link className="voltar-editar-perfil" to="/">
+          ← Portfólio
+        </Link>
         <span>Área do aluno</span>
       </header>
 
       <main className="conteudo-editar-perfil">
-        <aside className="menu-editar-perfil" aria-label="Navegação administrativa">
-          <Link to="/admin/atividades/nova/senai">Enviar atividade</Link>
-          <Link to="/admin/atividades/nova/sesi">Minhas atividades</Link>
-          <span className="item-menu-perfil-ativo" aria-current="page">Quem sou eu</span>
-          <Link to="/admin/login" onClick={() => localStorage.removeItem("token")}>
-            Sair
-          </Link>
-        </aside>
+        <form className="formulario-editar-perfil" onSubmit={salvar}>
+          <h1>Editar “Quem sou eu”</h1>
 
-        <section className="area-editar-perfil">
-          <header className="titulo-editar-perfil">
-            <h1>
-              Editar
-              <br />
-              <span>Quem sou eu</span>
-            </h1>
-            <p>Alterando · Quem sou eu</p>
-          </header>
+          <label>
+            Título
+            <input
+              name="titulo"
+              value={titulo}
+              onChange={(e) => setTitulo(e.target.value)}
+            />
+          </label>
 
-          <div className="colunas-editar-perfil">
-            <form
-              className="formulario-editar-perfil"
-              onSubmit={(evento) => {
-                evento.preventDefault();
-                setMensagem("A edição ainda não está conectada ao servidor.");
-              }}
-            >
-              <label>
-                Título
-                <input name="titulo" value={valores.titulo} onChange={atualizarCampo} />
-              </label>
+          <label>
+            Itinerário
+            <input
+              name="itinerario"
+              value={itinerario}
+              onChange={(e) => setItinerario(e.target.value)}
+            />
+          </label>
 
-              <label>
-                Itinerário
+          <label>
+            Biografia
+            <textarea
+              name="paragrafo_biografia"
+              rows={4}
+              value={paragrafo}
+              onChange={(e) => setParagrafo(e.target.value)}
+            />
+          </label>
+
+          <label>
+            Texto em destaque
+            <input
+              name="texto_negrito"
+              value={textoNegrito}
+              onChange={(e) => setTextoNegrito(e.target.value)}
+            />
+          </label>
+
+          <div className="campo-foto-perfil">
+            <span>Foto</span>
+            <div className="troca-foto-perfil">
+              <div className="miniatura-foto-perfil">
+                {fotoPreview ? (
+                  <img src={fotoPreview} alt="Prévia" />
+                ) : (
+                  "atual"
+                )}
+              </div>
+              <label className="botao-trocar-foto">
+                Trocar foto
                 <input
-                  name="itinerario"
-                  value={valores.itinerario}
-                  onChange={atualizarCampo}
+                  type="file"
+                  name="foto"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const arquivo = e.target.files?.[0];
+                    if (arquivo) {
+                      setFotoPreview(URL.createObjectURL(arquivo));
+                    }
+                  }}
                 />
               </label>
-
-              <label>
-                Parágrafo da biografia
-                <textarea
-                  name="paragrafo_biografia"
-                  rows="4"
-                  value={valores.paragrafo_biografia}
-                  onChange={atualizarCampo}
-                />
-              </label>
-
-              <label>
-                Texto em negrito
-                <input
-                  name="texto_negrito"
-                  value={valores.texto_negrito}
-                  onChange={atualizarCampo}
-                />
-              </label>
-
-              <div className="campo-foto-perfil">
-                <span>Foto</span>
-                <div className="troca-foto-perfil">
-                  <div className="miniatura-foto-perfil">
-                    {foto ? <img src={foto} alt="Prévia da foto escolhida" /> : "atual"}
-                  </div>
-                  <label className="botao-trocar-foto">
-                    Trocar foto
-                    <input
-                      type="file"
-                      name="foto"
-                      accept="image/*"
-                      onChange={(evento) => {
-                        const arquivo = evento.target.files?.[0];
-                        if (arquivo) setFoto(URL.createObjectURL(arquivo));
-                      }}
-                    />
-                  </label>
-                </div>
-              </div>
-
-              <p className="destino-editar-perfil">Vai aparecer em: Página inicial</p>
-
-              <div className="acoes-editar-perfil">
-                <button className="botao-salvar-perfil" type="submit">
-                  Salvar alterações
-                </button>
-                <button className="botao-cancelar-perfil" type="button" onClick={cancelar}>
-                  Cancelar
-                </button>
-              </div>
-              {mensagem && <p role="status">{mensagem}</p>}
-            </form>
-
-            <aside className="previa-editar-perfil">
-              <h2>Pré-visualização</h2>
-              <h3>
-                EU SOU
-                <br />
-                <span>{valores.titulo}</span>
-              </h3>
-              <p className="itinerario-previa">{valores.itinerario}</p>
-              <p>{valores.paragrafo_biografia}</p>
-              <strong>{valores.texto_negrito}</strong>
-              <div className="foto-previa-perfil">
-                {foto && <img src={foto} alt="" />}
-              </div>
-              <div className="instituicoes-previa-perfil">
-                <LinksIniciais instituicao="Sesi" />
-                <LinksIniciais instituicao="Senai" />
-              </div>
-            </aside>
+            </div>
           </div>
-        </section>
+
+          <p className="destino-editar-perfil">Vai aparecer em: Página inicial</p>
+
+          <div className="acoes-editar-perfil">
+            <button className="botao-salvar-perfil" type="submit">
+              Salvar alterações
+            </button>
+            <button
+              className="botao-cancelar-perfil"
+              type="button"
+              onClick={limpar}
+            >
+              Cancelar
+            </button>
+          </div>
+
+          {mensagem && <p>{mensagem}</p>}
+        </form>
+
+        <aside className="previa-editar-perfil">
+          <h2>Pré-visualização</h2>
+          <h3>
+            EU SOU
+            <br />
+            <span>{titulo}</span>
+          </h3>
+          <p className="itinerario-previa">{itinerario}</p>
+          <p>{paragrafo}</p>
+          <strong>{textoNegrito}</strong>
+          <div className="foto-previa-perfil">
+            {fotoPreview && <img src={fotoPreview} alt="" />}
+          </div>
+          <div className="instituicoes-previa-perfil">
+            <LinksIniciais instituicao="Sesi" />
+            <LinksIniciais instituicao="Senai" />
+          </div>
+        </aside>
       </main>
+
       <Rodape />
     </div>
   );

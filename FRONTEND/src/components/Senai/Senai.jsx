@@ -10,18 +10,20 @@ import ConteudoAprendizagens from "./Aprendizagens/ConteudoAprendizagens";
 import ConteudoAutoavaliacao from "./Autoavaliacao/ConteudoAutoavaliacao";
 import "./Senai.css";
 
-const conteudosSenai = {
-  Projetos: ConteudoProjetos,
-  Código: ConteudoCodigo,
-  Galeria: ConteudoGaleria,
-  Relatórios: ConteudoRelatorios,
-  Aprendizagens: ConteudoAprendizagens,
-  Autoavaliação: ConteudoAutoavaliacao,
-};
-
 const Senai = () => {
-  const [secaoAtiva, setSecaoAtiva] = useState("Projetos");
-  const ConteudoAtivo = conteudosSenai[secaoAtiva];
+
+  const [abaAtual, setAbaAtual] = useState("Projetos");
+
+
+  function mostrarConteudo() {
+    if (abaAtual === "Projetos") return <ConteudoProjetos />;
+    if (abaAtual === "Código") return <ConteudoCodigo />;
+    if (abaAtual === "Galeria") return <ConteudoGaleria />;
+    if (abaAtual === "Relatórios") return <ConteudoRelatorios />;
+    if (abaAtual === "Aprendizagens") return <ConteudoAprendizagens />;
+    if (abaAtual === "Autoavaliação") return <ConteudoAutoavaliacao />;
+    return <ConteudoProjetos />;
+  }
 
   return (
     <div className="senai-container">
@@ -35,20 +37,9 @@ const Senai = () => {
           <p className="senai-subtitulo">TECNOLOGIA, APRENDIZADOS E PROJETOS</p>
         </header>
 
-        <MenuSenai
-          secaoAtiva={secaoAtiva}
-          aoSelecionarSecao={setSecaoAtiva}
-        />
+        <MenuSenai abaAtual={abaAtual} aoClicarNaAba={setAbaAtual} />
 
-        <section
-          className="senai-conteudo"
-          id="painel-senai"
-          role="tabpanel"
-          aria-labelledby={`aba-senai-${secaoAtiva.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")}`}
-          aria-live="polite"
-        >
-          <ConteudoAtivo />
-        </section>
+        <section className="senai-conteudo">{mostrarConteudo()}</section>
       </main>
 
       <Rodape />

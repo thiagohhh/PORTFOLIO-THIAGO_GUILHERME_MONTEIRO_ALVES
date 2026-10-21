@@ -1,17 +1,41 @@
+import { useEffect, useState } from "react";
+import { chamarApi } from "../../../api";
 import "./ConteudoRelatorios.css";
-import iconeRelatorio from "../../../assets/imgs/senai/icone-relatorio.png";
-
-const relatorios = ["Relatório técnico 01", "Relatório técnico 02", "Relatório técnico 03"];
 
 const ConteudoRelatorios = () => {
+  const [relatorios, setRelatorios] = useState([]);
+  const [carregando, setCarregando] = useState(true);
+
+  useEffect(() => {
+    async function buscar() {
+      try {
+        const resposta = await chamarApi("/senai/relatorios");
+        const dados = await resposta.json();
+        setRelatorios(Array.isArray(dados) ? dados : []);
+      } catch (erro) {
+        console.error(erro);
+        setRelatorios([]);
+      } finally {
+        setCarregando(false);
+      }
+    }
+    buscar();
+  }, []);
+
+  if (carregando) return <p>Carregando relatórios...</p>;
+  if (relatorios.length === 0) return <p>Nenhum relatório cadastrado ainda.</p>;
+
   return (
     <div className="grade-senai-relatorios">
-      {relatorios.map((relatorio) => (
-        <article className="cartao-relatorio" key={relatorio}>
-          <img className="icone-relatorio" src={iconeRelatorio} alt="" />
-          <h3>{relatorio}</h3>
-          <p>Inclua um resumo e o arquivo correspondente a este relatório.</p>
-          <span className="estado-relatorio">Arquivo a adicionar</span>
+      {relatorios.map((item) => (
+        <article className="cartao-relatorio" key={item.id}>
+          <h3>{item.titulo_relatorio}</h3>
+          <p>{item.paragrafo_relatorio}</p>
+          {item.pdf && (
+            <a href={`http://localhost:3333/${item.pdf}`} target="_blank" rel="noreferrer">
+              Ver PDF
+            </a>
+          )}
         </article>
       ))}
     </div>

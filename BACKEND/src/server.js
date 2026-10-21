@@ -1,26 +1,30 @@
-import 'dotenv/config'; 
+import "dotenv/config";
 import conn from "./config/conn.js";
 import app from "./app.js";
-import "./models/index.js";
+import "./models/index.js"; // carrega os models
 
 const PORT = 3333;
 
-const iniciarServidor = async () => {
+async function iniciarServidor() {
   try {
+    
     if (!process.env.JWT_SECRET) {
-      throw new Error("JWT_SECRET não configurado. Crie o arquivo BACKEND/.env usando .env.example.");
+      throw new Error(
+        "JWT_SECRET não configurado. Crie o arquivo BACKEND/.env"
+      );
     }
 
+   
     await conn.sync();
-   // await conn.sync({force: true});
+    // await conn.sync({ force: true }); 
 
     app.listen(PORT, () => {
-      console.log("Servidor inciado em http://localhost:", PORT);
+      console.log("Servidor iniciado em http://localhost:" + PORT);
     });
-  } catch (error) {
-    console.log("Erro ao iniciar o servidor:", error.message);
+  } catch (erro) {
+    console.log("Erro ao iniciar o servidor:", erro.message);
     process.exitCode = 1;
   }
-};
+}
 
-await iniciarServidor();
+iniciarServidor();

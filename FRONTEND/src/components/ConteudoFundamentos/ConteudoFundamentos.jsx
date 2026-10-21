@@ -1,39 +1,58 @@
+import { useEffect, useState } from "react";
+import { chamarApi } from "../../api";
 import "./ConteudoFundamentos.css";
 
-const ConteudoFundamentos = () => {
+const ConteudoFundamentos = ({ bimestre }) => {
+  const [item, setItem] = useState(null);
+  const [carregando, setCarregando] = useState(true);
+
+  const numeroBimestre = Number(String(bimestre || "1").replace(/\D/g, "")) || 1;
+
+  useEffect(() => {
+    async function buscar() {
+      setCarregando(true);
+      try {
+        const resposta = await chamarApi("/sesi/fundamentosTeoricos");
+        const dados = await resposta.json();
+        const todos = Array.isArray(dados) ? dados : [];
+        const doBimestre = todos.filter(
+          (f) => Number(f.bimestre) === numeroBimestre
+        );
+        setItem(doBimestre[0] || null);
+      } catch (erro) {
+        console.error(erro);
+        setItem(null);
+      } finally {
+        setCarregando(false);
+      }
+    }
+    buscar();
+  }, [numeroBimestre]);
+
+  if (carregando) return <p>Carregando...</p>;
+  if (!item) return <p>Nenhum fundamento cadastrado neste bimestre.</p>;
+
   return (
     <>
       <article className="resumo-conteudo">
         <h2>Resumo teórico</h2>
-        <div className="linhas-anotacao" />
-         <span />
-          <span />
-          <span/>
+        <p>{item.resumo_teorico}</p>
       </article>
 
       <div className="blocos-conteudo">
         <article className="bloco-conteudo">
           <h2>Teorias</h2>
-          <div className="linhas-anotacao">
-            <span />
-            <span />
-          </div>
+          <p>{item.teorias}</p>
         </article>
 
         <article className="bloco-conteudo">
           <h2>Conceitos</h2>
-          <div className="linhas-anotacao">
-            <span />
-            <span />
-          </div>
+          <p>{item.conceitos}</p>
         </article>
 
         <article className="bloco-conteudo">
           <h2>Metodologias</h2>
-          <div className="linhas-anotacao">
-            <span />
-            <span />
-          </div>
+          <p>{item.metodologias}</p>
         </article>
       </div>
     </>
