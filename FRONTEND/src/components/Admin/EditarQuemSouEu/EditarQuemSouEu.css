@@ -242,6 +242,7 @@
 }
 
 .itinerario-previa {
+  display: inline-block; /* NOVO: a faixa amarela fica do tamanho do texto */
   padding: 5px 7px;
   margin: 8px 0;
   background: var(--cor-amarela);
@@ -276,4 +277,12 @@
   margin: 0;
   color: #555;
   font-size: 12px;
+}
+
+
+@media (max-width: 900px) {
+  .conteudo-editar-perfil,
+  .colunas-editar-perfil {
+    grid-template-columns: 1fr;
+  }
 }

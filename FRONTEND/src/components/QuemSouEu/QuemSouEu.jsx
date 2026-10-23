@@ -39,10 +39,9 @@ const QuemSouEu = () => {
   const biografia =
     dados?.paragrafo_biografia ||
     "Sou Thiago Guilherme, estudante do ensino médio e do curso Técnico em Informática para Internet. Neste portfólio, reúno atividades, projetos e reflexões da minha trajetória de aprendizagem, conectando os conhecimentos da escola ao universo da tecnologia.";
-  const textoNegrito = dados?.texto_negrito || "";
-  const foto = dados?.foto
-    ? `http://localhost:3333/${dados.foto}`
-    : null;
+  const textoNegrito =
+    dados?.texto_negrito || "Explore meu portfólio: Sesi ou Senai.";
+  const foto = dados?.foto ? `http://localhost:3333/${dados.foto}` : null;
 
   return (
     <div className="pagina-inicial">
@@ -71,17 +70,13 @@ const QuemSouEu = () => {
           ) : (
             <>
               <p className="descricao-texto">{biografia}</p>
-              {textoNegrito && (
-                <p className="descricao-texto">
-                  <strong>{textoNegrito}</strong>
-                </p>
-              )}
+             
             </>
           )}
 
           <div className="explorar-portfolio">
             <img src={traco} alt="" className="traco" />
-            <strong>Explore meu portfólio: Sesi ou Senai.</strong>
+            <strong>{textoNegrito}</strong>
           </div>
         </section>
 

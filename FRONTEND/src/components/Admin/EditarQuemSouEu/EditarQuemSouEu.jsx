@@ -5,16 +5,23 @@ import LinksIniciais from "../../LinksIniciais/LinksIniciais";
 import { chamarApi } from "../../../api";
 import "./EditarQuemSouEu.css";
 
+const API = "http://localhost:3333";
+
+
+const perfilVazio = {
+  titulo: "",
+  itinerario: "",
+  paragrafo_biografia: "",
+  texto_negrito: "",
+};
+
 const EditarQuemSouEu = () => {
   const [id, setId] = useState("");
-  const [titulo, setTitulo] = useState("");
-  const [itinerario, setItinerario] = useState("");
-  const [paragrafo, setParagrafo] = useState("");
-  const [textoNegrito, setTextoNegrito] = useState("");
-  const [fotoPreview, setFotoPreview] = useState("");
+  const [perfil, setPerfil] = useState(perfilVazio);
+  const [foto, setFoto] = useState("");
   const [mensagem, setMensagem] = useState("");
 
-  // Carrega o que já existe
+
   useEffect(() => {
     async function carregar() {
       try {
@@ -24,13 +31,13 @@ const EditarQuemSouEu = () => {
         if (!item) return;
 
         setId(item.id);
-        setTitulo(item.titulo || "");
-        setItinerario(item.itinerario || "");
-        setParagrafo(item.paragrafo_biografia || "");
-        setTextoNegrito(item.texto_negrito || "");
-        if (item.foto) {
-          setFotoPreview(`http://localhost:3333/${item.foto}`);
-        }
+        setPerfil({
+          titulo: item.titulo || "",
+          itinerario: item.itinerario || "",
+          paragrafo_biografia: item.paragrafo_biografia || "",
+          texto_negrito: item.texto_negrito || "",
+        });
+        if (item.foto) setFoto(`${API}/${item.foto}`);
       } catch (erro) {
         console.error(erro);
       }
@@ -38,49 +45,51 @@ const EditarQuemSouEu = () => {
     carregar();
   }, []);
 
-  function limpar() {
-    setTitulo("");
-    setItinerario("");
-    setParagrafo("");
-    setTextoNegrito("");
-    setFotoPreview("");
-    setMensagem("");
-  }
+  // 2. Quando você digita em qualquer campo, atualiza o campo certo
+  const mudar = (evento) => {
+    setPerfil({ ...perfil, [evento.target.name]: evento.target.value });
+  };
 
-  async function salvar(evento) {
+ 
+  const limpar = () => {
+    setPerfil(perfilVazio);
+    setFoto("");
+    setMensagem("");
+  }; // é ligado no botao de cancelar onde limpa o formulario
+
+ 
+  const salvar = async (evento) => {
     evento.preventDefault();
     setMensagem("");
 
-    const alunoId = localStorage.getItem("alunoId");
+    
     const dados = new FormData(evento.currentTarget);
-    dados.append("aluno_id", alunoId);
-    // Garante os campos de texto no FormData
-    dados.set("titulo", titulo);
-    dados.set("itinerario", itinerario);
-    dados.set("paragrafo_biografia", paragrafo);
-    dados.set("texto_negrito", textoNegrito);
+    dados.append("aluno_id", localStorage.getItem("alunoId"));
+
+   
+    const caminho = id ? `/quemSouEu/${id}` : "/quemSouEu";
+    const metodo = id ? "PUT" : "POST";
 
     try {
-      // Se já existe id → PUT; senão → POST
-      const caminho = id ? `/quemSouEu/${id}` : "/quemSouEu";
-      const metodo = id ? "PUT" : "POST";
-
-      const resposta = await chamarApi(caminho, {
-        method: metodo,
-        body: dados,
-      });
+      const resposta = await chamarApi(caminho, { method: metodo, body: dados });
       const resultado = await resposta.json();
 
       if (resposta.ok) {
         setMensagem("Salvo com sucesso!");
         if (resultado.id) setId(resultado.id);
       } else {
-        setMensagem(resultado.message || "Erro ao salvar");
+        setMensagem(resultado.message || "Erro ao salvar.");
       }
     } catch {
       setMensagem("Não foi possível conectar ao servidor.");
     }
-  }
+  };
+
+ 
+  const escolherFoto = (evento) => {
+    const arquivo = evento.target.files?.[0];
+    if (arquivo) setFoto(URL.createObjectURL(arquivo));
+  };
 
   return (
     <div className="pagina-editar-perfil">
@@ -92,109 +101,129 @@ const EditarQuemSouEu = () => {
       </header>
 
       <main className="conteudo-editar-perfil">
-        <form className="formulario-editar-perfil" onSubmit={salvar}>
-          <h1>Editar “Quem sou eu”</h1>
+     
+        <aside className="menu-editar-perfil">
+          <Link to="/admin/atividades/nova/sesi">Enviar atividade</Link>
+          <Link to="/admin/atividades">Minhas atividades</Link>
+          <span className="item-menu-perfil-ativo">Quem sou eu</span>
+          <Link
+            to="/admin/login"
+            onClick={() => {
+              localStorage.removeItem("token");
+              localStorage.removeItem("alunoId");
+            }}
+          >
+            Sair
+          </Link>
+        </aside>
 
-          <label>
-            Título
-            <input
-              name="titulo"
-              value={titulo}
-              onChange={(e) => setTitulo(e.target.value)}
-            />
-          </label>
+      
+        <section className="area-editar-perfil">
+          <header className="titulo-editar-perfil">
+            <h1>
+              Editar
+              <br />
+              <span>Quem sou eu</span>
+            </h1>
+            <p>Alterando · Quem sou eu</p>
+          </header>
 
-          <label>
-            Itinerário
-            <input
-              name="itinerario"
-              value={itinerario}
-              onChange={(e) => setItinerario(e.target.value)}
-            />
-          </label>
+          <div className="colunas-editar-perfil">
+           
+            <form className="formulario-editar-perfil" onSubmit={salvar}>
+              <label>
+                Título
+                <input name="titulo" value={perfil.titulo} onChange={mudar} />
+              </label>
 
-          <label>
-            Biografia
-            <textarea
-              name="paragrafo_biografia"
-              rows={4}
-              value={paragrafo}
-              onChange={(e) => setParagrafo(e.target.value)}
-            />
-          </label>
-
-          <label>
-            Texto em destaque
-            <input
-              name="texto_negrito"
-              value={textoNegrito}
-              onChange={(e) => setTextoNegrito(e.target.value)}
-            />
-          </label>
-
-          <div className="campo-foto-perfil">
-            <span>Foto</span>
-            <div className="troca-foto-perfil">
-              <div className="miniatura-foto-perfil">
-                {fotoPreview ? (
-                  <img src={fotoPreview} alt="Prévia" />
-                ) : (
-                  "atual"
-                )}
-              </div>
-              <label className="botao-trocar-foto">
-                Trocar foto
+              <label>
+                Itinerário
                 <input
-                  type="file"
-                  name="foto"
-                  accept="image/*"
-                  onChange={(e) => {
-                    const arquivo = e.target.files?.[0];
-                    if (arquivo) {
-                      setFotoPreview(URL.createObjectURL(arquivo));
-                    }
-                  }}
+                  name="itinerario"
+                  value={perfil.itinerario}
+                  onChange={mudar}
                 />
               </label>
-            </div>
-          </div>
 
-          <p className="destino-editar-perfil">Vai aparecer em: Página inicial</p>
+              <label>
+                Parágrafo da biografia
+                <textarea
+                  name="paragrafo_biografia"
+                  rows={4}
+                  value={perfil.paragrafo_biografia}
+                  onChange={mudar}
+                />
+              </label>
 
-          <div className="acoes-editar-perfil">
-            <button className="botao-salvar-perfil" type="submit">
-              Salvar alterações
-            </button>
-            <button
-              className="botao-cancelar-perfil"
-              type="button"
-              onClick={limpar}
-            >
-              Cancelar
-            </button>
-          </div>
+              <label>
+                Texto em negrito
+                <input
+                  name="texto_negrito"
+                  value={perfil.texto_negrito}
+                  onChange={mudar}
+                />
+              </label>
 
-          {mensagem && <p>{mensagem}</p>}
-        </form>
+              <div className="campo-foto-perfil">
+                <span>Foto</span>
+                <div className="troca-foto-perfil">
+                  <div className="miniatura-foto-perfil">
+                    {foto ? <img src={foto} alt="Prévia" /> : "atual"}
+                  </div>
+                  <label className="botao-trocar-foto">
+                    Trocar foto
+                    <input
+                      type="file"
+                      name="foto"
+                      accept="image/*"
+                      onChange={escolherFoto}
+                    />
+                  </label>
+                </div>
+              </div>
 
-        <aside className="previa-editar-perfil">
-          <h2>Pré-visualização</h2>
-          <h3>
-            EU SOU
-            <br />
-            <span>{titulo}</span>
-          </h3>
-          <p className="itinerario-previa">{itinerario}</p>
-          <p>{paragrafo}</p>
-          <strong>{textoNegrito}</strong>
-          <div className="foto-previa-perfil">
-            {fotoPreview && <img src={fotoPreview} alt="" />}
+              <p className="destino-editar-perfil">
+                Vai aparecer em: Página inicial
+              </p>
+
+              <div className="acoes-editar-perfil">
+                <button className="botao-salvar-perfil" type="submit">
+                  Salvar alterações
+                </button>
+            
+                <button
+                  className="botao-cancelar-perfil"
+                  type="button"
+                  onClick={limpar}
+                >
+                  Cancelar
+                </button>
+              </div>
+
+              {mensagem && <p role="status">{mensagem}</p>}
+            </form>
+
+           
+            <aside className="previa-editar-perfil">
+              <h2>Pré-visualização</h2>
+              <h3>
+                EU SOU
+                <br />
+                <span>{perfil.titulo}</span>
+              </h3>
+              <p className="itinerario-previa">{perfil.itinerario}</p>
+              <p>{perfil.paragrafo_biografia}</p>
+              <strong>{perfil.texto_negrito}</strong>
+              <div className="foto-previa-perfil">
+                {foto && <img src={foto} alt="" />}
+              </div>
+              <div className="instituicoes-previa-perfil">
+                <LinksIniciais instituicao="Sesi" />
+                <LinksIniciais instituicao="Senai" />
+              </div>
+            </aside>
           </div>
-          <div className="instituicoes-previa-perfil">
-            <LinksIniciais instituicao="Sesi" />
-            <LinksIniciais instituicao="Senai" />
-          </div>
-        </aside>
+        </section>
       </main>
 
       <Rodape />

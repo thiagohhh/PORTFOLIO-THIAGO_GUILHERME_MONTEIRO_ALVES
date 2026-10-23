@@ -12,13 +12,18 @@ import CadastroAtividadeSenai from "./components/Admin/CadastroAtividadeSenai/Ca
 import EditarAtividadeSesi from "./components/Admin/EditarAtividadeSesi/EditarAtividadeSesi";
 import EditarAtividadeSenai from "./components/Admin/EditarAtividadeSenai/EditarAtividadeSenai";
 import EditarQuemSouEu from "./components/Admin/EditarQuemSouEu/EditarQuemSouEu";
+import MinhasAtividades from "./components/Admin/MinhasAtividades/MinhasAtividades";
 import "./App.css";
 
 const RotaProtegida = ({ children }) => {
   const location = useLocation();
   const token = localStorage.getItem("token");
 
-  return token ? children : <Navigate to="/admin/login" replace state={{ from: location }} />;
+  return token ? (
+    children
+  ) : (
+    <Navigate to="/admin/login" replace state={{ from: location }} />
+  );
 };
 
 function App() {
@@ -27,18 +32,12 @@ function App() {
       <Routes>
         <Route path="/" element={<QuemSouEu />} />
         <Route path="/Sesi" element={<Sesi />} />
-        <Route
-          path="/Sesi/conteudo/natureza"
-          element={<ConteudoNatureza />}
-        />
+        <Route path="/Sesi/conteudo/natureza" element={<ConteudoNatureza />} />
         <Route
           path="/Sesi/conteudo/linguagens"
           element={<ConteudoLinguagens />}
         />
-        <Route
-          path="/Sesi/conteudo/humanas"
-          element={<ConteudoHumanas />}
-        />
+        <Route path="/Sesi/conteudo/humanas" element={<ConteudoHumanas />} />
         <Route
           path="/Sesi/conteudo/matematica"
           element={<ConteudoMatematica />}
@@ -47,23 +46,51 @@ function App() {
         <Route path="/admin/login" element={<Login />} />
         <Route
           path="/admin/atividades/nova/sesi"
-          element={<RotaProtegida><CadastroAtividadeSesi /></RotaProtegida>}
+          element={
+            <RotaProtegida>
+              <CadastroAtividadeSesi />
+            </RotaProtegida>
+          }
         />
         <Route
           path="/admin/atividades/nova/senai"
-          element={<RotaProtegida><CadastroAtividadeSenai /></RotaProtegida>}
+          element={
+            <RotaProtegida>
+              <CadastroAtividadeSenai />
+            </RotaProtegida>
+          }
         />
         <Route
           path="/admin/atividades/editar/sesi"
-          element={<RotaProtegida><EditarAtividadeSesi /></RotaProtegida>}
+          element={
+            <RotaProtegida>
+              <EditarAtividadeSesi />
+            </RotaProtegida>
+          }
         />
         <Route
           path="/admin/atividades/editar/senai"
-          element={<RotaProtegida><EditarAtividadeSenai /></RotaProtegida>}
+          element={
+            <RotaProtegida>
+              <EditarAtividadeSenai />
+            </RotaProtegida>
+          }
+        />
+        <Route
+          path="/admin/atividades"
+          element={
+            <RotaProtegida>
+              <MinhasAtividades />
+            </RotaProtegida>
+          }
         />
         <Route
           path="/admin/quemSouEu"
-          element={<RotaProtegida><EditarQuemSouEu /></RotaProtegida>}
+          element={
+            <RotaProtegida>
+              <EditarQuemSouEu />
+            </RotaProtegida>
+          }
         />
       </Routes>
     </div>

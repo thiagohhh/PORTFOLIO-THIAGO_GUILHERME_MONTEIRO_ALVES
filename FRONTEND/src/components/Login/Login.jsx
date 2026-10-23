@@ -34,16 +34,25 @@ const Login = () => {
 
       localStorage.setItem("token", resultado.token);
 
+            localStorage.setItem("token", resultado.token);
+
       const idDoAluno =
-        resultado.aluno?.id || resultado.usuario?.id || resultado.id;
-      localStorage.setItem("alunoId", idDoAluno);
+        resultado.alunoId ||
+        resultado.aluno?.id ||
+        resultado.usuario?.id ||
+        resultado.id;
+
+      if (!idDoAluno) {
+        throw new Error("Login ok, mas o servidor não enviou o id do aluno.");
+      }
+
+      localStorage.setItem("alunoId", String(idDoAluno));
 
       navigate(
         location.state?.from?.pathname || "/admin/atividades/nova/senai",
-        {
-          replace: true,
-        },
+        { replace: true },
       );
+
     } catch (error) {
       setMensagem(
         error instanceof TypeError

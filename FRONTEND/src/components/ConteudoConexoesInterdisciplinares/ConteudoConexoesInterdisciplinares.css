@@ -1,66 +1,76 @@
-.conteudo-conexoes {
-  margin-top: 18px;
+.bloco-conexao {
+  margin-bottom: 28px;
 }
 
-.mapa-conexoes {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  margin: 0 auto 18px;
+.teia-conexoes {
+  position: relative;
+  width: 320px;
+  height: 240px;
+  margin: 20px auto 24px;
 }
 
-.linha-disciplinas {
-  display: flex;
-  justify-content: space-between;
-  width: 75%;
+.linhas-teia {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
-.no-conexao {
+.linhas-teia line {
+  stroke: #171717;
+  stroke-width: 2;
+}
+
+.bolinha {
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 74px;
-  height: 74px;
-  padding: 8px;
-  border: 2px solid var(--cor-preta);
+  width: 78px;
+  height: 78px;
+  padding: 6px;
+  border: 2px solid #171717;
   border-radius: 50%;
-  background: var(--cor-branca);
-  color: var(--cor-preta);
-  font-size: 14px;
+  background: #fff;
+  font-size: 12px;
   font-weight: 700;
   text-align: center;
+  line-height: 1.2;
+  z-index: 1;
 }
 
-.destaque-conexao {
-  width: 94px;
-  height: 94px;
-  background: var(--cor-amarela);
+.bolinha-centro {
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  margin: -50px 0 0 -50px;
+  background: #dfb135;
+  font-size: 13px;
 }
+
+.pos-tl { top: 8px; left: 18px; }
+.pos-tr { top: 8px; right: 18px; }
+.pos-bl { bottom: 8px; left: 18px; }
+.pos-br { bottom: 8px; right: 18px; }
 
 .cartao-conexoes {
-  padding: 12px 14px;
-  border: 2px solid var(--cor-preta);
-  background: var(--cor-branca);
-  box-shadow: 4px 4px 0 var(--cor-preta);
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 14px 16px;
+  border: 2px solid #171717;
+  background: #fff;
+  box-shadow: 4px 4px 0 #171717;
 }
 
 .cartao-conexoes h2 {
-  margin: 0;
-  color: var(--cor-preta);
+  margin: 0 0 8px;
   font-size: 16px;
-  font-weight: 800;
 }
 
-.linhas-conexoes {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.linhas-conexoes span {
-  display: block;
-  height: 1px;
-  background: var(--cor-linha);
+.separador-sesi {
+  border: 0;
+  border-top: 2px solid #171717;
+  margin: 28px 0;
 }

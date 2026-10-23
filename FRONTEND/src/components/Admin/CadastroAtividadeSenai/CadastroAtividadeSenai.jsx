@@ -215,50 +215,62 @@ const CadastroAtividadeSenai = () => {
     }
   }
 
- function AreaArquivo({ id, name, accept, icone, rotulo, nomeArquivo, setNomeArquivo, setFotoArquivo }) {
-  return (
-  
-    <label htmlFor={id} className="area-arquivo-senai" style={{ cursor: "pointer" }}>
-      <img src={icone} alt="" />
-      <strong>Clique para enviar ({rotulo})</strong>
-      <span>{nomeArquivo || "Nenhum arquivo selecionado"}</span>
-      
-      <input
-        id={id}
-        name={name}
-        type="file"
-        accept={accept}
-        style={{ display: "none" }}
-        onChange={(e) => {
-          const arquivo = e.target.files?.[0];
-          if (arquivo) {
-            setNomeArquivo(arquivo.name);
-            setFotoArquivo(arquivo);
-          }
-        }}
-      />
-    </label>
-  );
-}
+  function AreaArquivo({
+    id,
+    name,
+    accept,
+    icone,
+    rotulo,
+    nomeArquivo,
+    setNomeArquivo,
+    setFotoArquivo,
+  }) {
+    return (
+      <label
+        htmlFor={id}
+        className="area-arquivo-senai"
+        style={{ cursor: "pointer" }}
+      >
+        <img src={icone} alt="" />
+        <strong>Clique para enviar ({rotulo})</strong>
+        <span>{nomeArquivo || "Nenhum arquivo selecionado"}</span>
 
-// logica da estrela e da bolinh
+        <input
+          id={id}
+          name={name}
+          type="file"
+          accept={accept}
+          style={{ display: "none" }}
+          onChange={(e) => {
+            const arquivo = e.target.files?.[0];
+            if (arquivo) {
+              setNomeArquivo(arquivo.name);
+              setFotoArquivo(arquivo);
+            }
+          }}
+        />
+      </label>
+    );
+  }
+
+  // logica da estrela e da bolinh
   function Marcadores({ valor, setValor, tipo }) {
-     // o ícone ativo será a estrela amarela. Se não, será o círculo amarelo.
+    // o ícone ativo será a estrela amarela. Se não, será o círculo amarelo.
     const ativo = tipo === "estrelas" ? estrelaAmarela : circuloAmarelo;
 
-     // o ícone inativo será a estrela branca. Se não, será o círculo branco.
-    const inativo = tipo === "estrelas" ? estrelaBranca : circuloBranco; 
+    // o ícone inativo será a estrela branca. Se não, será o círculo branco.
+    const inativo = tipo === "estrelas" ? estrelaBranca : circuloBranco;
 
     return (
       <div
-      // Se o tipo for "estrelas", ele adiciona a classe "marcadores-estrelas-senai" junto com a classe padrão
+        // Se o tipo for "estrelas", ele adiciona a classe "marcadores-estrelas-senai" junto com a classe padrão
         className={`marcadores-senai ${tipo === "estrelas" ? "marcadores-estrelas-senai" : ""}`}
       >
-           {/* Cria uma lista de 1 a 5 e repete o código do botão para cada número (n) */}
+        {/* Cria uma lista de 1 a 5 e repete o código do botão para cada número (n) */}
         {[1, 2, 3, 4, 5].map((n) => (
-           // Quando o botão é clicado, atualiza o valor da nota para o número correspondente (n)
+          // Quando o botão é clicado, atualiza o valor da nota para o número correspondente (n)
           <button type="button" key={n} onClick={() => setValor(n)}>
-              {/* Se o número do botão (n) for menor ou igual à nota atual (valor), 
+            {/* Se o número do botão (n) for menor ou igual à nota atual (valor), 
               mostra o ícone ativo (colorido). Caso contrário, mostra o inativo (vazio). */}
             <img src={n <= valor ? ativo : inativo} alt="" />
           </button>
@@ -578,9 +590,13 @@ const CadastroAtividadeSenai = () => {
           <button className="item-navegacao-senai ativo" type="button">
             <span className="icone-navegacao-senai">+</span> Enviar atividade
           </button>
-          <button className="item-navegacao-senai" type="button" disabled>
-            <span className="icone-navegacao-senai">≡</span> Minhas atividades
-          </button>
+          <Link className="item-navegacao-senai" to="/admin/quemSouEu">
+            <span className="icone-navegacao-senai">●</span> Quem sou eu
+          </Link>
+          <Link className="item-navegacao-admin" to="/admin/atividades">
+            <span className="icone-navegacao-admin">≡</span>
+            Minhas atividades
+          </Link>
           <Link
             className="item-navegacao-senai sair-admin-senai"
             to="/admin/login"

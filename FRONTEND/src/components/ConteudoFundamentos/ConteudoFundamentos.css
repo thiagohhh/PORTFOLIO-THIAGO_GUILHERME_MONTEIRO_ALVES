@@ -42,3 +42,15 @@
   min-height: 96px;
   padding: 14px;
 }
+
+.lista-fundamentos {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.separador-fundamento {
+  border: 0;
+  border-top: 2px solid var(--cor-preta);
+  margin: 28px 0;
+}

@@ -3,7 +3,7 @@ import { chamarApi } from "../../api";
 import "./ConteudoReflexaoCritica.css";
 
 const ConteudoReflexaoCritica = () => {
-  const [item, setItem] = useState(null);
+  const [lista, setLista] = useState([]);
   const [carregando, setCarregando] = useState(true);
 
   useEffect(() => {
@@ -11,11 +11,10 @@ const ConteudoReflexaoCritica = () => {
       try {
         const resposta = await chamarApi("/sesi/reflexoesCriticas");
         const dados = await resposta.json();
-        const lista = Array.isArray(dados) ? dados : [];
-        setItem(lista[0] || null);
+        setLista(Array.isArray(dados) ? dados : []);
       } catch (erro) {
         console.error(erro);
-        setItem(null);
+        setLista([]);
       } finally {
         setCarregando(false);
       }
@@ -24,34 +23,36 @@ const ConteudoReflexaoCritica = () => {
   }, []);
 
   if (carregando) return <p>Carregando...</p>;
-  if (!item) return <p>Nenhuma reflexão crítica cadastrada ainda.</p>;
+  if (lista.length === 0) {
+    return <p>Nenhuma reflexão crítica cadastrada ainda.</p>;
+  }
 
   return (
-    <div className="conteudo-reflexao-critica">
-      <article className="cartao-reflexao">
-        <h2>Aprendizado acadêmico</h2>
-        <p>{item.aprendizado_academico}</p>
-      </article>
+    <div className="lista-reflexoes">
+      {lista.map((item, index) => (
+        <div key={item.id}>
+          <div className="conteudo-reflexao-critica">
+            <article className="cartao-reflexao">
+              <h2>Aprendizado acadêmico</h2>
+              <p>{item.aprendizado_academico}</p>
+            </article>
+            <article className="cartao-reflexao">
+              <h2>Aplicação prática</h2>
+              <p>{item.aplicacao_pratica}</p>
+            </article>
+            <article className="cartao-reflexao">
+              <h2>Melhorias necessárias</h2>
+              <p>{item.melhorias_necessarias}</p>
+            </article>
+            <article className="cartao-reflexao">
+              <h2>Momentos desafiadores</h2>
+              <p>{item.momentos_desafiadores}</p>
+            </article>
+          </div>
 
-      <article className="cartao-reflexao">
-        <h2>Aplicação prática</h2>
-        <p>{item.aplicacao_pratica}</p>
-      </article>
-
-      <article className="cartao-reflexao">
-        <h2>Melhorias necessárias</h2>
-        <p>{item.melhorias_necessarias}</p>
-      </article>
-
-      <article className="cartao-reflexao">
-        <h2>Momentos desafiadores</h2>
-        <p>{item.momentos_desafiadores}</p>
-        <div className="etiquetas-reflexao">
-          <span>Facilidades</span>
-          <span>Desafios</span>
-          <span>Aprendizados</span>
+          {index < lista.length - 1 && <hr className="separador-sesi" />}
         </div>
-      </article>
+      ))}
     </div>
   );
 };

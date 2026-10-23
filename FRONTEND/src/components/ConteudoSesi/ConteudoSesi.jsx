@@ -81,27 +81,14 @@ const ConteudoSesi = ({ disciplina }) => {
   }
 
   function mostrarConteudo() {
-    // Passa o bimestre para as seções que usam
     const props = { bimestre: bimestreAtivo, disciplina };
 
-    if (secaoAtiva === "Fundamentos teóricos") {
-      return <ConteudoFundamentos {...props} />;
-    }
-    if (secaoAtiva === "Participação em sala") {
-      return <ConteudoParticipacao {...props} />;
-    }
-    if (secaoAtiva === "Projetos e trabalhos") {
-      return <ConteudoProjetos {...props} />;
-    }
-    if (secaoAtiva === "Reflexão crítica") {
-      return <ConteudoReflexaoCritica />;
-    }
-    if (secaoAtiva === "Conexões interdisciplinares") {
-      return <ConteudoConexoesInterdisciplinares />;
-    }
-    if (secaoAtiva === "Da escola para a vida") {
-      return <ConteudoEscolaVida />;
-    }
+    if (secaoAtiva === "Fundamentos teóricos") return <ConteudoFundamentos {...props} />;
+    if (secaoAtiva === "Participação em sala") return <ConteudoParticipacao {...props} />;
+    if (secaoAtiva === "Projetos e trabalhos") return <ConteudoProjetos {...props} />;
+    if (secaoAtiva === "Reflexão crítica") return <ConteudoReflexaoCritica />;
+    if (secaoAtiva === "Conexões interdisciplinares") return <ConteudoConexoesInterdisciplinares />;
+    if (secaoAtiva === "Da escola para a vida") return <ConteudoEscolaVida />;
     return null;
   }
 
@@ -116,11 +103,9 @@ const ConteudoSesi = ({ disciplina }) => {
           <p className="disciplina-atual">{disciplina}</p>
           <h1>{tituloDaSecao()}</h1>
 
-          {/* Bimestres: classe seletor-bimestres = 4 colunas na horizontal */}
           {!ehSecaoAnual && (
             <>
               <p className="etiqueta-conteudo">BIMESTRES · 4 PÁGINAS</p>
-
               <div className="seletor-bimestres">
                 {["1º bimestre", "2º bimestre", "3º bimestre", "4º bimestre"].map(
                   (bimestre) => (

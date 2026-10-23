@@ -28,8 +28,8 @@ export const criarConexaoInterdisciplinar = async (request, response) => {
       relacoes_interdisciplinares,
     });
     return response.status(201).json(conexao);
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 export const listarConexoesInterdisciplinares = async (request, response) => {
@@ -37,7 +37,7 @@ export const listarConexoesInterdisciplinares = async (request, response) => {
     const conexoes = await ConexaoInterdisciplinar.findAll();
     return response.status(200).json(conexoes);
   } catch {
-    return tratarErros(request, response);
+    return tratarErros(request, response, error);
   }
 };
 export const atualizarConexaoInterdisciplinar = async (request, response) => {
@@ -52,8 +52,8 @@ export const atualizarConexaoInterdisciplinar = async (request, response) => {
 
     await conexao.update({ aluno_id, relacoes_interdisciplinares });
     return response.status(200).json(conexao);
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 export const deletarConexaoInterdisciplinar = async (request, response) => {
@@ -64,8 +64,8 @@ export const deletarConexaoInterdisciplinar = async (request, response) => {
     }
     await conexao.destroy();
     return response.status(204).send();
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 
@@ -83,16 +83,16 @@ export const criarConexaoTeia = async (request, response) => {
 
     const conexao = await ConexaoTeia.create({ conexao_id, materia_conectada });
     return response.status(201).json(conexao);
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 export const listarConexoesTeia = async (request, response) => {
   try {
     const conexoes = await ConexaoTeia.findAll();
     return response.status(200).json(conexoes);
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 export const atualizarConexaoTeia = async (request, response) => {
@@ -107,8 +107,8 @@ export const atualizarConexaoTeia = async (request, response) => {
 
     await conexao.update({ conexao_id, materia_conectada });
     return response.status(200).json(conexao);
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 export const deletarConexaoTeia = async (request, response) => {
@@ -119,8 +119,8 @@ export const deletarConexaoTeia = async (request, response) => {
     }
     await conexao.destroy();
     return response.status(204).send();
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 
@@ -164,16 +164,16 @@ export const criarEscolaParaVida = async (request, response) => {
       desafios_novas_etapas,
     });
     return response.status(201).json(escolaParaVida);
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 export const listarEscolaParaVida = async (request, response) => {
   try {
     const registros = await EscolaParaVida.findAll();
     return response.status(200).json(registros);
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 export const atualizarEscolaParaVida = async (request, response) => {
@@ -202,8 +202,8 @@ export const atualizarEscolaParaVida = async (request, response) => {
       desafios_novas_etapas,
     });
     return response.status(200).json(registro);
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 export const deletarEscolaParaVida = async (request, response) => {
@@ -214,8 +214,8 @@ export const deletarEscolaParaVida = async (request, response) => {
     }
     await registro.destroy();
     return response.status(204).send();
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 
@@ -245,26 +245,26 @@ export const criarFundamentoTeorico = async (request, response) => {
     }
 
     const fundamento = await FundamentoTeorico.create({
-      aluno_id,
-      bimestre,
+      aluno_id: Number(aluno_id),
+      bimestre: Number(bimestre),
       resumo_teorico,
       teorias,
       conceitos,
       metodologias,
     });
     return response.status(201).json(fundamento);
-  } catch {
-    return tratarErros(request, response);
-  }
+  } catch (error) {
+    return tratarErros(request, response, error);
+  };
 };
 export const listarFundamentosTeoricos = async (request, response) => {
   try {
     const fundamentos = await FundamentoTeorico.findAll();
     return response.status(200).json(fundamentos);
-  } catch {
-    return tratarErros(request, response);
-  }
-};
+  } catch (error) {
+    return tratarErros(request, response, error);
+  };
+}
 export const atualizarFundamentoTeorico = async (request, response) => {
   try {
     const { id } = request.params;
@@ -285,9 +285,9 @@ export const atualizarFundamentoTeorico = async (request, response) => {
       metodologias,
     });
     return response.status(200).json(fundamento);
-  } catch {
-    return tratarErros(request, response);
-  }
+  } catch (error) {
+    return tratarErros(request, response, error);
+  };
 };
 export const deletarFundamentoTeorico = async (request, response) => {
   try {
@@ -297,8 +297,8 @@ export const deletarFundamentoTeorico = async (request, response) => {
     }
     await fundamento.destroy();
     return response.status(204).send();
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 
@@ -347,16 +347,16 @@ export const criarParticipacaoEmSala = async (request, response) => {
       justificativa_autoavaliacao,
     });
     return response.status(201).json(participacao);
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 export const listarParticipacoesEmSala = async (request, response) => {
   try {
     const participacoes = await ParticipacaoEmSala.findAll();
     return response.status(200).json(participacoes);
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 export const atualizarParticipacaoEmSala = async (request, response) => {
@@ -387,8 +387,8 @@ export const atualizarParticipacaoEmSala = async (request, response) => {
       justificativa_autoavaliacao,
     });
     return response.status(200).json(participacao);
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 export const deletarParticipacaoEmSala = async (request, response) => {
@@ -399,8 +399,8 @@ export const deletarParticipacaoEmSala = async (request, response) => {
     }
     await participacao.destroy();
     return response.status(204).send();
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 
@@ -435,16 +435,16 @@ export const criarProjetoTrabalho = async (request, response) => {
       foto,
     });
     return response.status(201).json(projeto);
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 export const listarProjetosTrabalho = async (request, response) => {
   try {
     const projetos = await ProjetoTrabalho.findAll();
     return response.status(200).json(projetos);
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 export const atualizarProjetoTrabalho = async (request, response) => {
@@ -470,8 +470,8 @@ export const atualizarProjetoTrabalho = async (request, response) => {
       foto,
     });
     return response.status(200).json(projeto);
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 export const deletarProjetoTrabalho = async (request, response) => {
@@ -482,8 +482,8 @@ export const deletarProjetoTrabalho = async (request, response) => {
     }
     await projeto.destroy();
     return response.status(204).send();
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 
@@ -505,8 +505,8 @@ export const criarTagProjetoTrabalho = async (request, response) => {
       tag_identificacao,
     });
     return response.status(201).json(tag);
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 export const listarTagsProjetoTrabalho = async (request, response) => {
@@ -516,8 +516,8 @@ export const listarTagsProjetoTrabalho = async (request, response) => {
       where: { projeto_id: projetoId },
     });
     return response.status(200).json(tags);
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 export const atualizarTagProjetoTrabalho = async (request, response) => {
@@ -532,8 +532,8 @@ export const atualizarTagProjetoTrabalho = async (request, response) => {
 
     await tag.update({ projeto_id, tag_identificacao });
     return response.status(200).json(tag);
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 export const deletarTagProjetoTrabalho = async (request, response) => {
@@ -544,8 +544,8 @@ export const deletarTagProjetoTrabalho = async (request, response) => {
     }
     await tag.destroy();
     return response.status(204).send();
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 
@@ -584,16 +584,16 @@ export const criarReflexaoCritica = async (request, response) => {
       momentos_desafiadores,
     });
     return response.status(201).json(reflexao);
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 export const listarReflexoesCriticas = async (request, response) => {
   try {
     const reflexoes = await ReflexaoCritica.findAll();
     return response.status(200).json(reflexoes);
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 export const atualizarReflexaoCritica = async (request, response) => {
@@ -620,8 +620,8 @@ export const atualizarReflexaoCritica = async (request, response) => {
       momentos_desafiadores,
     });
     return response.status(200).json(reflexao);
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 export const deletarReflexaoCritica = async (request, response) => {
@@ -632,8 +632,8 @@ export const deletarReflexaoCritica = async (request, response) => {
     }
     await reflexao.destroy();
     return response.status(204).send();
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 
@@ -651,16 +651,16 @@ export const criarReflexaoHabilidade = async (request, response) => {
 
     const habilidade = await ReflexaoHabilidade.create({ reflexao_id, nome_habilidade });
     return response.status(201).json(habilidade);
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 export const listarReflexoesHabilidades = async (request, response) => {
   try {
     const habilidades = await ReflexaoHabilidade.findAll();
     return response.status(200).json(habilidades);
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 export const atualizarReflexaoHabilidade = async (request, response) => {
@@ -675,8 +675,8 @@ export const atualizarReflexaoHabilidade = async (request, response) => {
 
     await habilidade.update({ reflexao_id, nome_habilidade });
     return response.status(200).json(habilidade);
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
 export const deletarReflexaoHabilidade = async (request, response) => {
@@ -687,7 +687,7 @@ export const deletarReflexaoHabilidade = async (request, response) => {
     }
     await habilidade.destroy();
     return response.status(204).send();
-  } catch {
-    return tratarErros(request, response);
+  } catch (error) {
+    return tratarErros(request, response, error);
   }
 };
