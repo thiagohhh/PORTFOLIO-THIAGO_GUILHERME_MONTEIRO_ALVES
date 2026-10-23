@@ -588,13 +588,13 @@ const CadastroAtividadeSenai = () => {
       <main className="conteudo-admin-senai">
         <aside className="navegacao-admin-senai">
           <button className="item-navegacao-senai ativo" type="button">
-            <span className="icone-navegacao-senai">+</span> Enviar atividade
+            <span className="icone-navegacao-senai">📤</span> Enviar atividade
           </button>
           <Link className="item-navegacao-senai" to="/admin/quemSouEu">
-            <span className="icone-navegacao-senai">●</span> Quem sou eu
+            <span className="icone-navegacao-senai">😎</span> Quem sou eu
           </Link>
           <Link className="item-navegacao-admin" to="/admin/atividades">
-            <span className="icone-navegacao-admin">≡</span>
+            <span className="icone-navegacao-admin">📒</span>
             Minhas atividades
           </Link>
           <Link

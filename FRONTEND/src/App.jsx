@@ -30,20 +30,25 @@ function App() {
   return (
     <div className="container-principal">
       <Routes>
-        <Route path="/" element={<QuemSouEu />} />
-        <Route path="/Sesi" element={<Sesi />} />
-        <Route path="/Sesi/conteudo/natureza" element={<ConteudoNatureza />} />
-        <Route
-          path="/Sesi/conteudo/linguagens"
-          element={<ConteudoLinguagens />}
-        />
-        <Route path="/Sesi/conteudo/humanas" element={<ConteudoHumanas />} />
-        <Route
-          path="/Sesi/conteudo/matematica"
-          element={<ConteudoMatematica />}
-        />
-        <Route path="/Senai" element={<Senai />} />
+        <Route path="/" element={<QuemSouEu/>}/> {/**Direcioan para tela incial que é (o quem sou eu)*/}
+
+        <Route path="/Sesi" element={<Sesi/>}/> {/**Direcioan para tela incial do senai*/}
+        <Route path="/Senai" element={<Senai/>}/> {/**Direcioan para tela do sesi onde vai escolher a area de conchimentos*/}
+
+        <Route path="/Sesi/conteudo/natureza" element={<ConteudoNatureza/>} /> {/** */}
+        <Route path="/Sesi/conteudo/linguagens" element={<ConteudoLinguagens/>}/>
+        <Route path="/Sesi/conteudo/humanas" element={<ConteudoHumanas/>} />
+        <Route path="/Sesi/conteudo/matematica" element={<ConteudoMatematica/>}/>
+
+
+    
+
+
         <Route path="/admin/login" element={<Login />} />
+
+
+
+        {/**Rotas do administrador no caso quem vai usaer */}
         <Route
           path="/admin/atividades/nova/sesi"
           element={

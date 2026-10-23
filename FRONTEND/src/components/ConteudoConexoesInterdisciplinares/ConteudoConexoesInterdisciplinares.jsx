@@ -33,7 +33,7 @@ const ConteudoConexoesInterdisciplinares = () => {
         const resposta = await chamarApi("/sesi/conexoesInterdisciplinares");
         const dados = await resposta.json();
         const lista = Array.isArray(dados) ? dados : [];
-        // só o último cadastro
+
         setItem(lista.length ? lista[lista.length - 1] : null);
       } catch {
         setItem(null);
@@ -44,8 +44,8 @@ const ConteudoConexoesInterdisciplinares = () => {
     buscar();
   }, []);
 
-  if (carregando) return <p>Carregando...</p>;
-  if (!item) return <p>Nenhuma conexão cadastrada ainda.</p>;
+  if (carregando) return <p>Carregando...</p>; // se tiver carregando el e mostra carrregando
+  if (!item) return <p>Nenhuma conexão cadastrada ainda.</p>; // 
 
   const { area, materias, explicacao } = lerTexto(item.relacoes_interdisciplinares);
   const m = [materias[0], materias[1], materias[2], materias[3]];

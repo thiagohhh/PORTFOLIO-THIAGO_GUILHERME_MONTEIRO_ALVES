@@ -19,14 +19,14 @@
 .card-header {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 15px;
 }
 
 .icon-area {
   display: block;
   width: 40px;
   height: 40px;
-  padding: 8px;
+  padding: 9px;
   border-radius: 50%;
   background-color: var(--cor-amarela);
   border: 2px solid var(--cor-preto-puro);
@@ -35,32 +35,30 @@
 
 .card-area h3 {
   margin: 0;
-  font-size: 34px;
+  font-size: 35px;
   font-weight: 800;
-  line-height: 1.1;
-  color: #1b1b1b;
+   color: var(--cor-titulo);
 }
 
 .card-area p {
   margin: 12px 0 18px;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.5;
-  color: #1d1d1d;
+  color: var(--cor-titulo);
 }
 
 .btn-area {
-  display: inline-flex;
+  display: flex;
   align-self: flex-start;
   align-items: center;
   justify-content: center;
   min-width: 106px;
-  height: 36px;
-  padding: 0 18px;
+  height: 40px;
   border: 2px solid var(--cor-preto-puro);
   background-color: var(--cor-preto-puro);
   color: var(--cor-branca);
   text-decoration: none;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 700;
   border-radius: 10px 0 10px 0;
   box-shadow: 4px 4px 0 var(--cor-preto-puro);

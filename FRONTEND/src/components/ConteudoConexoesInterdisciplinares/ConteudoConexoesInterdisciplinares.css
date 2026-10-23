@@ -1,76 +1,105 @@
-.bloco-conexao {
-  margin-bottom: 28px;
+.form-conexoes {
+  max-width: 640px;
 }
 
-.teia-conexoes {
-  position: relative;
-  width: 320px;
-  height: 240px;
-  margin: 20px auto 24px;
+.campo {
+  display: block;
+  margin-bottom: 20px;
 }
 
-.linhas-teia {
-  position: absolute;
-  inset: 0;
+.campo strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.input-texto {
   width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.linhas-teia line {
-  stroke: #171717;
-  stroke-width: 2;
-}
-
-.bolinha {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 78px;
-  height: 78px;
-  padding: 6px;
+  padding: 10px 12px;
   border: 2px solid #171717;
-  border-radius: 50%;
+  font-size: 14px;
   background: #fff;
-  font-size: 12px;
-  font-weight: 700;
-  text-align: center;
-  line-height: 1.2;
-  z-index: 1;
 }
 
-.bolinha-centro {
-  top: 50%;
-  left: 50%;
-  width: 100px;
-  height: 100px;
-  margin: -50px 0 0 -50px;
-  background: #dfb135;
+.linha-adicionar {
+  display: flex;
+  gap: 8px;
+}
+
+.linha-adicionar .input-texto {
+  flex: 1;
+}
+
+.btn-adicionar {
+  padding: 0 16px;
+  border: 2px solid #171717;
+  background: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.lista-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border: 2px solid #171717;
+  border-radius: 20px;
+  background: #fff;
+  font-weight: 600;
   font-size: 13px;
 }
 
-.pos-tl { top: 8px; left: 18px; }
-.pos-tr { top: 8px; right: 18px; }
-.pos-bl { bottom: 8px; left: 18px; }
-.pos-br { bottom: 8px; right: 18px; }
+.btn-remover {
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  font-weight: 700;
+}
 
-.cartao-conexoes {
-  max-width: 640px;
-  margin: 0 auto;
-  padding: 14px 16px;
+.textarea {
+  width: 100%;
+  padding: 12px;
   border: 2px solid #171717;
+  font-size: 14px;
+  resize: vertical;
   background: #fff;
-  box-shadow: 4px 4px 0 #171717;
 }
 
-.cartao-conexoes h2 {
-  margin: 0 0 8px;
-  font-size: 16px;
+.dica {
+  font-size: 13px;
+  color: #555;
+  margin: 8px 0 20px;
 }
 
-.separador-sesi {
-  border: 0;
-  border-top: 2px solid #171717;
-  margin: 28px 0;
+.botoes {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-enviar {
+  background: #171717;
+  color: #fff;
+  border: 2px solid #171717;
+  padding: 10px 24px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-cancelar {
+  background: #fff;
+  border: 2px solid #171717;
+  padding: 10px 24px;
+  font-weight: 700;
+  cursor: pointer;
 }

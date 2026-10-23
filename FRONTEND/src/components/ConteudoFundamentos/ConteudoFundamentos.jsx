@@ -6,8 +6,7 @@ const ConteudoFundamentos = ({ bimestre }) => {
   const [lista, setLista] = useState([]);
   const [carregando, setCarregando] = useState(true);
 
-  const numeroBimestre =
-    Number(String(bimestre || "1").replace(/\D/g, "")) || 1;
+  const numeroBimestre = Number(String(bimestre || "1").replace(/\D/g, "")) || 1;
 
   useEffect(() => {
     async function buscar() {
@@ -20,9 +19,11 @@ const ConteudoFundamentos = ({ bimestre }) => {
           (item) => Number(item.bimestre) === numeroBimestre
         );
         setLista(doBimestre);
-      } catch (erro) {
+      } 
+        catch (erro) {
         console.error(erro);
         setLista([]);
+
       } finally {
         setCarregando(false);
       }
@@ -30,6 +31,7 @@ const ConteudoFundamentos = ({ bimestre }) => {
     buscar();
   }, [numeroBimestre]);
 
+  
   if (carregando) return <p>Carregando...</p>;
   if (lista.length === 0) {
     return <p>Nenhum fundamento cadastrado neste bimestre.</p>;
@@ -37,30 +39,36 @@ const ConteudoFundamentos = ({ bimestre }) => {
 
   return (
     <div className="lista-fundamentos">
+
       {lista.map((item, index) => (
         <div key={item.id} className="item-fundamento">
+
           <article className="resumo-conteudo">
             <h2>Resumo teórico</h2>
             <p>{item.resumo_teorico}</p>
           </article>
 
           <div className="blocos-conteudo">
+
             <article className="bloco-conteudo">
               <h2>Teorias</h2>
               <p>{item.teorias}</p>
             </article>
+
             <article className="bloco-conteudo">
               <h2>Conceitos</h2>
               <p>{item.conceitos}</p>
             </article>
+
             <article className="bloco-conteudo">
               <h2>Metodologias</h2>
               <p>{item.metodologias}</p>
             </article>
           </div>
 
-          {/* linha entre um cadastro e o próximo */}
-          {index < lista.length - 1 && <hr className="separador-fundamento" />}
+
+         {/**A linha que separa os blocos */}
+          {index < lista.length - 1 && <hr className="separador-fundamento" />} 
         </div>
       ))}
     </div>

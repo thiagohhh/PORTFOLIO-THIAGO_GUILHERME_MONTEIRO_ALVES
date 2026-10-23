@@ -45,7 +45,7 @@ const EditarQuemSouEu = () => {
     carregar();
   }, []);
 
-  // 2. Quando você digita em qualquer campo, atualiza o campo certo
+ 
   const mudar = (evento) => {
     setPerfil({ ...perfil, [evento.target.name]: evento.target.value });
   };
@@ -103,9 +103,18 @@ const EditarQuemSouEu = () => {
       <main className="conteudo-editar-perfil">
      
         <aside className="menu-editar-perfil">
-          <Link to="/admin/atividades/nova/sesi">Enviar atividade</Link>
-          <Link to="/admin/atividades">Minhas atividades</Link>
-          <span className="item-menu-perfil-ativo">Quem sou eu</span>
+          
+            <button className="item-navegacao-admin ativo" type="button">
+            <span className="icone-navegacao-admin">📤</span>
+            Enviar atividade
+          </button>
+
+           <Link className="item-navegacao-admin" to="/admin/atividades">
+            <span className="icone-navegacao-admin">📒</span>
+            Minhas atividades
+          </Link>
+
+          <span className="item-menu-perfil-ativo"><span className="icone-navegacao-senai">😎</span> Quem sou eu</span>  
           <Link
             to="/admin/login"
             onClick={() => {

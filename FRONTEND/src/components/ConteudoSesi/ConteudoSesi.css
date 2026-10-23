@@ -4,25 +4,19 @@
   width: 100%;
   min-height: 100vh;
   background-color: var(--cor-fundo);
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    sans-serif;
+  font-family: system-ui,-apple-system, BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
 }
 
 .conteudo-sesi-main {
   display: grid;
-  grid-template-columns: minmax(250px, 0.8fr) minmax(0, 2.2fr);
+  grid-template-columns: 0.7fr 2.3fr;
   align-items: start;
-  gap: clamp(32px, 4vw, 56px);
+  gap: 32px;
   flex: 1;
   width: 100%;
   max-width: 1600px;
   margin: 0 auto;
-  padding: 58px clamp(24px, 4.5vw, 72px) 72px 24px;
+  padding: 58px 24px 72px 24px;
 }
 
 .texto-amarelo{
@@ -30,21 +24,16 @@
    text-shadow: 5px 5px var(--cor-preto-puro);
 }
 
-.painel-conteudo {
-  min-width: 0;
-  padding-top: 3px;
-}
-
 .disciplina-atual {
   margin: 0 0 6px;
   color: #505050;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.10em;
   text-transform: uppercase;
 }
 
-.painel-conteudo > h1 {
+.painel-conteudo h1 {
   margin: 0;
   color: var(--cor-preta);
   font-size: 54px;
@@ -61,7 +50,7 @@
   border: 2px solid var(--cor-preta);
   background: var(--cor-amarela);
   box-shadow: 4px 4px 0 var(--cor-preta);
-  color: var(--cor-branca);
+  color: var(--cor-preta);
   font-size: 12px;
   font-weight: 800;
 }
@@ -87,49 +76,23 @@
   box-shadow: 3px 3px 0 var(--cor-preta);
   color: var(--cor-preta);
   font: inherit;
-  font-size: 13px;
+  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.3s ease-in-out;
+  
 }
 
 .botao-bimestre.ativo,
 .botao-bimestre:hover {
   background: var(--cor-amarela);
+  transform: translateY(-6px);
+  
 }
 
 .indicador-bimestre {
-  flex: 0 0 20px;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   border: 2px solid var(--cor-preta);
   border-radius: 50%;
   background: var(--cor-preta);
-}
-
-.conteudo-nao-encontrado {
-  display: grid;
-  flex: 1;
-  align-content: center;
-  justify-items: center;
-  gap: 14px;
-  padding: 32px;
-  color: var(--cor-preta);
-  text-align: center;
-}
-
-.conteudo-nao-encontrado h1 {
-  margin: 0;
-}
-
-.conteudo-nao-encontrado a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 40px;
-  padding: 0 16px;
-  border: 2px solid var(--cor-preta);
-  background: var(--cor-amarela);
-  box-shadow: 4px 4px 0 var(--cor-preta);
-  color: var(--cor-preta);
-  font-weight: 700;
-  text-decoration: none;
 }

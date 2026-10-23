@@ -5,7 +5,7 @@
   width: 100%;
   height: 58px;
   padding: 0 90px;
-  background-color: #1d1d1d;
+  background-color: var(--cor-preto-puro);
 }
 
 .voltar {
@@ -13,38 +13,33 @@
   text-decoration: none;
   font-size: 14px;
   font-weight: 600;
-  transition: color 0.5s ease, font-size 0.5s ease;
+  transition: all 0.5s ease-in-out;
 }
 
 .voltar:hover{
   color: var(--cor-amarela);
-   font-size: 16px;
-  text-decoration: underline;
+   font-size: 17px;
 }
 
 .sesi-senai-separacao {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
 }
 
-.sesi-separacao,
-.senai-separacao {
+.sesi-separacao,.senai-separacao {
   color: var(--cor-branca);
   text-decoration: none;
   font-size: 14px;
   font-weight: 700;
-  transition: color 0.3s ease, font-size 0.3s ease;
+  transition: color 0.3s ease-in-out, font-size 0.3s ease-in-out;
 }
 
 .senai-separacao:hover,
 .sesi-separacao:hover {
   color: var(--cor-amarela);
-  font-size: 16px;
-  text-decoration: underline;
+  font-size: 17px;
 }
 .separador {
   width: 1px;
-  height: 22px;
-  object-fit: contain;
 }

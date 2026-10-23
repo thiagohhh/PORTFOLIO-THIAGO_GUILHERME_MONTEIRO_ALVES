@@ -242,7 +242,7 @@
 }
 
 .itinerario-previa {
-  display: inline-block; /* NOVO: a faixa amarela fica do tamanho do texto */
+  display: inline-block;
   padding: 5px 7px;
   margin: 8px 0;
   background: var(--cor-amarela);
@@ -280,9 +280,49 @@
 }
 
 
-@media (max-width: 900px) {
-  .conteudo-editar-perfil,
-  .colunas-editar-perfil {
-    grid-template-columns: 1fr;
-  }
+.navegacao-admin-sesi {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 2px;
+}
+
+.item-navegacao-admin {
+  display: flex;
+  min-height: 64px;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 18px;
+  border: 2px solid var(--cor-preta);
+  border-radius: 22px 0 22px 0;
+  background: var(--cor-branca);
+  box-shadow: 4px 4px 0 var(--cor-preta);
+  color: var(--cor-preta);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 750;
+  text-align: left;
+  text-decoration: none;
+}
+
+.item-navegacao-admin.ativo {
+  background: var(--cor-amarela);
+}
+
+.item-navegacao-admin:disabled {
+  cursor: not-allowed;
+}
+
+.icone-navegacao-admin {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--cor-preta);
+  color: var(--cor-branca);
+  font-size: 20px;
+  line-height: 1;
 }
