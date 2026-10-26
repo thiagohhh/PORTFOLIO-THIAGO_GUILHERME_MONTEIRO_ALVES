@@ -13,32 +13,7 @@
     sans-serif;
 }
 
-.cabecalho-admin-sesi {
-  display: flex;
-  height: 62px;
-  flex: 0 0 62px;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 7%;
-  background: #111111;
-  color: var(--cor-amarela);
-  font-size: 15px;
-  font-weight: 800;
-}
 
-.voltar-admin-sesi {
-  color: var(--cor-branca);
-  text-decoration: none;
-}
-
-.voltar-admin-sesi:hover {
-  color: var(--cor-amarela);
-}
-
-.cabecalho-admin-sesi > span {
-  padding-bottom: 4px;
-  border-bottom: 3px solid var(--cor-amarela);
-}
 
 .conteudo-admin-sesi {
   display: grid;
@@ -88,14 +63,14 @@
   display: inline-flex;
   width: 32px;
   height: 32px;
-  flex: 0 0 32px;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   background: var(--cor-preta);
   color: var(--cor-branca);
-  font-size: 20px;
-  line-height: 1;
+}
+.icone-navegacao-admin img {
+  width: 65%;
 }
 
 .area-cadastro-sesi {
@@ -115,19 +90,19 @@
 
 .titulo-cadastro-sesi h1 span {
   color: var(--cor-amarela);
-  text-shadow: 3px 3px 0 var(--cor-preta);
+  text-shadow: 3px 3px 0 var(--cor-preta); 
 }
 
 .titulo-cadastro-sesi p {
   display: inline-block;
-  padding: 8px 12px;
+  padding: 8px 12px; 
   border: 2px solid var(--cor-preta);
   margin: 18px 0 0;
   background: var(--cor-amarela);
-  box-shadow: 3px 3px 0 var(--cor-preta);
-  color: var(--cor-preta);
-  font-size: 13px;
-  font-weight: 800;
+  box-shadow: 3px 3px 0 var(--cor-preta); 
+  color: var(--cor-preta); 
+  font-size: 13px; 
+  font-weight: 800; 
   text-transform: uppercase;
 }
 
@@ -389,4 +364,216 @@
 .pagina-admin-sesi .rodape-portfolio {
   width: 86%;
   min-height: 64px;
+}
+.subtitulo-bimestre-sesi {
+  display: block;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #555555;
+  font-family: inherit;
+}
+
+
+/* ===== conexões: digitar matérias ===== */
+
+/* input + botão Adicionar lado a lado */
+.linha-materia-conexao {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.linha-materia-conexao input {
+  flex: 1;
+}
+
+/* botão preto "Adicionar" */
+.botao-adicionar-materia {
+  padding: 0 18px;
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-preta);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  border-radius: 6px;
+}
+
+/* lista de tags (matérias já adicionadas) */
+.lista-tags-materias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 16px;
+}
+
+/* cada tag */
+.tag-materia {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border: 2px solid var(--cor-preta);
+  border-radius: 20px;
+  background: #fff;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* botão × pra remover a tag */
+.tag-materia-remover {
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+}
+
+/* ===== PADRAO UNIFICADO ADMIN ===== */
+
+/* ===== título e caixinha amarela (padrão único Sesi/Senai) ===== */
+.titulo-cadastro-sesi,
+.titulo-cadastro-senai,
+.titulo-edicao-sesi {
+  margin-bottom: 28px;
+}
+
+.titulo-cadastro-sesi h1,
+.titulo-cadastro-senai h1,
+.titulo-edicao-sesi h1 {
+  margin: 0;
+  font-size: 54px;
+  font-weight: 900;
+  line-height: 0.98;
+  letter-spacing: -0.5px;
+}
+
+.titulo-cadastro-sesi h1 span,
+.titulo-cadastro-senai h1 span,
+.titulo-edicao-sesi h1 span {
+  color: var(--cor-amarela);
+  text-shadow: 3px 3px 0 var(--cor-preta);
+}
+
+/* caixinha amarela: mesma altura, texto branco legível */
+.titulo-cadastro-sesi p,
+.titulo-cadastro-senai p,
+.titulo-edicao-sesi p {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 8px 14px;
+  border: 2px solid var(--cor-preta);
+  margin: 18px 0 0;
+  background: var(--cor-amarela);
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  color: #fff; /* texto branco */
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  line-height: 1.2;
+}
+
+.subtitulo-bimestre-sesi {
+  display: block;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #555;
+}
+
+/* menu lateral: Sair no rodapé */
+.navegacao-admin-sesi {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 2px;
+  min-height: 520px;
+  height: 100%;
+  align-self: stretch;
+}
+
+.item-navegacao-admin,
+.navegacao-admin-sesi .item-navegacao-senai {
+  display: flex;
+  min-height: 64px;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 18px;
+  border: 2px solid var(--cor-preta);
+  border-radius: 22px 0 22px 0;
+  background: var(--cor-branca);
+  box-shadow: 4px 4px 0 var(--cor-preta);
+  color: var(--cor-preta);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 750;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.item-navegacao-admin.ativo,
+.navegacao-admin-sesi .item-navegacao-senai.ativo {
+  background: var(--cor-amarela);
+}
+
+.icone-navegacao-admin,
+.navegacao-admin-sesi .icone-navegacao-senai {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--cor-preta);
+  color: var(--cor-branca);
+}
+
+.icone-navegacao-admin img,
+.navegacao-admin-sesi .icone-navegacao-senai img {
+  width: 55%;
+  height: 55%;
+  object-fit: contain;
+}
+
+
+.sair-admin,
+.sair-admin-senai {
+  margin-top: auto !important;
+}
+
+
+.linha-materia-conexao {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 10px;
+  align-items: stretch;
+  width: 100%;
+}
+
+.linha-materia-conexao input {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  width: auto !important;
+  max-width: none;
+}
+
+.botao-adicionar-materia {
+  flex: 0 0 auto;
+  padding: 0 18px;
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-preta);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  border-radius: 6px;
+  min-height: 44px;
 }

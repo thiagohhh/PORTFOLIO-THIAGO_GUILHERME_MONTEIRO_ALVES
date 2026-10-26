@@ -1,105 +1,79 @@
-.form-conexoes {
-  max-width: 640px;
+/* container da teia + card */
+.bloco-conexao {
+  margin-bottom: 28px;
 }
 
-.campo {
-  display: block;
-  margin-bottom: 20px;
+/* área onde ficam as bolinhas e as linhas */
+.teia-conexoes {
+  position: relative;
+  width: 320px;
+  height: 240px;
+  margin: 20px auto 24px;
 }
 
-.campo strong {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 14px;
-}
-
-.input-texto {
+/* SVG das linhas por cima de tudo */
+.linhas-teia {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  padding: 10px 12px;
-  border: 2px solid #171717;
-  font-size: 14px;
-  background: #fff;
+  height: 100%;
+  pointer-events: none;
 }
 
-.linha-adicionar {
+.linhas-teia line {
+  stroke: #171717;
+  stroke-width: 2;
+}
+
+/* bolinha de cada matéria */
+.bolinha {
+  position: absolute;
   display: flex;
-  gap: 8px;
-}
-
-.linha-adicionar .input-texto {
-  flex: 1;
-}
-
-.btn-adicionar {
-  padding: 0 16px;
-  border: 2px solid #171717;
-  background: #fff;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.lista-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 12px;
-}
-
-.tag {
-  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 5px 10px;
+  justify-content: center;
+  width: 78px;
+  height: 78px;
+  padding: 6px;
   border: 2px solid #171717;
-  border-radius: 20px;
+  border-radius: 50%;
   background: #fff;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.2;
+  z-index: 1;
+  box-sizing: border-box;
+  word-break: break-word;
+}
+
+/* bolinha do meio (área) — amarela e maior */
+.bolinha-centro {
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  margin: -50px 0 0 -50px;
+  background: #dfb135;
   font-size: 13px;
 }
 
-.btn-remover {
-  border: none;
-  background: transparent;
-  font-size: 18px;
-  line-height: 1;
-  cursor: pointer;
-  padding: 0;
-  font-weight: 700;
-}
+/* posições dos 4 cantos */
+.pos-tl { top: 8px; left: 18px; }      /* topo esquerda */
+.pos-tr { top: 8px; right: 18px; }     /* topo direita */
+.pos-bl { bottom: 8px; left: 18px; }   /* baixo esquerda */
+.pos-br { bottom: 8px; right: 18px; }  /* baixo direita */
 
-.textarea {
-  width: 100%;
-  padding: 12px;
+/* card da explicação embaixo */
+.cartao-conexoes {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 14px 16px;
   border: 2px solid #171717;
-  font-size: 14px;
-  resize: vertical;
   background: #fff;
+  box-shadow: 4px 4px 0 #171717;
 }
 
-.dica {
-  font-size: 13px;
-  color: #555;
-  margin: 8px 0 20px;
-}
-
-.botoes {
-  display: flex;
-  gap: 12px;
-}
-
-.btn-enviar {
-  background: #171717;
-  color: #fff;
-  border: 2px solid #171717;
-  padding: 10px 24px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.btn-cancelar {
-  background: #fff;
-  border: 2px solid #171717;
-  padding: 10px 24px;
-  font-weight: 700;
-  cursor: pointer;
+.cartao-conexoes h2 {
+  margin: 0 0 8px;
+  font-size: 16px;
 }

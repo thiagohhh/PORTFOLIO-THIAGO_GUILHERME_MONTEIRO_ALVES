@@ -10,8 +10,12 @@ import estrelaBranca from "../../../assets/imgs/senai/estrela-branca.png";
 import iconeRelatorio from "../../../assets/imgs/senai/icone-relatorio.png";
 import iconeProjeto from "../../../assets/imgs/senai/icone-projeto.svg";
 import iconeGaleria from "../../../assets/imgs/senai/icone-galeria.svg";
+import usuario from "../../../assets/imgs/user-solid-full.svg"
+import livro from "../../../assets/imgs/book-solid-full.svg"
+import enivar from "../../../assets/imgs/paper-plane-solid-full.svg"
 
 import "./CadastroAtividadeSenai.css";
+import Header from "../../Header/Header";
 
 const abas = [
   "Projetos",
@@ -578,23 +582,18 @@ const CadastroAtividadeSenai = () => {
   }
   return (
     <div className="pagina-admin-senai">
-      <header className="cabecalho-admin-senai">
-        <Link className="voltar-admin-senai" to="/">
-          ← Portfólio
-        </Link>
-        <span>Área do aluno</span>
-      </header>
+      <Header/>
 
       <main className="conteudo-admin-senai">
         <aside className="navegacao-admin-senai">
           <button className="item-navegacao-senai ativo" type="button">
-            <span className="icone-navegacao-senai">📤</span> Enviar atividade
+            <span className="icone-navegacao-senai"><img src={enivar} alt="" /></span> Enviar atividade
           </button>
           <Link className="item-navegacao-senai" to="/admin/quemSouEu">
-            <span className="icone-navegacao-senai">😎</span> Quem sou eu
+            <span className="icone-navegacao-senai"><img src={usuario} alt="" /></span> Quem sou eu
           </Link>
-          <Link className="item-navegacao-admin" to="/admin/atividades">
-            <span className="icone-navegacao-admin">📒</span>
+          <Link className="item-navegacao-senai" to="/admin/atividades">
+            <span className="icone-navegacao-senai"><img src={livro} alt="" /></span>
             Minhas atividades
           </Link>
           <Link

@@ -1,4 +1,7 @@
-.pagina-edicao-sesi {
+/* ==========================================================================
+   ESTRUTURA DA PÁGINA E CABEÇALHO
+   ========================================================================== */
+.pagina-edicao-sesi, .pagina-admin-sesi {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
@@ -13,52 +16,17 @@
     sans-serif;
 }
 
-.cabecalho-edicao-sesi {
-  display: flex;
-  height: 62px;
-  flex: 0 0 62px;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 7%;
-  background: #111111;
-  color: var(--cor-amarela);
-  font-size: 15px;
-  font-weight: 800;
-}
-
-.voltar-edicao-sesi {
-  color: var(--cor-branca);
-  text-decoration: none;
-}
-
-.voltar-edicao-sesi:hover {
-  color: var(--cor-amarela);
-}
-
-.cabecalho-edicao-sesi > span {
-  padding-bottom: 4px;
-  border-bottom: 3px solid var(--cor-amarela);
-}
-
-.conteudo-edicao-sesi {
-  display: grid;
-  flex: 1;
-  grid-template-columns: 300px minmax(0, 1fr);
-  gap: 70px;
-  width: 86%;
-  max-width: 1440px;
-  padding: 54px 0 48px;
-  margin: 0 auto;
-}
-
-.navegacao-edicao-sesi {
+/* ==========================================================================
+   MENU LATERAL PADRONIZADO (UNIFICADO)
+   ========================================================================== */
+.navegacao-edicao-sesi, .navegacao-admin-sesi {
   display: flex;
   flex-direction: column;
   gap: 16px;
   padding-top: 2px;
 }
 
-.item-edicao-sesi {
+.item-edicao-sesi, .item-navegacao-senai {
   display: flex;
   min-height: 64px;
   align-items: center;
@@ -75,47 +43,59 @@
   text-align: left;
   text-decoration: none;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
-.item-edicao-sesi.ativo {
+.item-edicao-sesi.ativo, .item-navegacao-senai.ativo {
   background: var(--cor-amarela);
 }
 
-.icone-edicao-sesi {
+.icone-edicao-sesi, .icone-navegacao-senai {
   display: inline-flex;
   width: 32px;
   height: 32px;
-  flex: 0 0 32px;
+  min-width: 32px;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   background: var(--cor-preta);
   color: var(--cor-branca);
-  font-size: 20px;
-  line-height: 1;
 }
 
-.area-edicao-sesi {
+.icone-edicao-sesi img, .icone-navegacao-senai img {
+  width: 55%;
+  height: 55%;
+  object-fit: contain;
+}
+
+.sair-admin-senai {
+  margin-top: auto;
+}
+
+/* ==========================================================================
+   TITULAÇÃO DO FORMULÁRIO
+   ========================================================================== */
+.area-edicao-sesi, .area-cadastro-sesi {
   min-width: 0;
 }
 
-.titulo-edicao-sesi {
+.titulo-edicao-sesi, .titulo-cadastro-sesi {
   margin-bottom: 22px;
 }
 
-.titulo-edicao-sesi h1 {
+.titulo-edicao-sesi h1, .titulo-cadastro-sesi h1 {
   margin: 0;
   font-size: 54px;
   font-weight: 900;
   line-height: 0.98;
 }
 
-.titulo-edicao-sesi h1 span {
+.titulo-edicao-sesi h1 span, .titulo-cadastro-sesi h1 span {
   color: var(--cor-amarela);
   text-shadow: 3px 3px 0 var(--cor-preta);
 }
 
-.titulo-edicao-sesi p {
+.titulo-edicao-sesi p, .titulo-cadastro-sesi p {
   display: inline-block;
   padding: 8px 12px;
   border: 2px solid var(--cor-preta);
@@ -128,6 +108,9 @@
   text-transform: uppercase;
 }
 
+/* ==========================================================================
+   ETAPAS DE SELEÇÃO DO TOPO
+   ========================================================================== */
 .contexto-edicao-sesi {
   display: flex;
   gap: 10px;
@@ -168,22 +151,20 @@
   outline: 2px solid var(--cor-amarela);
 }
 
-.formulario-edicao-sesi {
+.formulario-edicao-sesi, .formulario-cadastro-sesi {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-.selecao-bimestre-edicao,
-.campos-edicao-sesi {
+.selecao-bimestre-edicao, .grupo-selecao-admin, .grupo-selecao-senai {
   min-width: 0;
   padding: 0;
   border: 0;
   margin: 0;
 }
 
-.selecao-bimestre-edicao legend,
-.campos-edicao-sesi > legend {
+.selecao-bimestre-edicao legend, .grupo-selecao-admin legend, .grupo-selecao-senai legend {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -193,7 +174,7 @@
   font-weight: 800;
 }
 
-.numero-edicao-sesi {
+.numero-edicao-sesi, .numero-etapa-admin, .numero-etapa-senai {
   display: inline-flex;
   width: 27px;
   height: 27px;
@@ -206,12 +187,13 @@
   font-size: 14px;
 }
 
-.opcoes-bimestre-edicao {
+.opcoes-bimestre-edicao, .opcoes-admin, .opcoes-senai {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
 }
 
-.botao-bimestre-edicao {
+.botao-bimestre-edicao, .opcao-admin, .opcao-senai {
   min-height: 44px;
   padding: 8px 18px;
   border: 2px solid var(--cor-preta);
@@ -222,24 +204,39 @@
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
-.botao-bimestre-edicao.ativo {
+.botao-bimestre-edicao.ativo, .opcao-admin.selecionada, .opcao-senai.selecionada {
   background: var(--cor-amarela);
 }
-
-.campos-edicao-sesi {
+/* ==========================================================================
+   BLOCO DE CONTEÚDO PRINCIPAL E INPUTS
+   ========================================================================== */
+.campos-edicao-sesi, .bloco-conteudo-admin, .bloco-conteudo-senai {
+  min-width: 0;
   padding: 16px 20px 20px;
   border: 2px solid var(--cor-preta);
   background: var(--cor-branca);
   box-shadow: 4px 4px 0 var(--cor-preta);
+  box-sizing: border-box;
 }
 
-.campos-edicao-sesi > legend {
+.campos-edicao-sesi > legend, .bloco-conteudo-admin > legend, .bloco-conteudo-senai > legend {
   margin: 0 0 14px -4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  font-size: 17px;
+  font-weight: 800;
 }
 
-.campo-edicao-sesi {
+.campo-edicao-sesi, .campo-admin-sesi, .campo-senai {
   display: flex;
   flex-direction: column;
   gap: 7px;
@@ -248,25 +245,42 @@
   font-weight: 750;
 }
 
-.campo-edicao-sesi input,
-.campo-edicao-sesi textarea {
+.campo-edicao-sesi input, .campo-edicao-sesi textarea,
+.campo-admin-sesi input, .campo-admin-sesi textarea,
+.campo-senai input, .campo-senai textarea, .campo-senai select {
   width: 100%;
-  min-height: 58px;
-  padding: 14px;
+  min-height: 44px; /* Padronizado para alinhar os tamanhos */
+  padding: 10px 14px;
   border: 2px solid var(--cor-preta);
-  box-shadow: 3px 3px 0 var(--cor-preta);
+  box-shadow: 2px 2px 0 var(--cor-preta);
   color: var(--cor-texto);
+  background: var(--cor-branca);
   font: inherit;
   font-size: 14px;
   font-weight: 400;
+  box-sizing: border-box;
 }
 
-.campo-edicao-sesi textarea {
+.campo-edicao-sesi textarea, .campo-admin-sesi textarea, .campo-senai textarea {
   min-height: 84px;
   resize: vertical;
 }
 
-.campo-autoavaliacao-edicao {
+/* Estilo específico para o editor de bloco de código no Senai */
+.campo-senai > .editor-codigo-senai {
+  min-height: 190px;
+  background: #181818;
+  color: #f4f1e8;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 15px;
+  line-height: 1.6;
+  tab-size: 2;
+}
+
+/* ==========================================================================
+   AVALIAÇÃO (ESTRELAS, BOLINHAS E ETICUETAS)
+   ========================================================================== */
+.campo-autoavaliacao-edicao, .avaliacao-cadastro-admin, .marcadores-senai {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -275,51 +289,46 @@
   font-weight: 750;
 }
 
-.bolinhas-edicao-sesi {
+.bolinhas-edicao-sesi, .estrelas-cadastro-admin, .marcadores-senai {
   display: flex;
   align-items: center;
+  flex-direction: row;
   gap: 8px;
 }
 
-.bolinhas-edicao-sesi button {
-  width: 30px;
-  height: 30px;
+.bolinhas-edicao-sesi button, .estrela-cadastro-admin, .marcadores-senai button {
+  width: 32px;
+  height: 32px;
   padding: 0;
   border: 0;
   background: transparent;
   cursor: pointer;
 }
 
-.bolinhas-edicao-sesi img {
+.bolinhas-edicao-sesi img, .estrela-cadastro-admin img, .marcadores-senai img {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
 
-.bolinhas-edicao-sesi > span {
-  margin-left: 10px;
-  color: #606060;
-  font-size: 14px;
-  font-weight: 400;
-}
-
-.entrada-etiquetas-edicao {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 150px;
+.entrada-etiquetas-edicao, .entrada-etiquetas-senai, .entrada-percentual-senai {
+  display: flex;
+  flex-wrap: wrap;
   gap: 12px;
+  align-items: center;
 }
 
-.entrada-etiquetas-edicao input {
+.entrada-etiquetas-edicao input, .entrada-etiquetas-senai input, .entrada-percentual-senai input {
   min-width: 0;
-  min-height: 50px;
-  padding: 12px 14px;
+  min-height: 44px;
+  padding: 10px 14px;
   border: 2px solid var(--cor-preta);
-  box-shadow: 3px 3px 0 var(--cor-preta);
+  box-shadow: 2px 2px 0 var(--cor-preta);
   font: inherit;
   font-size: 14px;
 }
 
-.entrada-etiquetas-edicao button {
+.entrada-etiquetas-edicao button, .entrada-etiquetas-senai button {
   border: 2px solid var(--cor-preta);
   border-radius: 14px 0 14px 0;
   background: var(--cor-preta);
@@ -327,22 +336,19 @@
   font: inherit;
   font-size: 14px;
   font-weight: 800;
+  min-height: 44px;
+  padding: 0 18px;
   cursor: pointer;
 }
 
-.entrada-etiquetas-edicao button:hover {
-  background: var(--cor-amarela);
-  color: var(--cor-preta);
-}
-
-.lista-etiquetas-edicao {
+.etiquetas-senai, .lista-etiquetas-edicao {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 8px;
 }
 
-.lista-etiquetas-edicao button {
+.etiquetas-senai button, .lista-etiquetas-edicao button {
   padding: 6px 10px;
   border: 2px solid var(--cor-preta);
   background: var(--cor-amarela);
@@ -354,183 +360,280 @@
   cursor: pointer;
 }
 
-.arquivo-edicao-sesi {
+/* ==========================================================================
+   ÁREA DE ARQUIVOS (EVINDÊNCIAS/PDF)
+   ========================================================================== */
+.arquivo-edicao-sesi, .area-arquivo-admin, .area-arquivo-senai {
   display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.miniatura-arquivo-edicao {
-  display: flex;
-  width: 96px;
-  height: 92px;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--cor-preta);
-  background: var(--cor-amarela);
-  font-size: 13px;
-  font-weight: 800;
-  overflow-wrap: anywhere;
+  gap: 12px;
+  padding: 24px;
+  border: 2px dashed var(--cor-preta);
+  background: #f8f7f2;
+  text-align: center;
+  box-sizing: border-box;
 }
 
-.botao-trocar-arquivo-edicao {
-  display: inline-flex;
-  min-height: 44px;
-  align-items: center;
-  padding: 8px 16px;
-  border: 2px solid var(--cor-preta);
-  border-radius: 14px 0 14px 0;
-  background: var(--cor-branca);
-  box-shadow: 3px 3px 0 var(--cor-preta);
-  font-size: 13px;
-  font-weight: 750;
-  cursor: pointer;
+.arquivo-edicao-sesi img, .area-arquivo-admin img, .area-arquivo-senai img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
 }
 
-.botao-trocar-arquivo-edicao:hover {
-  background: var(--cor-amarela);
-}
-
-.botao-trocar-arquivo-edicao input {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  clip-path: inset(50%);
-}
-
-.botao-trocar-arquivo-edicao:focus-within {
-  outline: 3px solid var(--cor-amarela);
-  outline-offset: 3px;
-}
-
-.campo-edicao-sesi input:focus-visible,
-.campo-edicao-sesi textarea:focus-visible,
-.botao-bimestre-edicao:focus-visible,
-.item-edicao-sesi:focus-visible,
-.acoes-edicao-sesi button:focus-visible {
-  outline: 3px solid var(--cor-amarela);
-  outline-offset: 3px;
-}
-
-.destino-edicao-sesi {
-  margin: 2px 0 18px;
+/* ==========================================================================
+   BOTÕES DE ENVIO DO FORMULÁRIO (SALVAR / CANCELAR)
+   ========================================================================== */
+.destino-edicao-sesi, .destino-atividade-admin, .destino-senai {
+  margin: 4px 0 18px;
   color: #606060;
   font-size: 13px;
+  font-weight: 700;
 }
 
-.acoes-edicao-sesi {
+.acoes-edicao-sesi, .acoes-cadastro-admin, .acoes-senai {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 18px;
+  margin-top: 10px;
 }
 
-.acoes-edicao-sesi > div {
+.acoes-edicao-sesi > div, .acoes-cadastro-admin, .acoes-senai {
   display: flex;
   gap: 16px;
 }
 
-.botao-salvar-edicao-sesi,
-.botao-cancelar-edicao-sesi,
-.botao-excluir-edicao-sesi {
-  min-height: 50px;
-  padding: 10px 22px;
+.botao-enviar-admin, .botao-enviar-senai, .botao-cancelar-admin, .botao-cancelar-senai {
+  min-height: 44px;
+  padding: 10px 24px;
   border: 2px solid var(--cor-preta);
-  border-radius: 15px 0 15px 0;
   box-shadow: 3px 3px 0 var(--cor-preta);
+  color: var(--cor-preta);
   font: inherit;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 800;
   cursor: pointer;
 }
 
-.botao-salvar-edicao-sesi {
-  min-width: 245px;
-  background: var(--cor-preta);
-  color: var(--cor-branca);
-}
-
-.botao-cancelar-edicao-sesi,
-.botao-excluir-edicao-sesi {
-  background: var(--cor-branca);
-  color: var(--cor-preta);
-}
-
-.botao-excluir-edicao-sesi {
-  min-width: 210px;
-}
-
-.botao-salvar-edicao-sesi:hover,
-.botao-cancelar-edicao-sesi:hover,
-.botao-excluir-edicao-sesi:hover {
+.botao-enviar-admin, .botao-enviar-senai {
   background: var(--cor-amarela);
-  color: var(--cor-preta);
 }
 
-.mensagem-edicao-sesi {
-  margin: 16px 0 0;
-  color: #8b2b21;
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-.fundo-confirmacao-edicao {
-  position: fixed;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 30px;
-  background: rgb(0 0 0 / 55%);
-  inset: 0;
-}
-
-.dialogo-confirmacao-edicao {
-  width: 560px;
-  padding: 30px;
-  border: 2px solid var(--cor-preta);
+.botao-cancelar-admin, .botao-cancelar-senai {
   background: var(--cor-branca);
-  box-shadow: 7px 7px 0 var(--cor-preta);
 }
 
-.dialogo-confirmacao-edicao h2 {
-  margin: 0 0 12px;
-  font-size: 24px;
+.mensagem-admin, .mensagem-senai {
+  margin: 14px 0 0;
+  color: #fa4238;
+  font-weight: 700;
+  font-size: 14px;
 }
 
-.dialogo-confirmacao-edicao p {
+/* layout igual ao cadastro */
+.conteudo-admin-sesi {
+  display: grid;
+  flex: 1;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 70px;
+  width: 86%;
+  max-width: 1440px;
+  padding: 54px 0 48px;
+  margin: 0 auto;
+}
+
+
+/* ===== título grande + caixinha amarela (igual ao cadastro) ===== */
+
+.titulo-cadastro-sesi,
+.titulo-edicao-sesi {
+  margin-bottom: 28px;
+}
+
+/* título "Editar atividade" */
+.titulo-cadastro-sesi h1,
+.titulo-edicao-sesi h1 {
   margin: 0;
-  font-size: 15px;
-  line-height: 1.5;
+  font-size: 54px;
+  font-weight: 900;
+  line-height: 0.98;
 }
 
-.acoes-confirmacao-edicao {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 24px;
+/* parte amarela do título (ex: "atividade") */
+.titulo-cadastro-sesi h1 span,
+.titulo-edicao-sesi h1 span {
+  color: var(--cor-amarela);
+  text-shadow: 3px 3px 0 var(--cor-preta);
 }
 
-.acoes-confirmacao-edicao button {
-  min-height: 44px;
+/* caixinha amarela embaixo do título */
+.titulo-cadastro-sesi p,
+.titulo-edicao-sesi p {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 2px solid var(--cor-preta);
+  margin: 18px 0 0;
+  background: var(--cor-amarela);
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  color: var(--cor-preta);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+/* texto do bimestre abaixo da caixinha */
+.subtitulo-bimestre-sesi {
+  display: block;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #555;
+}
+
+/* ===== PADRAO UNIFICADO ADMIN ===== */
+
+/* ===== título e caixinha amarela (padrão único Sesi/Senai) ===== */
+.titulo-cadastro-sesi,
+.titulo-cadastro-senai,
+.titulo-edicao-sesi {
+  margin-bottom: 28px;
+}
+
+.titulo-cadastro-sesi h1,
+.titulo-cadastro-senai h1,
+.titulo-edicao-sesi h1 {
+  margin: 0;
+  font-size: 54px;
+  font-weight: 900;
+  line-height: 0.98;
+  letter-spacing: -0.5px;
+}
+
+.titulo-cadastro-sesi h1 span,
+.titulo-cadastro-senai h1 span,
+.titulo-edicao-sesi h1 span {
+  color: var(--cor-amarela);
+  text-shadow: 3px 3px 0 var(--cor-preta);
+}
+
+/* caixinha amarela: mesma altura, texto branco legível */
+.titulo-cadastro-sesi p,
+.titulo-cadastro-senai p,
+.titulo-edicao-sesi p {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
   padding: 8px 14px;
   border: 2px solid var(--cor-preta);
-  background: var(--cor-branca);
-  color: var(--cor-preta);
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
+  margin: 18px 0 0;
+  background: var(--cor-amarela);
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  color: #fff; /* texto branco */
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  line-height: 1.2;
 }
 
-.acoes-confirmacao-edicao button:last-child {
+.subtitulo-bimestre-sesi {
+  display: block;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #555;
+}
+
+/* menu lateral: Sair no rodapé */
+.navegacao-admin-sesi {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 2px;
+  min-height: 520px;
+  height: 100%;
+  align-self: stretch;
+}
+
+.item-navegacao-admin,
+.navegacao-admin-sesi .item-navegacao-senai {
+  display: flex;
+  min-height: 64px;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 18px;
+  border: 2px solid var(--cor-preta);
+  border-radius: 22px 0 22px 0;
+  background: var(--cor-branca);
+  box-shadow: 4px 4px 0 var(--cor-preta);
+  color: var(--cor-preta);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 750;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.item-navegacao-admin.ativo,
+.navegacao-admin-sesi .item-navegacao-senai.ativo {
+  background: var(--cor-amarela);
+}
+
+.icone-navegacao-admin,
+.navegacao-admin-sesi .icone-navegacao-senai {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
   background: var(--cor-preta);
   color: var(--cor-branca);
 }
 
-.pagina-edicao-sesi .rodape-portfolio {
-  width: 86%;
-  min-height: 64px;
+.icone-navegacao-admin img,
+.navegacao-admin-sesi .icone-navegacao-senai img {
+  width: 55%;
+  height: 55%;
+  object-fit: contain;
+}
+
+/* Sair sempre embaixo */
+.sair-admin,
+.sair-admin-senai {
+  margin-top: auto !important;
+}
+
+/* input + Adicionar na mesma linha */
+.linha-materia-conexao {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 10px;
+  align-items: stretch;
+  width: 100%;
+}
+
+.linha-materia-conexao input {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  width: auto !important;
+  max-width: none;
+}
+
+.botao-adicionar-materia {
+  flex: 0 0 auto;
+  padding: 0 18px;
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-preta);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  border-radius: 6px;
+  min-height: 44px;
 }

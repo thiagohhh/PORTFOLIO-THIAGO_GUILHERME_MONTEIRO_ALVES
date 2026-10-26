@@ -13,6 +13,8 @@ import EditarAtividadeSesi from "./components/Admin/EditarAtividadeSesi/EditarAt
 import EditarAtividadeSenai from "./components/Admin/EditarAtividadeSenai/EditarAtividadeSenai";
 import EditarQuemSouEu from "./components/Admin/EditarQuemSouEu/EditarQuemSouEu";
 import MinhasAtividades from "./components/Admin/MinhasAtividades/MinhasAtividades";
+import IntroAnimacao from "./components/IntroAnimacao";
+
 import "./App.css";
 
 const RotaProtegida = ({ children }) => {
@@ -29,6 +31,8 @@ const RotaProtegida = ({ children }) => {
 function App() {
   return (
     <div className="container-principal">
+
+         <IntroAnimacao />
       <Routes>
         <Route path="/" element={<QuemSouEu/>}/> {/**Direcioan para tela incial que é (o quem sou eu)*/}
 

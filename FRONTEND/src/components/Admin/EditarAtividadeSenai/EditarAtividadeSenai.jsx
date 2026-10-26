@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
-import {Link, useLocation} from "react-router-dom";
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import Rodape from "../../Rodape/Rodape";
 import { chamarApi } from "../../../api";
 
+// Imagens e Ícones do projeto
 import circuloAmarelo from "../../../assets/imgs/senai/circulo-amarelo.png";
 import circuloBranco from "../../../assets/imgs/senai/circulo-branco.png";
 import estrelaAmarela from "../../../assets/imgs/senai/estrela-amarela.png";
@@ -10,6 +11,12 @@ import estrelaBranca from "../../../assets/imgs/senai/estrela-branca.png";
 import iconeRelatorio from "../../../assets/imgs/senai/icone-relatorio.png";
 import iconeProjeto from "../../../assets/imgs/senai/icone-projeto.svg";
 import iconeGaleria from "../../../assets/imgs/senai/icone-galeria.svg";
+import Header from "../../Header/Header"
+
+// Ícones da navegação lateral padronizados
+import usuario from "../../../assets/imgs/user-solid-full.svg";
+import livro from "../../../assets/imgs/book-solid-full.svg";
+import enivar from "../../../assets/imgs/paper-plane-solid-full.svg";
 
 import "./EditarAtividadeSenai.css";
 
@@ -42,51 +49,39 @@ const EditarAtividadeSenai = () => {
   const [abaAtiva, setAbaAtiva] = useState(estadoInicial.secao || "Projetos");
   const [mensagem, setMensagem] = useState("");
   const [idItem, setIdItem] = useState(
-    estadoInicial.id != null ? String(estadoInicial.id) : ""
-  ); // id do item que será editado
-
-  // se veio de Minhas Atividades, garante id/aba preenchidos
-  useEffect(() => {
-    if (estadoInicial.id != null) setIdItem(String(estadoInicial.id));
-    if (estadoInicial.secao) setAbaAtiva(estadoInicial.secao);
-  }, [estadoInicial.id, estadoInicial.secao]);
+    estadoInicial.id != null ? String(estadoInicial.id) : "",
+  );
 
   const [unidadeCurricular, setUnidadeCurricular] = useState("");
 
-  // Projetos
+  // Estados dos formulários
   const [tituloProjeto, setTituloProjeto] = useState("");
   const [textoCard, setTextoCard] = useState("");
   const [nomeFoto, setNomeFoto] = useState("");
   const [etiquetas, setEtiquetas] = useState([]);
   const [novaEtiqueta, setNovaEtiqueta] = useState("");
 
-  // Códigos
   const [tituloCodigo, setTituloCodigo] = useState("");
   const [linguagem, setLinguagem] = useState("");
   const [blocoCodigo, setBlocoCodigo] = useState("");
 
-  // Galeria
   const [tipoMidia, setTipoMidia] = useState("");
   const [tituloMidia, setTituloMidia] = useState("");
   const [descricaoMidia, setDescricaoMidia] = useState("");
   const [nomeArquivoGaleria, setNomeArquivoGaleria] = useState("");
 
-  // Relatórios
   const [tituloRelatorio, setTituloRelatorio] = useState("");
   const [textoRelatorio, setTextoRelatorio] = useState("");
   const [nomePdf, setNomePdf] = useState("");
 
-  // Aprendizagens
   const [tituloAprendizagem, setTituloAprendizagem] = useState("");
   const [descricaoAprendizagem, setDescricaoAprendizagem] = useState("");
   const [estrelas, setEstrelas] = useState(0);
 
-  // Autoavaliação
   const [bolinhas, setBolinhas] = useState(0);
   const [percentual, setPercentual] = useState("");
   const [justificativa, setJustificativa] = useState("");
 
-  // Competências
   const [tituloCompetencia, setTituloCompetencia] = useState("");
 
   function adicionarEtiqueta() {
@@ -186,14 +181,24 @@ const EditarAtividadeSenai = () => {
 
       const resultado = await resposta.json();
       setMensagem(
-        resposta.ok ? "Alterações salvas!" : resultado.message || "Erro ao salvar"
+        resposta.ok
+          ? "Alterações salvas!"
+          : resultado.message || "Erro ao salvar",
       );
     } catch {
       setMensagem("Não foi possível conectar ao servidor.");
     }
   }
 
-  function AreaArquivo({ id, name, accept, icone, rotulo, nomeArquivo, setNomeArquivo }) {
+  function AreaArquivo({
+    id,
+    name,
+    accept,
+    icone,
+    rotulo,
+    nomeArquivo,
+    setNomeArquivo,
+  }) {
     return (
       <div
         className="area-arquivo-senai"
@@ -298,7 +303,11 @@ const EditarAtividadeSenai = () => {
               {etiquetas.length > 0 && (
                 <div className="etiquetas-senai">
                   {etiquetas.map((et) => (
-                    <button type="button" key={et} onClick={() => removerEtiqueta(et)}>
+                    <button
+                      type="button"
+                      key={et}
+                      onClick={() => removerEtiqueta(et)}
+                    >
                       {et} ×
                     </button>
                   ))}
@@ -445,7 +454,11 @@ const EditarAtividadeSenai = () => {
             />
           </div>
           <div className="campo-senai">
-            <Marcadores valor={estrelas} setValor={setEstrelas} tipo="estrelas" />
+            <Marcadores
+              valor={estrelas}
+              setValor={setEstrelas}
+              tipo="estrelas"
+            />
           </div>
         </>
       );
@@ -455,7 +468,11 @@ const EditarAtividadeSenai = () => {
       return (
         <>
           <div className="campo-senai">
-            <Marcadores valor={bolinhas} setValor={setBolinhas} tipo="bolinhas" />
+            <Marcadores
+              valor={bolinhas}
+              setValor={setBolinhas}
+              tipo="bolinhas"
+            />
           </div>
           <div className="campo-senai">
             <div className="entrada-percentual-senai">
@@ -500,21 +517,36 @@ const EditarAtividadeSenai = () => {
 
   return (
     <div className="pagina-admin-senai">
-      <header className="cabecalho-admin-senai">
-        <Link className="voltar-admin-senai" to="/">
-          ← Portfólio
-        </Link>
-        <span>Área do aluno</span>
-      </header>
+      <Header/>
+      
 
       <main className="conteudo-admin-senai">
+  
         <aside className="navegacao-admin-senai">
-          <Link className="item-navegacao-senai" to="/admin/atividades/nova/senai">
-            <span className="icone-navegacao-senai">+</span> Enviar atividade
+          <Link
+            className="item-navegacao-senai"
+            to="/admin/atividades/nova/senai"
+          >
+            <span className="icone-navegacao-senai">
+              <img src={enivar} alt="Enviar" />
+            </span>
+            Enviar atividade
           </Link>
-          <button className="item-navegacao-senai ativo" type="button">
-            <span className="icone-navegacao-senai">≡</span> Editar atividade
-          </button>
+
+          <Link className="item-navegacao-senai" to="/admin/quemSouEu">
+            <span className="icone-navegacao-senai">
+              <img src={usuario} alt="Usuário" />
+            </span>
+            Quem sou eu
+          </Link>
+
+          <Link className="item-navegacao-senai" to="/admin/atividades">
+            <span className="icone-navegacao-senai">
+              <img src={livro} alt="Livro" />
+            </span>
+            Minhas atividades
+          </Link>
+
           <Link
             className="item-navegacao-senai sair-admin-senai"
             to="/admin/login"
@@ -534,13 +566,20 @@ const EditarAtividadeSenai = () => {
             <p>Editar · {abaAtiva}</p>
           </header>
 
-          <form className="formulario-cadastro-senai" onSubmit={salvarFormulario}>
+          <form
+            className="formulario-cadastro-senai"
+            onSubmit={salvarFormulario}
+          >
+            {/* Etapa 1 - Instituição */}
             <fieldset className="grupo-selecao-senai">
               <legend>
                 <span className="numero-etapa-senai">1</span>Instituição
               </legend>
               <div className="opcoes-senai">
-                <Link className="opcao-senai" to="/admin/atividades/editar/sesi">
+                <Link
+                  className="opcao-senai"
+                  to="/admin/atividades/editar/sesi"
+                >
                   Sesi
                 </Link>
                 <button className="opcao-senai selecionada" type="button">
@@ -549,6 +588,7 @@ const EditarAtividadeSenai = () => {
               </div>
             </fieldset>
 
+            {/* Etapa 2 - Aba */}
             <fieldset className="grupo-selecao-senai">
               <legend>
                 <span className="numero-etapa-senai">2</span>Aba
@@ -570,15 +610,16 @@ const EditarAtividadeSenai = () => {
               </div>
             </fieldset>
 
+            {/* Etapa 3 - Bloco de Conteúdo */}
             <fieldset className="bloco-conteudo-senai">
               <legend>
                 <span className="numero-etapa-senai">3</span>Conteúdo
               </legend>
 
-              {/* ID vem automaticamente de Minhas Atividades — sem input */}
               {!idItem && (
                 <p className="mensagem-admin">
-                  Abra esta tela pelo botão <strong>Editar</strong> em Minhas atividades.
+                  Abra esta tela pelo botão <strong>Editar</strong> em Minhas
+                  atividades.
                 </p>
               )}
 

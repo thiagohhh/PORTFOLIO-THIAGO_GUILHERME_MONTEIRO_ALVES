@@ -5,6 +5,10 @@ import { chamarApi } from "../../../api";
 import estrelaAmarela from "../../../assets/imgs/senai/estrela-amarela.png";
 import estrelaBranca from "../../../assets/imgs/senai/estrela-branca.png";
 import iconeProjeto from "../../../assets/imgs/senai/icone-projeto.svg";
+import usuario from "../../../assets/imgs/user-solid-full.svg";
+import livro from "../../../assets/imgs/book-solid-full.svg";
+import enivar from "../../../assets/imgs/paper-plane-solid-full.svg";
+import Header from "../../Header/Header";
 import "./CadastroAtividadeSesi.css";
 
 const secoes = [
@@ -28,8 +32,6 @@ const areas = [
   "Ciências Humanas",
   "Matemática",
 ];
-
-const materias = ["Física", "Português", "Geografia", "História", "Química"];
 
 const rotas = {
   "Fundamentos teóricos": "/sesi/fundamentosTeoricos",
@@ -73,8 +75,9 @@ function CampoTexto({ nome, rotulo, linhas, valor, aoMudar }) {
 const CadastroAtividadeSesi = () => {
   const [secaoAtiva, setSecaoAtiva] = useState("Fundamentos teóricos");
   const [bimestreAtivo, setBimestreAtivo] = useState(1);
-  const [areaAtiva, setAreaAtiva] = useState("Matemática");
-  const [materiasEscolhidas, setMateriasEscolhidas] = useState([]);
+  const [areaAtiva, setAreaAtiva] = useState("Matemática"); // bolinha do meio
+  const [materiasEscolhidas, setMateriasEscolhidas] = useState([]); // matérias já adicionadas (máx 4)
+  const [inputMateria, setInputMateria] = useState(""); // o que a pessoa está digitando
   const [mensagem, setMensagem] = useState("");
   const [autoavaliacao, setAutoavaliacao] = useState(0);
   const [nomeArquivo, setNomeArquivo] = useState("");
@@ -87,12 +90,27 @@ const CadastroAtividadeSesi = () => {
     setCampos((antigos) => ({ ...antigos, [nome]: valor }));
   }
 
-  function clicarMateria(nome) {
-    if (materiasEscolhidas.includes(nome)) {
-      setMateriasEscolhidas(materiasEscolhidas.filter((m) => m !== nome));
-    } else {
-      setMateriasEscolhidas([...materiasEscolhidas, nome]);
+  // Adiciona a matéria digitada na lista (máx 4)
+  function adicionarMateria() {
+    const texto = inputMateria.trim();
+    if (!texto) return; // vazio = não faz nada
+    if (materiasEscolhidas.length >= 4) {
+      setMensagem("Máximo de 4 matérias conectadas.");
+      return;
     }
+    // evita matéria repetida
+    if (materiasEscolhidas.some((m) => m.toLowerCase() === texto.toLowerCase())) {
+      setMensagem("Essa matéria já foi adicionada.");
+      return;
+    }
+    setMateriasEscolhidas([...materiasEscolhidas, texto]); // coloca na lista
+    setInputMateria(""); // limpa o campo
+    setMensagem("");
+  }
+
+  // Tira uma matéria da lista (botão ×)
+  function removerMateria(nome) {
+    setMateriasEscolhidas(materiasEscolhidas.filter((m) => m !== nome));
   }
 
   function limpar() {
@@ -100,6 +118,7 @@ const CadastroAtividadeSesi = () => {
     setAutoavaliacao(0);
     setNomeArquivo("");
     setMateriasEscolhidas([]);
+    setInputMateria("");
   }
 
   async function enviar(evento) {
@@ -136,6 +155,7 @@ const CadastroAtividadeSesi = () => {
           body: dados,
         });
       } else if (secaoAtiva === "Conexões interdisciplinares") {
+        // Monta o texto no formato que a teia consegue ler depois
         const texto =
           "Área: " +
           areaAtiva +
@@ -144,6 +164,7 @@ const CadastroAtividadeSesi = () => {
           "\n" +
           (campos.relacoes_interdisciplinares || "");
 
+        // Envia pro backend
         resposta = await chamarApi(rotas[secaoAtiva], {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -346,33 +367,67 @@ const CadastroAtividadeSesi = () => {
       );
     }
 
+    // Formulário da seção Conexões
     if (secaoAtiva === "Conexões interdisciplinares") {
       return (
         <>
           <p style={{ marginBottom: 12 }}>
-            Bolinha do meio = área escolhida. Clique nas matérias que se
-            conectam com ela:
+            Bolinha do meio = <strong>{areaAtiva}</strong>. Digite as matérias
+            que se conectam com ela (máx. 4):
           </p>
 
-          <div className="opcoes-admin" style={{ marginBottom: 16 }}>
+          {/* Mostra a área escolhida (bolinha do meio) */}
+          <div className="opcoes-admin" style={{ marginBottom: 12 }}>
             <button type="button" className="opcao-admin selecionada">
               {areaAtiva}
             </button>
-
-            {materias.map((m) => (
-              <button
-                key={m}
-                type="button"
-                className={
-                  "opcao-admin " +
-                  (materiasEscolhidas.includes(m) ? "selecionada" : "")
-                }
-                onClick={() => clicarMateria(m)}
-              >
-                {m}
-              </button>
-            ))}
           </div>
+
+          {/* Campo pra digitar a matéria + botão Adicionar */}
+          <label className="campo-admin-sesi">
+            <span>Matérias conectadas</span>
+            <div className="linha-materia-conexao">
+              <input
+                type="text"
+                placeholder="Digite e clique em Adicionar"
+                value={inputMateria}
+                onChange={(e) => setInputMateria(e.target.value)}
+                onKeyDown={(e) => {
+                  // Enter também adiciona
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    adicionarMateria();
+                  }
+                }}
+              />
+              <button
+                type="button"
+                className="botao-adicionar-materia"
+                onClick={adicionarMateria}
+              >
+                Adicionar
+              </button>
+            </div>
+          </label>
+
+          {/* Tags das matérias já adicionadas */}
+          {materiasEscolhidas.length > 0 && (
+            <div className="lista-tags-materias">
+              {materiasEscolhidas.map((m) => (
+                <span key={m} className="tag-materia">
+                  {m}
+                  <button
+                    type="button"
+                    className="tag-materia-remover"
+                    onClick={() => removerMateria(m)}
+                    title="Remover"
+                  >
+                    ×
+                  </button>
+                </span>
+              ))}
+            </div>
+          )}
 
           <CampoTexto
             nome="relacoes_interdisciplinares"
@@ -428,26 +483,30 @@ const CadastroAtividadeSesi = () => {
 
   return (
     <div className="pagina-admin-sesi">
-      <header className="cabecalho-admin-sesi">
-        <Link className="voltar-admin-sesi" to="/">
-          ← Portfólio
-        </Link>
-        <span>Área do aluno</span>
-      </header>
+      <Header/>
 
       <main className="conteudo-admin-sesi">
         <aside className="navegacao-admin-sesi">
+          {/* menu lateral — classes iguais em todas as abas */}
           <button className="item-navegacao-admin ativo" type="button">
-            <span className="icone-navegacao-admin">📤</span>
+            <span className="icone-navegacao-admin">
+              <img src={enivar} alt="" />
+            </span>
             Enviar atividade
           </button>
-          <Link className="item-navegacao-senai" to="/admin/quemSouEu">
-            <span className="icone-navegacao-senai">😎</span> Quem sou eu
+          <Link className="item-navegacao-admin" to="/admin/quemSouEu">
+            <span className="icone-navegacao-admin">
+              <img src={usuario} alt="" />
+            </span>
+            Quem sou eu
           </Link>
           <Link className="item-navegacao-admin" to="/admin/atividades">
-            <span className="icone-navegacao-admin">📒</span>
+            <span className="icone-navegacao-admin">
+              <img src={livro} alt="" />
+            </span>
             Minhas atividades
           </Link>
+          {/* Sair fica embaixo (CSS: margin-top auto) */}
           <Link
             className="item-navegacao-admin sair-admin"
             to="/admin/login"
@@ -468,10 +527,14 @@ const CadastroAtividadeSesi = () => {
               <br />
               <span>atividade</span>
             </h1>
-            <p>
-              Nova atividade · {areaAtiva} · {secaoAtiva}
-              {!ehSecaoAnual ? ` · ${bimestreAtivo}º bimestre` : ""}
-            </p>
+            <p>Enviar · {secaoAtiva}</p>
+
+            {/* O bimestre agora fica embaixo da caixa, limpo e organizado se não for anual */}
+            {!ehSecaoAnual && (
+              <span className="subtitulo-bimestre-sesi">
+                ↳ {bimestreAtivo}º bimestre
+              </span>
+            )}
           </header>
 
           <form className="formulario-cadastro-sesi" onSubmit={enviar}>

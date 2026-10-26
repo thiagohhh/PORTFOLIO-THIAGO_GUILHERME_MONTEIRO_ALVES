@@ -1,3 +1,104 @@
+/* ==========================================================================
+   BOTÕES DE AÇÃO DO FORMULÁRIO
+   ========================================================================= */
+.botao-salvar-edicao-senai,
+.botao-cancelar-edicao-senai,
+.botao-excluir-edicao-senai {
+  min-height: 48px;
+  padding: 10px 18px;
+  border: 2px solid var(--cor-preta);
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  color: var(--cor-preta);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.botao-salvar-edicao-senai {
+  background: var(--cor-amarela);
+}
+
+.botao-cancelar-edicao-senai {
+  background: var(--cor-branca);
+}
+
+.botao-excluir-edicao-senai {
+  background: #f7d8d5;
+}
+
+/* ==========================================================================
+   CAIXA DE MENSAGEM DE STATUS
+   ========================================================================= */
+.mensagem-edicao-senai {
+  padding: 12px 14px;
+  border-left: 5px solid var(--cor-amarela);
+  margin: 20px 0 0;
+  background: #f5f1e5;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   MODAL / CAIXA DE DIÁLOGO DE CONFIRMAÇÃO
+   ========================================================================= */
+.fundo-confirmacao-edicao-senai {
+  position: fixed;
+  z-index: 10;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgb(0 0 0 / 65%);
+}
+
+.dialogo-confirmacao-edicao-senai {
+  width: 100%;
+  max-width: 480px;
+  padding: 28px;
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-branca);
+  box-shadow: 6px 6px 0 var(--cor-amarela);
+}
+
+.dialogo-confirmacao-edicao-senai h2 {
+  margin: 0 0 12px;
+  font-size: 25px;
+}
+
+.dialogo-confirmacao-edicao-senai p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.acoes-confirmacao-edicao-senai {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.acoes-confirmacao-edicao-senai button {
+  min-height: 44px;
+  padding: 9px 14px;
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-branca);
+  box-shadow: 2px 2px 0 var(--cor-preta);
+  color: var(--cor-preta);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.acoes-confirmacao-edicao-senai button:last-child {
+  background: #f7d8d5;
+}
+/* ==========================================================================
+   ESTRUTURA DA PÁGINA E CABEÇALHO
+   ========================================================================== */
 .pagina-edicao-senai {
   display: flex;
   min-height: 100vh;
@@ -13,37 +114,12 @@
     sans-serif;
 }
 
-.cabecalho-edicao-senai {
-  display: flex;
-  height: 62px;
-  flex: 0 0 62px;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 7%;
-  background: #111111;
-  color: var(--cor-amarela);
-  font-size: 15px;
-  font-weight: 800;
-}
 
-.voltar-edicao-senai {
-  color: var(--cor-branca);
-  text-decoration: none;
-}
-
-.voltar-edicao-senai:hover {
-  color: var(--cor-amarela);
-}
-
-.cabecalho-edicao-senai > span {
-  padding-bottom: 4px;
-  border-bottom: 3px solid var(--cor-amarela);
-}
 
 .conteudo-edicao-senai {
   display: grid;
   flex: 1;
-  grid-template-columns: 300px minmax(0, 1fr);
+  grid-template-columns: 240px minmax(0, 1fr); /* Ajustado para 240px para simetria ideal */
   gap: 70px;
   width: 86%;
   max-width: 1440px;
@@ -51,14 +127,17 @@
   margin: 0 auto;
 }
 
-.navegacao-edicao-senai {
+/* ==========================================================================
+   MENU LATERAL PADRONIZADO (CORREÇÃO DE ÍCONES E LINKS)
+   ========================================================================== */
+.navegacao-admin-senai {
   display: flex;
   flex-direction: column;
   gap: 16px;
   padding-top: 2px;
 }
 
-.item-edicao-senai {
+.item-navegacao-senai {
   display: flex;
   min-height: 64px;
   align-items: center;
@@ -75,26 +154,38 @@
   text-align: left;
   text-decoration: none;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
-.item-edicao-senai.ativo {
+.item-navegacao-senai.ativo {
   background: var(--cor-amarela);
 }
 
-.icone-edicao-senai {
+.icone-navegacao-senai {
   display: inline-flex;
   width: 32px;
   height: 32px;
-  flex: 0 0 32px;
+  min-width: 32px;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   background: var(--cor-preta);
   color: var(--cor-branca);
-  font-size: 20px;
-  line-height: 1;
 }
 
+.icone-navegacao-senai img {
+  width: 55%;
+  height: 55%;
+  object-fit: contain;
+}
+
+.sair-admin-senai {
+  margin-top: auto;
+}
+
+/* ==========================================================================
+   CONTEÚDO E TITULAÇÃO
+   ========================================================================== */
 .area-edicao-senai {
   min-width: 0;
 }
@@ -142,6 +233,9 @@
   font-weight: 700;
 }
 
+/* ==========================================================================
+   ABAS DE SELEÇÃO E NAVEGAÇÃO INTERNA
+   ========================================================================== */
 .abas-edicao-senai {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -173,6 +267,9 @@
   outline-offset: 2px;
 }
 
+/* ==========================================================================
+   ESTRUTURA DO FORMULÁRIO E CAMPOS
+   ========================================================================== */
 .formulario-edicao-senai {
   display: flex;
   flex-direction: column;
@@ -234,6 +331,7 @@
   font: inherit;
   font-size: 14px;
   font-weight: 400;
+  box-sizing: border-box;
 }
 
 .campo-edicao-senai > textarea {
@@ -265,6 +363,9 @@
   font-weight: 700;
 }
 
+/* ==========================================================================
+   ETIQUETAS (TAGS)
+   ========================================================================== */
 .entrada-etiquetas-edicao-senai {
   display: flex;
   gap: 10px;
@@ -305,6 +406,9 @@
   background: var(--cor-branca);
 }
 
+/* ==========================================================================
+   UPLOADS E ARQUIVOS (MÍDIA/PDF)
+   ========================================================================== */
 .arquivo-edicao-senai {
   display: flex;
   min-height: 90px;
@@ -353,6 +457,9 @@
   white-space: nowrap;
 }
 
+/* ==========================================================================
+   MARCADORES (ESTRELAS / BOLINHAS / PERCENTUAL)
+   ========================================================================== */
 .marcadores-edicao-senai {
   display: flex;
   align-items: center;
@@ -415,6 +522,9 @@
   line-height: 1.4;
 }
 
+/* ==========================================================================
+   BOTÕES DE AÇÃO DO FORMULÁRIO
+   ========================================================================== */
 .acoes-edicao-senai {
   display: flex;
   align-items: center;
@@ -461,7 +571,6 @@
   font-size: 14px;
   font-weight: 700;
 }
-
 .fundo-confirmacao-edicao-senai {
   position: fixed;
   z-index: 10;
@@ -515,4 +624,120 @@
 
 .acoes-confirmacao-edicao-senai button:last-child {
   background: #f7d8d5;
+}
+
+/* ===== PADRAO UNIFICADO ADMIN ===== */
+
+/* ===== título e caixinha amarela (padrão único Sesi/Senai) ===== */
+.titulo-cadastro-sesi,
+.titulo-cadastro-senai,
+.titulo-edicao-sesi {
+  margin-bottom: 28px;
+}
+
+.titulo-cadastro-sesi h1,
+.titulo-cadastro-senai h1,
+.titulo-edicao-sesi h1 {
+  margin: 0;
+  font-size: 54px;
+  font-weight: 900;
+  line-height: 0.98;
+  letter-spacing: -0.5px;
+}
+
+.titulo-cadastro-sesi h1 span,
+.titulo-cadastro-senai h1 span,
+.titulo-edicao-sesi h1 span {
+  color: var(--cor-amarela);
+  text-shadow: 3px 3px 0 var(--cor-preta);
+}
+
+/* caixinha amarela: mesma altura, texto branco legível */
+.titulo-cadastro-sesi p,
+.titulo-cadastro-senai p,
+.titulo-edicao-sesi p {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 8px 14px;
+  border: 2px solid var(--cor-preta);
+  margin: 18px 0 0;
+  background: var(--cor-amarela);
+  box-shadow: 3px 3px 0 var(--cor-preta);
+  color: #fff; /* texto branco */
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  line-height: 1.2;
+}
+
+.subtitulo-bimestre-sesi {
+  display: block;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #555;
+}
+
+/* menu lateral: Sair no rodapé */
+.navegacao-admin-senai {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 2px;
+  min-height: 520px;
+  height: 100%;
+  align-self: stretch;
+}
+
+.item-navegacao-senai,
+.navegacao-admin-senai .item-navegacao-admin {
+  display: flex;
+  min-height: 64px;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 18px;
+  border: 2px solid var(--cor-preta);
+  border-radius: 22px 0 22px 0;
+  background: var(--cor-branca);
+  box-shadow: 4px 4px 0 var(--cor-preta);
+  color: var(--cor-preta);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 750;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.item-navegacao-senai.ativo,
+.navegacao-admin-senai .item-navegacao-admin.ativo {
+  background: var(--cor-amarela);
+}
+
+.icone-navegacao-senai,
+.navegacao-admin-senai .icone-navegacao-admin {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--cor-preta);
+  color: var(--cor-branca);
+}
+
+.icone-navegacao-senai img,
+.navegacao-admin-senai .icone-navegacao-admin img {
+  width: 55%;
+  height: 55%;
+  object-fit: contain;
+}
+
+.sair-admin-senai,
+.sair-admin {
+  margin-top: auto !important;
 }

@@ -85,7 +85,8 @@ const ConteudoSesi = ({ disciplina }) => {
     if (secaoAtiva === "Participação em sala") return <ConteudoParticipacao bimestre={bimestreAtivo} disciplina={disciplina}/>;//Se a secao ativda for participacao ele mostra o componete  e madna o biemstre e displina que aprece la em cima
     if (secaoAtiva === "Projetos e trabalhos") return <ConteudoProjetos bimestre={bimestreAtivo} disciplina={disciplina}/>;//Se a secao ativda for projetos e tarbalhos ele mostra o componete  e madna o biemstre e displina que aprece la em cima
     if (secaoAtiva === "Reflexão crítica") return <ConteudoReflexaoCritica/>; //Se a secao ativda for refelxao critica ele mostra o componete  e madna o biemstre e displina que aprece la em cima
-    if (secaoAtiva === "Conexões interdisciplinares") return <ConteudoConexoesInterdisciplinares/>; //Se a secao ativda for Conexoe sinterciplinares ele mostra o componete  e madna o biemstre e displina que aprece la em cima
+    // Passa a disciplina da página pra teia filtrar a área certa
+    if (secaoAtiva === "Conexões interdisciplinares") return <ConteudoConexoesInterdisciplinares disciplina={disciplina} />; //Se a secao ativda for Conexoe sinterciplinares ele mostra o componete  e madna o biemstre e displina que aprece la em cima
     if (secaoAtiva === "Da escola para a vida") return <ConteudoEscolaVida/>; //Se a secao ativda for escola para a vida ele mostra o componete  e madna o biemstre e displina que aprece la em cima
     return null; //Se a secao não existir ele nao mostra nada
   }

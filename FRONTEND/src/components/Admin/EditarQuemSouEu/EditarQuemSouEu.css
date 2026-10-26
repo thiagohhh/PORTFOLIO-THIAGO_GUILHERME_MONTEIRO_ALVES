@@ -7,65 +7,71 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-.cabecalho-editar-perfil {
-  display: flex;
-  min-height: 48px;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 6%;
-  background: #111;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.cabecalho-editar-perfil a {
-  color: var(--cor-branca);
-  text-decoration: none;
-}
-
-.cabecalho-editar-perfil span {
-  padding-bottom: 3px;
-  border-bottom: 2px solid var(--cor-amarela);
-  color: var(--cor-amarela);
-}
 
 .conteudo-editar-perfil {
   display: grid;
   flex: 1;
-  grid-template-columns: 220px minmax(0, 1fr);
+  grid-template-columns: 240px minmax(0, 1fr); /* Ajustado para 240px para caber os botões perfeitamente */
   gap: 40px;
   width: 88%;
   padding: 42px 0 48px;
   margin: 0 auto;
 }
 
-.menu-editar-perfil {
+/* ==========================================================================
+   MENU LATERAL PADRONIZADO (SENAI)
+   ========================================================================== */
+.navegacao-admin-senai {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding-top: 3px;
+  gap: 16px;
+  padding-top: 2px;
 }
 
-.menu-editar-perfil a,
-.item-menu-perfil-ativo {
+.item-navegacao-senai {
   display: flex;
-  min-height: 44px;
+  min-height: 64px;
   align-items: center;
-  padding: 8px 14px;
+  gap: 14px;
+  padding: 10px 18px;
   border: 2px solid var(--cor-preta);
-  border-radius: 16px 0 16px 0;
+  border-radius: 22px 0 22px 0;
   background: var(--cor-branca);
-  box-shadow: 3px 3px 0 var(--cor-preta);
+  box-shadow: 4px 4px 0 var(--cor-preta);
   color: var(--cor-preta);
-  font-size: 13px;
+  font: inherit;
+  font-size: 16px;
   font-weight: 750;
+  text-align: left;
   text-decoration: none;
+  box-sizing: border-box;
 }
 
-.menu-editar-perfil .item-menu-perfil-ativo {
+.item-navegacao-senai.ativo {
   background: var(--cor-amarela);
 }
 
+.icone-navegacao-senai {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--cor-preta);
+  color: var(--cor-branca);
+}
+
+.icone-navegacao-senai img {
+  width: 55%;
+  height: 55%;
+  object-fit: contain;
+}
+
+/* ==========================================================================
+   ÁREA DE CONTEÚDO E FORMULÁRIO
+   ========================================================================== */
 .area-editar-perfil {
   min-width: 0;
 }
@@ -140,6 +146,7 @@
   font: inherit;
   font-size: 12px;
   font-weight: 400;
+  box-sizing: border-box;
 }
 
 .formulario-editar-perfil textarea {
@@ -147,6 +154,9 @@
   resize: vertical;
 }
 
+/* ==========================================================================
+   GERENCIAMENTO DE FOTO DE PERFIL
+   ========================================================================== */
 .troca-foto-perfil {
   display: flex;
   align-items: center;
@@ -185,6 +195,8 @@
   box-shadow: 2px 2px 0 var(--cor-preta);
   font-size: 11px;
   cursor: pointer;
+  background: var(--cor-branca);
+  font-weight: 750;
 }
 
 .botao-trocar-foto input {
@@ -197,6 +209,9 @@
   font-size: 10px;
 }
 
+/* ==========================================================================
+   BOTÕES DE AÇÃO DO FORMULÁRIO
+   ========================================================================== */
 .acoes-editar-perfil {
   display: flex;
   gap: 10px;
@@ -224,6 +239,9 @@
   color: var(--cor-preta);
 }
 
+/* ==========================================================================
+   CARD DE PRÉ-VISUALIZAÇÃO lateral
+   ========================================================================== */
 .previa-editar-perfil h2 {
   margin: 0 0 18px;
   font-size: 12px;
@@ -277,52 +295,4 @@
   margin: 0;
   color: #555;
   font-size: 12px;
-}
-
-
-.navegacao-admin-sesi {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding-top: 2px;
-}
-
-.item-navegacao-admin {
-  display: flex;
-  min-height: 64px;
-  align-items: center;
-  gap: 14px;
-  padding: 10px 18px;
-  border: 2px solid var(--cor-preta);
-  border-radius: 22px 0 22px 0;
-  background: var(--cor-branca);
-  box-shadow: 4px 4px 0 var(--cor-preta);
-  color: var(--cor-preta);
-  font: inherit;
-  font-size: 16px;
-  font-weight: 750;
-  text-align: left;
-  text-decoration: none;
-}
-
-.item-navegacao-admin.ativo {
-  background: var(--cor-amarela);
-}
-
-.item-navegacao-admin:disabled {
-  cursor: not-allowed;
-}
-
-.icone-navegacao-admin {
-  display: inline-flex;
-  width: 32px;
-  height: 32px;
-  flex: 0 0 32px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: var(--cor-preta);
-  color: var(--cor-branca);
-  font-size: 20px;
-  line-height: 1;
 }

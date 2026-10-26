@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Rodape from "../../Rodape/Rodape";
 import { chamarApi } from "../../../api";
+import usuario from "../../../assets/imgs/user-solid-full.svg";
+import livro from "../../../assets/imgs/book-solid-full.svg";
+import enivar from "../../../assets/imgs/paper-plane-solid-full.svg";
+import Header from "../../Header/Header";
 import "./MinhasAtividades.css";
 
 // rotas de listagem, exclusão e edição
@@ -163,36 +167,44 @@ const MinhasAtividades = () => {
 
   return (
     <div className="pagina-admin-sesi">
-      <header className="cabecalho-admin-sesi">
-        <Link className="voltar-admin-sesi" to="/">
-          ← Portfólio
-        </Link>
-        <span>Área do aluno</span>
-      </header>
+       <Header/>
 
       <main className="conteudo-admin-sesi">
+        {/* CORREÇÃO: Menu lateral reordenado e classes unificadas para item-navegacao-senai */}
         <aside className="navegacao-admin-sesi">
-          <Link className="item-navegacao-admin" to="/admin/atividades/nova/sesi">
-            <span className="icone-navegacao-admin">+</span>
+          <Link
+            className="item-navegacao-senai"
+            to="/admin/atividades/nova/senai"
+          >
+            <span className="icone-navegacao-senai">
+              <img src={enivar} alt="Enviar" />
+            </span>
             Enviar atividade
           </Link>
-          <button className="item-navegacao-admin ativo" type="button">
-            <span className="icone-navegacao-admin">≡</span>
-            Minhas atividades
-          </button>
-          <Link className="item-navegacao-admin" to="/admin/quemSouEu">
-            <span className="icone-navegacao-admin">●</span>
+
+          <Link className="item-navegacao-senai" to="/admin/quemSouEu">
+            <span className="icone-navegacao-senai">
+              <img src={usuario} alt="Usuário" />
+            </span>
             Quem sou eu
           </Link>
+
+          <Link className="item-navegacao-senai ativo" to="/admin/atividades">
+            <span className="icone-navegacao-senai">
+              <img src={livro} alt="Livro" />
+            </span>
+            Minhas atividades
+          </Link>
+
           <Link
-            className="item-navegacao-admin sair-admin"
+            className="item-navegacao-senai sair-admin-senai"
             to="/admin/login"
             onClick={() => {
               localStorage.removeItem("token");
               localStorage.removeItem("alunoId");
             }}
           >
-            <span className="icone-navegacao-admin">↪</span>
+            <span className="icone-navegacao-senai">↪</span>
             Sair
           </Link>
         </aside>
@@ -226,7 +238,6 @@ const MinhasAtividades = () => {
                 </div>
 
                 <div className="acoes-minha-atividade">
-                  {/* Editar: leva para a tela de edição com id e seção já preenchidos */}
                   <Link
                     className="botao-editar-atividade"
                     to={item.editarRota}

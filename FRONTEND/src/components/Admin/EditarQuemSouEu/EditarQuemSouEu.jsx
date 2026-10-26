@@ -4,9 +4,11 @@ import Rodape from "../../Rodape/Rodape";
 import LinksIniciais from "../../LinksIniciais/LinksIniciais";
 import { chamarApi } from "../../../api";
 import "./EditarQuemSouEu.css";
-
+import usuario from "../../../assets/imgs/user-solid-full.svg";
+import livro from "../../../assets/imgs/book-solid-full.svg";
+import enivar from "../../../assets/imgs/paper-plane-solid-full.svg";
+import Header from "../../Header/Header";
 const API = "http://localhost:3333";
-
 
 const perfilVazio = {
   titulo: "",
@@ -20,7 +22,6 @@ const EditarQuemSouEu = () => {
   const [perfil, setPerfil] = useState(perfilVazio);
   const [foto, setFoto] = useState("");
   const [mensagem, setMensagem] = useState("");
-
 
   useEffect(() => {
     async function carregar() {
@@ -45,33 +46,31 @@ const EditarQuemSouEu = () => {
     carregar();
   }, []);
 
- 
   const mudar = (evento) => {
     setPerfil({ ...perfil, [evento.target.name]: evento.target.value });
   };
 
- 
   const limpar = () => {
     setPerfil(perfilVazio);
     setFoto("");
     setMensagem("");
-  }; // é ligado no botao de cancelar onde limpa o formulario
+  };
 
- 
   const salvar = async (evento) => {
     evento.preventDefault();
     setMensagem("");
 
-    
     const dados = new FormData(evento.currentTarget);
     dados.append("aluno_id", localStorage.getItem("alunoId"));
 
-   
     const caminho = id ? `/quemSouEu/${id}` : "/quemSouEu";
     const metodo = id ? "PUT" : "POST";
 
     try {
-      const resposta = await chamarApi(caminho, { method: metodo, body: dados });
+      const resposta = await chamarApi(caminho, {
+        method: metodo,
+        body: dados,
+      });
       const resultado = await resposta.json();
 
       if (resposta.ok) {
@@ -85,7 +84,6 @@ const EditarQuemSouEu = () => {
     }
   };
 
- 
   const escolherFoto = (evento) => {
     const arquivo = evento.target.files?.[0];
     if (arquivo) setFoto(URL.createObjectURL(arquivo));
@@ -93,40 +91,47 @@ const EditarQuemSouEu = () => {
 
   return (
     <div className="pagina-editar-perfil">
-      <header className="cabecalho-editar-perfil">
-        <Link className="voltar-editar-perfil" to="/">
-          ← Portfólio
-        </Link>
-        <span>Área do aluno</span>
-      </header>
+       <Header/>
 
       <main className="conteudo-editar-perfil">
-     
-        <aside className="menu-editar-perfil">
-          
-            <button className="item-navegacao-admin ativo" type="button">
-            <span className="icone-navegacao-admin">📤</span>
+        {/* CORREÇÃO: Removido o duplo <aside> e padronizado as classes e botões */}
+        <aside className="navegacao-admin-senai">
+          <Link
+            className="item-navegacao-senai"
+            to="/admin/atividades/nova/senai"
+          >
+            <span className="icone-navegacao-senai">
+              <img src={enivar} alt="Enviar" />
+            </span>
             Enviar atividade
-          </button>
+          </Link>
 
-           <Link className="item-navegacao-admin" to="/admin/atividades">
-            <span className="icone-navegacao-admin">📒</span>
+          <Link className="item-navegacao-senai ativo" to="/admin/quemSouEu">
+            <span className="icone-navegacao-senai">
+              <img src={usuario} alt="Usuário" />
+            </span>
+            Quem sou eu
+          </Link>
+
+          <Link className="item-navegacao-senai" to="/admin/atividades">
+            <span className="icone-navegacao-senai">
+              <img src={livro} alt="Livro" />
+            </span>
             Minhas atividades
           </Link>
 
-          <span className="item-menu-perfil-ativo"><span className="icone-navegacao-senai">😎</span> Quem sou eu</span>  
           <Link
+            className="item-navegacao-senai sair-admin-senai"
             to="/admin/login"
             onClick={() => {
               localStorage.removeItem("token");
               localStorage.removeItem("alunoId");
             }}
           >
-            Sair
+            <span className="icone-navegacao-senai">↪</span> Sair
           </Link>
         </aside>
 
-      
         <section className="area-editar-perfil">
           <header className="titulo-editar-perfil">
             <h1>
@@ -138,7 +143,6 @@ const EditarQuemSouEu = () => {
           </header>
 
           <div className="colunas-editar-perfil">
-           
             <form className="formulario-editar-perfil" onSubmit={salvar}>
               <label>
                 Título
@@ -199,7 +203,7 @@ const EditarQuemSouEu = () => {
                 <button className="botao-salvar-perfil" type="submit">
                   Salvar alterações
                 </button>
-            
+
                 <button
                   className="botao-cancelar-perfil"
                   type="button"
@@ -212,7 +216,6 @@ const EditarQuemSouEu = () => {
               {mensagem && <p role="status">{mensagem}</p>}
             </form>
 
-           
             <aside className="previa-editar-perfil">
               <h2>Pré-visualização</h2>
               <h3>
