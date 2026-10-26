@@ -26,6 +26,28 @@
   color: #555;
 }
 
+.acoes-minha-atividade {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.botao-editar-atividade {
+  display: inline-block;
+  padding: 8px 14px;
+  border: 2px solid var(--cor-preta);
+  background: #fff;
+  color: var(--cor-preta);
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.botao-editar-atividade:hover {
+  background: #f5f5f5;
+}
+
 .botao-excluir-atividade {
   padding: 8px 14px;
   border: 2px solid var(--cor-preta);

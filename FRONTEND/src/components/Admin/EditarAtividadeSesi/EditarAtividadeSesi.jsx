@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import Rodape from "../../Rodape/Rodape";
 import { chamarApi } from "../../../api";
 import estrelaAmarela from "../../../assets/imgs/senai/estrela-amarela.png";
@@ -32,13 +32,29 @@ const rotas = {
 };
 
 const EditarAtividadeSesi = () => {
-  const [secaoAtiva, setSecaoAtiva] = useState("Fundamentos teóricos");
-  const [bimestreAtivo, setBimestreAtivo] = useState(1);
-  const [idItem, setIdItem] = useState("");
+  const location = useLocation();
+  const estadoInicial = location.state || {};
+
+  const [secaoAtiva, setSecaoAtiva] = useState(
+    estadoInicial.secao || "Fundamentos teóricos"
+  );
+  const [bimestreAtivo, setBimestreAtivo] = useState(
+    estadoInicial.bimestre ? Number(estadoInicial.bimestre) : 1
+  );
+  const [idItem, setIdItem] = useState(
+    estadoInicial.id != null ? String(estadoInicial.id) : ""
+  );
   const [mensagem, setMensagem] = useState("");
   const [autoavaliacao, setAutoavaliacao] = useState(0);
   const [nomeArquivo, setNomeArquivo] = useState("");
   const [campos, setCampos] = useState({});
+
+  // se veio de Minhas Atividades, garante id/seção preenchidos
+  useEffect(() => {
+    if (estadoInicial.id != null) setIdItem(String(estadoInicial.id));
+    if (estadoInicial.secao) setSecaoAtiva(estadoInicial.secao);
+    if (estadoInicial.bimestre) setBimestreAtivo(Number(estadoInicial.bimestre));
+  }, [estadoInicial.id, estadoInicial.secao, estadoInicial.bimestre]);
 
   const ehSecaoAnual = secoesAnuais.includes(secaoAtiva);
 
@@ -59,7 +75,7 @@ const EditarAtividadeSesi = () => {
     setMensagem("");
 
     if (!idItem) {
-      setMensagem("Informe o ID da atividade que deseja editar.");
+      setMensagem("Abra pelo botão Editar em Minhas atividades.");
       return;
     }
 
@@ -355,15 +371,12 @@ const EditarAtividadeSesi = () => {
                 Conteúdo
               </legend>
 
-              <label className="campo-admin-sesi">
-                <span>ID da atividade</span>
-                <input
-                  type="text"
-                  placeholder="Ex: 1"
-                  value={idItem}
-                  onChange={(e) => setIdItem(e.target.value)}
-                />
-              </label>
+              {/* ID vem automaticamente de Minhas Atividades — sem input */}
+              {!idItem && (
+                <p className="mensagem-admin">
+                  Abra esta tela pelo botão <strong>Editar</strong> em Minhas atividades.
+                </p>
+              )}
 
               {camposDaSecao()}
 

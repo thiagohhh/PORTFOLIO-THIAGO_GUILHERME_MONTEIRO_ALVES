@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import {Link, useLocation} from "react-router-dom";
 import Rodape from "../../Rodape/Rodape";
 import { chamarApi } from "../../../api";
 
@@ -36,9 +36,20 @@ const rotas = {
 const abasComArquivo = ["Projetos", "Galeria", "Relatórios"];
 
 const EditarAtividadeSenai = () => {
-  const [abaAtiva, setAbaAtiva] = useState("Projetos");
+  const location = useLocation();
+  const estadoInicial = location.state || {};
+
+  const [abaAtiva, setAbaAtiva] = useState(estadoInicial.secao || "Projetos");
   const [mensagem, setMensagem] = useState("");
-  const [idItem, setIdItem] = useState(""); // id do item que será editado
+  const [idItem, setIdItem] = useState(
+    estadoInicial.id != null ? String(estadoInicial.id) : ""
+  ); // id do item que será editado
+
+  // se veio de Minhas Atividades, garante id/aba preenchidos
+  useEffect(() => {
+    if (estadoInicial.id != null) setIdItem(String(estadoInicial.id));
+    if (estadoInicial.secao) setAbaAtiva(estadoInicial.secao);
+  }, [estadoInicial.id, estadoInicial.secao]);
 
   const [unidadeCurricular, setUnidadeCurricular] = useState("");
 
@@ -122,7 +133,7 @@ const EditarAtividadeSenai = () => {
     setMensagem("");
 
     if (!idItem) {
-      setMensagem("Informe o ID da atividade que deseja editar.");
+      setMensagem("Abra pelo botão Editar em Minhas atividades.");
       return;
     }
 
@@ -564,16 +575,12 @@ const EditarAtividadeSenai = () => {
                 <span className="numero-etapa-senai">3</span>Conteúdo
               </legend>
 
-              <div className="campo-senai">
-                <label htmlFor="id-item">ID da atividade</label>
-                <input
-                  id="id-item"
-                  type="text"
-                  placeholder="Ex: 1"
-                  value={idItem}
-                  onChange={(e) => setIdItem(e.target.value)}
-                />
-              </div>
+              {/* ID vem automaticamente de Minhas Atividades — sem input */}
+              {!idItem && (
+                <p className="mensagem-admin">
+                  Abra esta tela pelo botão <strong>Editar</strong> em Minhas atividades.
+                </p>
+              )}
 
               <div className="campo-senai">
                 <label htmlFor="unidade-curricular">Unidade Curricular</label>
