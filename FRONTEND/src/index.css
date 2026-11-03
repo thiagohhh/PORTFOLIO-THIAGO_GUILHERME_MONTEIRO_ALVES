@@ -1,4 +1,3 @@
-
 :root {
   --cor-fundo: #f4f4f4;
   --cor-amarela: #dfb135;
@@ -11,7 +10,8 @@
   --cor-texto: #1d1d1d;
   --cor-titulo: #1a1a1a;
 
-  --fonte: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --fonte:
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --borda: 2px solid var(--cor-preta);
   --sombra: 3px 3px 0 var(--cor-preta);
   --sombra-4: 4px 4px 0 var(--cor-preta);

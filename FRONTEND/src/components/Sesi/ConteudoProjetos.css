@@ -1,0 +1,69 @@
+.lista-projetos-sesi {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.item-projeto-sesi {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.item-projeto-sesi .cartao-projeto-sesi {
+  max-width: 520px;
+}
+
+.cartao-projeto-sesi {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 16px;
+  border: 2px solid var(--cor-preta);
+  background: var(--cor-branca);
+  box-shadow: 3px 3px 0 var(--cor-preta);
+}
+
+.foto-projeto-sesi {
+  width: 100%;
+  height: 220px;         
+  overflow: hidden;
+  border: 1px solid var(--cor-preta);
+  background: var(--cor-amarela);
+}
+
+.foto-projeto-sesi img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;    
+  display: block;
+}
+
+.cartao-projeto-sesi h3 {
+  margin: 14px 0 8px;
+  font-size: 19px;
+}
+
+.cartao-projeto-sesi p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.separador-sesi {
+  display: block;
+  grid-column: 1 / -1;
+  width: 100%;
+  border: 0;
+  border-top: 3px solid var(--cor-preta);
+  margin: 8px 0 4px;
+}
+
+.titulo-registro {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}

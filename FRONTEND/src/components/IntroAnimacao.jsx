@@ -8,8 +8,8 @@ const IntroAnimacao = () => {
   const textoRef = useRef(null);
 
   useEffect(() => {
+    
     const tl = gsap.timeline({
-
       onComplete: () => {
         if (telaRef.current) {
           telaRef.current.style.display = "none";
@@ -17,22 +17,23 @@ const IntroAnimacao = () => {
       },
     });
 
-    tl.fromTo( circuloRef.current,
-      { scale: 0, opacity: 1 }, //COMEÇA
-      { scale: 45, opacity: 0.2, duration: 1.2, ease: "power2.out" }, // E TRMINA
-    ); 
+    tl.fromTo(
+      circuloRef.current,
+      { scale: 0, opacity: 1 },
+      { scale: 45, opacity: 0.2, duration: 1.3, ease: "power2.out" },
+    );
 
-
-    tl.fromTo( textoRef.current,
+    tl.fromTo(
+      textoRef.current,
       { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.7, ease: "power2.out" },
+      { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" },
       "-=0.6",
     );
 
     tl.to(telaRef.current, {
       opacity: 0,
-      duration: 0.5,
-      delay: 0.3,
+      duration: 0.6,
+      delay: 0.4,
     });
 
     return () => tl.kill();
@@ -40,16 +41,15 @@ const IntroAnimacao = () => {
 
   return (
     <div className="intro-tela" ref={telaRef}>
-
       <div className="intro-circulo" ref={circuloRef} />
 
       <div className="intro-texto" ref={textoRef}>
+        <p className="intro-label">bem-vindo</p>
 
-        <p className="intro-label">Portfólio</p>
         <h1 className="intro-nome">
-          Thiago
+          AO MEU
           <br />
-          <span>Guilherme</span>
+          <span>PORTFÓLIO</span>
         </h1>
       </div>
     </div>

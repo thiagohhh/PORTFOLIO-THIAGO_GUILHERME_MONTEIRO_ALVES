@@ -1,13 +1,16 @@
+
+
+
 import { useState } from "react";
-import Header from "../Header/Header";
-import Rodape from "../Rodape/Rodape";
+import Header from "../layout/Header";
+import Rodape from "../layout/Rodape";
 import MenuSenai from "./MenuSenai";
-import ConteudoProjetos from "./Projetos/ConteudoProjetos";
-import ConteudoCodigo from "./Codigo/ConteudoCodigo";
-import ConteudoGaleria from "./Galeria/ConteudoGaleria";
-import ConteudoRelatorios from "./Relatorios/ConteudoRelatorios";
-import ConteudoAprendizagens from "./Aprendizagens/ConteudoAprendizagens";
-import ConteudoAutoavaliacao from "./Autoavaliacao/ConteudoAutoavaliacao";
+import ConteudoProjetos from "./ConteudoProjetos";
+import ConteudoCodigo from "./ConteudoCodigo";
+import ConteudoGaleria from "./ConteudoGaleria";
+import ConteudoRelatorios from "./ConteudoRelatorios";
+import ConteudoAprendizagens from "./ConteudoAprendizagens";
+import ConteudoAutoavaliacao from "./ConteudoAutoavaliacao";
 import "./Senai.css";
 
 const Senai = () => {
@@ -16,6 +19,7 @@ const Senai = () => {
 
 
   function mostrarConteudo() {
+    // A aba ativa escolhe qual componente faz a consulta e apresenta os dados daquela seção.
     if (abaAtual === "Projetos") return <ConteudoProjetos />;
     if (abaAtual === "Código") return <ConteudoCodigo />;
     if (abaAtual === "Galeria") return <ConteudoGaleria />;

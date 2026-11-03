@@ -1,27 +1,25 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { chamarApi } from "../../api";
-import LinksIniciais from "../LinksIniciais/LinksIniciais"; // componente que leva para cada instituicao
-import Rodape from "../Rodape/Rodape"; // O foter
-import traco from "../../assets/imgs/Traço.png";   // traco que fica no texto em negrito
-import simbolo from "../../assets/imgs/Símbolo.png"; // quadrado amarelo foto
+import LinksIniciais from "../layout/LinksIniciais"; 
+import Rodape from "../layout/Rodape"; 
+import traco from "../../assets/imgs/Traço.png";   
+import simbolo from "../../assets/imgs/Símbolo.png"; 
 import "./QuemSouEu.css";
 
 
 const QuemSouEu = () => {
-  const [dados, setDados] = useState(null); // guardar as informações quando o banco de dados responder.
-  const [carregando, setCarregando] = useState(true); // para avsiar quando terminar o quando começar
+  const [dados, setDados] = useState(null); 
+  const [carregando, setCarregando] = useState(true); 
 
   useEffect(() => {
     async function buscar() {
       try {
-        const resposta = await chamarApi("/quemSouEu"); {/** Faz uma requisicao para arota da api */}
-        const lista = await resposta.json(); {/** Transforma em json */}
+        const resposta = await chamarApi("/quemSouEu"); 
+        const lista = await resposta.json(); 
 
-        // Verifica se a resposta é uma lista. Se não for, cria uma lista vazia [].
         const listaOk = Array.isArray(lista) ? lista : [];
 
-        // Pega o primeiro item da lista se a lista estiver vazia, salva como null.
         setDados(listaOk[0] || null);
       } catch (erro) {
         console.error(erro);
@@ -34,13 +32,11 @@ const QuemSouEu = () => {
     buscar();
   }, []);
 
- // Define os textos da tela  usa o que veio da API ou assume o texto padrão de segurança
   const titulo = dados?.titulo || "THIAGO GUILHERME";
   const itinerario = dados?.itinerario || "TÉCNICO EM INFORMÁTICA PARA INTERNET";
   const biografia = dados?.paragrafo_biografia || "Sou Thiago Guilherme, estudante do ensino médio e do curso Técnico em Informática para Internet. Neste portfólio, reúno atividades, projetos e reflexões da minha trajetória de aprendizagem, conectando os conhecimentos da escola ao universo da tecnologia.";
   const textoNegrito = dados?.texto_negrito || "Explore meu portfólio: Sesi ou Senai.";
 
-   // Se houver foto na API, monta a URL do servidor local. Se não houver, fica null.
   const foto = dados?.foto ? `http://localhost:3333/${dados.foto}` : null;
 
   return (
@@ -64,18 +60,17 @@ const QuemSouEu = () => {
           <header className="portfolio-header">
             <h1>
               EU SOU <br />
-             <span className="nome">{titulo}</span> {/**Recebe o titulo do editar qeum Sou eu*/}
+             <span className="nome">{titulo}</span> 
             </h1>
 
-            <p className="intinerario">{itinerario}</p> {/**Recebe o intinerario do editar qeum Sou eu*/}
+            <p className="intinerario">{itinerario}</p> 
 
           </header>
 
-          {carregando ? ( <p className="descricao-texto">Carregando...</p>) : (<><p className="descricao-texto">{biografia}</p></>)} {/**Equanto envia a biografia, aparece a mensagem carregando 
-                                                                                                                                       quando ele para de carregar ele adicona a biografia  */}
+          {carregando ? ( <p className="descricao-texto">Carregando...</p>) : (<><p className="descricao-texto">{biografia}</p></>)} 
 
           <div className="explorar-portfolio">
-            <img src={traco} alt="" className="traco" /> <strong>{textoNegrito}</strong> {/**Texto em negrito que é enivado pelo editar qeum sou eu */}
+            <img src={traco} alt="" className="traco" /> <strong>{textoNegrito}</strong> 
           </div>
         </section>
 
@@ -90,7 +85,7 @@ const QuemSouEu = () => {
         </section>
       </main>
 
-      <Rodape /> {/**O foter */}
+      <Rodape /> 
     </div>
   );
 };

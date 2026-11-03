@@ -1,0 +1,30 @@
+
+.caixa-links {
+  display: inline-block;
+}
+
+.links {
+  width: 130px;
+  color: var(--cor-preta);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 22px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: var(--cor-amarela);
+  border: 2px solid var(--cor-preta);
+  border-radius: 12px 0 12px 0;
+  text-align: center;
+  transition:
+    transform 0.2s,
+    background-color 0.2s;
+  box-shadow: 5px 5px 0 var(--cor-preta);
+}
+
+.links:hover {
+  background-color: var(--cor-amarela-hover);
+  transform: translateY(-10px);
+}

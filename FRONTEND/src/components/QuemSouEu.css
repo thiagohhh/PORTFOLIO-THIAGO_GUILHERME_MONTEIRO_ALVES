@@ -1,0 +1,149 @@
+
+.pagina-inicial {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+ min-height: 100vh;
+  padding: 0 5.5%;
+  background-color: var(--cor-fundo);
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+}
+
+.cabecalho-pagina {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--cor-linha);
+  color: #222222;
+  font-size: 14px;
+}
+
+.marca-portfolio {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 18px;
+}
+
+.simbolo-marca {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.texto-cabecalho {
+  font-size: 14px;
+}
+
+.acesso-aluno {
+  padding-bottom: 4px;
+  border-bottom: 2px solid var(--cor-amarela);
+  color: var(--cor-preta);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.acesso-aluno:hover {
+  color: #8f6d12;
+}
+
+.conteudo-inicial {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+  padding: 45px 0;
+}
+
+.coluna-texto {
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sesi-senai {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+.foto-perfil {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 2px solid var(--cor-preto-puro);
+  background-color: var(--cor-amarela);
+  box-shadow: 11px 11px 0 var(--cor-preto-puro);
+  overflow: hidden;            
+}
+
+.foto-perfil img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.botoes-instituicoes {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.portfolio-header h1 {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: var(--cor-titulo);
+  margin: 5px 0 18px;
+}
+
+.nome {
+  color: var(--cor-amarela);
+  text-shadow: 6px 5px var(--cor-preto-puro);
+}
+
+.intinerario {
+  width: 337px;
+  height: 43px;
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+  background-color: var(--cor-amarela);
+  color: var(--cor-branca);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--cor-preto-puro);
+  box-shadow: 4px 4px 0 var(--cor-preto-puro);
+}
+
+.descricao-texto {
+  width: 590px;
+  font-size: 18px;
+  line-height: 1.65;
+  color: #161616;
+  margin: 18px 0 22px;
+}
+
+.explorar-portfolio {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.traco {
+  width: 36px;
+  height: 2px;
+}

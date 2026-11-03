@@ -1,26 +1,22 @@
-// Endereço do backend
+
 const API = "http://localhost:3333";
 
-
 export async function chamarApi(caminho, opcoes = {}) {
-  
-  
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token"); 
+
+
+  const headers = {
+    ...(opcoes.headers || {}),
+  };
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
 
   const resposta = await fetch(API + caminho, {
     ...opcoes,
-    headers: {
-      ...opcoes.headers,
-      Authorization: "Bearer " + token,
-    },
+    headers,
   });
 
-
-  if (resposta.status === 401) {
-    localStorage.removeItem("token");
-    window.location.href = "/admin/login";
-  }
-
-  return resposta;
+  return resposta; 
 }
-
