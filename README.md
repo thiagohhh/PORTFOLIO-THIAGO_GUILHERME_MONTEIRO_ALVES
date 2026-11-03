@@ -1,12 +1,10 @@
 # PORTFOLIO-THIAGO_GUILHERME_MONTEIRO_ALVES
 
-# Estrutura do projeto (simplificada)
-
 ## Pastas principais
 - FRONTEND/  -> React (Vite)
 - BACKEND/   -> API Node
 
-## components (menos pastas)
+## components
 ```
 src/components/
   admin/     -> login, cadastro, editar, minhas atividades
@@ -19,6 +17,6 @@ src/components/
 
 ## Como rodar
 ```
-cd BACKEND && npm i && npm run dev
-cd FRONTEND && npm i && npm run dev
+cd BACKEND e npm i e npm run dev
+cd FRONTEND e npm i e npm run dev
 ```
