@@ -3,8 +3,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Rodape from "../layout/Rodape";
-import { chamarApi } from "../../api";
-
 import circuloAmarelo from "../../assets/imgs/senai/circulo-amarelo.png";
 import circuloBranco from "../../assets/imgs/senai/circulo-branco.png";
 import estrelaAmarela from "../../assets/imgs/senai/estrela-amarela.png";
@@ -19,6 +17,7 @@ import livro from "../../assets/imgs/book-solid-full.svg";
 import enivar from "../../assets/imgs/paper-plane-solid-full.svg";
 
 import "./EditarAtividadeSenai.css";
+import { API } from "../../config.js";
 
 const abas = [
   "Projetos",
@@ -92,7 +91,10 @@ const EditarAtividadeSenai = () => {
         // A API lista os registros da seção; o item é localizado pelo ID recebido via navegação.
         const base = rotas[abaAtiva];
         if (!base) return;
-        const res = await chamarApi(base);
+        const res = await fetch(`${API}${base}`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
         const dados = await res.json();
         const lista = Array.isArray(dados) ? dados : [];
         const item = lista.find((x) => String(x.id) === String(idItem));
@@ -195,8 +197,12 @@ const EditarAtividadeSenai = () => {
         dados.append("aluno_id", alunoId);
         etiquetas.forEach((et) => dados.append("etiquetas[]", et));
 
-        resposta = await chamarApi(caminho, {
+        const token = localStorage.getItem("token");
+        resposta = await fetch(`${API}${caminho}`, {
           method: "PUT",
+          headers: {
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
           body: dados,
         });
       } else {
@@ -224,9 +230,13 @@ const EditarAtividadeSenai = () => {
           dados.titulo_competencia = tituloCompetencia;
         }
 
-        resposta = await chamarApi(caminho, {
+        const token = localStorage.getItem("token");
+        resposta = await fetch(`${API}${caminho}`, {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
           body: JSON.stringify(dados),
         });
       }

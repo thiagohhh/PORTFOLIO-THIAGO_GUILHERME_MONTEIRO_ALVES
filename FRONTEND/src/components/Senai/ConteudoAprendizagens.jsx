@@ -1,10 +1,10 @@
 
 
 import { useEffect, useState } from "react";
-import { chamarApi } from "../../api";
 import estrelaAmarela from "../../assets/imgs/senai/estrela-amarela.png";
 import estrelaBranca from "../../assets/imgs/senai/estrela-branca.png";
 import "./ConteudoAprendizagens.css";
+import { API } from "../../config.js";
 
 const ConteudoAprendizagens = () => {
   const [lista, setLista] = useState([]);
@@ -13,7 +13,12 @@ const ConteudoAprendizagens = () => {
   useEffect(() => {
     async function buscar() {
       try {
-        const resposta = await chamarApi("/senai/aprendizagens");
+        const resposta = await fetch(`${API}/senai/aprendizagens`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         const dados = await resposta.json();
         setLista(Array.isArray(dados) ? dados : []);
       } catch (erro) {

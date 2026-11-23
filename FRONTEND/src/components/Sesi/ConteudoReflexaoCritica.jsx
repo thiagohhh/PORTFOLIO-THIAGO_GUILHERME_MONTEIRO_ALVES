@@ -1,8 +1,8 @@
 
 
 import { useEffect, useState } from "react";
-import { chamarApi } from "../../api";
 import "./ConteudoReflexaoCritica.css";
+import { API } from "../../config.js";
 
 const ConteudoReflexaoCritica = () => {
   const [lista, setLista] = useState([]);
@@ -11,7 +11,12 @@ const ConteudoReflexaoCritica = () => {
   useEffect(() => {
     async function buscar() {
       try {
-        const resposta = await chamarApi("/sesi/reflexoesCriticas");
+        const resposta = await fetch(`${API}/sesi/reflexoesCriticas`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         const dados = await resposta.json();
         setLista(Array.isArray(dados) ? dados : []);
       } catch (erro) {

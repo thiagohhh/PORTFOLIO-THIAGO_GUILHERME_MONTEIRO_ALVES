@@ -4,8 +4,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Rodape from "../layout/Rodape";
-import { chamarApi } from "../../api";
-
 import estrelaAmarela from "../../assets/imgs/senai/estrela-amarela.png";
 import estrelaBranca from "../../assets/imgs/senai/estrela-branca.png";
 import iconeProjeto from "../../assets/imgs/senai/icone-projeto.svg";
@@ -15,6 +13,7 @@ import enivar from "../../assets/imgs/paper-plane-solid-full.svg";
 import Header from "../layout/Header"
 
 import "./EditarAtividadeSesi.css";
+import { API } from "../../config.js";
 
 const secoes = [
   "Fundamentos teóricos",
@@ -70,7 +69,10 @@ const EditarAtividadeSesi = () => {
       setCarregandoDados(true);
       setMensagem("");
       try {
-        const res = await chamarApi(rotas[secaoAtiva]);
+        const res = await fetch(`${API}${rotas[secaoAtiva]}`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
         const dados = await res.json();
         const lista = Array.isArray(dados) ? dados : [];
         const item = lista.find((x) => String(x.id) === String(idItem));
@@ -130,8 +132,12 @@ const EditarAtividadeSesi = () => {
         dadosForm.append("aluno_id", alunoId);
         dadosForm.append("bimestre", bimestreAtivo);
 
-        resposta = await chamarApi(caminhoApi, {
+        const token = localStorage.getItem("token");
+        resposta = await fetch(`${API}${caminhoApi}`, {
           method: "PUT",
+          headers: {
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
           body: dadosForm,
         });
       } else {
@@ -147,9 +153,13 @@ const EditarAtividadeSesi = () => {
           dadosJson.autoavaliacao = autoavaliacao;
         }
 
-        resposta = await chamarApi(caminhoApi, {
+        const token = localStorage.getItem("token");
+        resposta = await fetch(`${API}${caminhoApi}`, {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
           body: JSON.stringify(dadosJson),
         });
       }

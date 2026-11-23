@@ -1,9 +1,9 @@
 
 
 import { useEffect, useState } from "react";
-import { chamarApi } from "../../api";
 import iconeRelatorio from "../../assets/imgs/senai/icone-relatorio.png";
 import "./ConteudoRelatorios.css";
+import { API } from "../../config.js";
 
 const ConteudoRelatorios = () => {
   const [lista, setLista] = useState([]);
@@ -12,7 +12,12 @@ const ConteudoRelatorios = () => {
   useEffect(() => {
     async function buscar() {
       try {
-        const resposta = await chamarApi("/senai/relatorios");
+        const resposta = await fetch(`${API}/senai/relatorios`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         const dados = await resposta.json();
         setLista(Array.isArray(dados) ? dados : []);
       } catch {
@@ -39,7 +44,7 @@ const ConteudoRelatorios = () => {
           <div className="acoes-relatorio">
             <a
               className="botao-relatorio claro"
-              href={`http://localhost:3333/${item.pdf}`}
+              href={`${API}/${item.pdf}`}
               target="_blank"
               rel="noreferrer"
             >
@@ -47,7 +52,7 @@ const ConteudoRelatorios = () => {
             </a>
             <a
               className="botao-relatorio escuro"
-              href={`http://localhost:3333/${item.pdf}`}
+              href={`${API}/${item.pdf}`}
               download
             >
               Baixar PDF

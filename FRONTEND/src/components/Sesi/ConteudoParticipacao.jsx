@@ -2,8 +2,8 @@
 
 
 import { useEffect, useState } from "react";
-import { chamarApi } from "../../api";
 import "./ConteudoParticipacao.css";
+import { API } from "../../config.js";
 
 const ConteudoParticipacao = ({ bimestre }) => {
   const [lista, setLista] = useState([]);
@@ -17,7 +17,12 @@ const ConteudoParticipacao = ({ bimestre }) => {
     async function buscar() {
       setCarregando(true);
       try {
-        const resposta = await chamarApi("/sesi/participacoesEmSala");
+        const resposta = await fetch(`${API}/sesi/participacoesEmSala`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         const dados = await resposta.json();
         const todos = Array.isArray(dados) ? dados : [];
         setLista(

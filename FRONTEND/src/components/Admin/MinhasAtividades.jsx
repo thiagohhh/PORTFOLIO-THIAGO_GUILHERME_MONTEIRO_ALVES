@@ -4,12 +4,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Rodape from "../layout/Rodape";
-import { chamarApi } from "../../api";
 import usuario from "../../assets/imgs/user-solid-full.svg";
 import livro from "../../assets/imgs/book-solid-full.svg";
 import enivar from "../../assets/imgs/paper-plane-solid-full.svg";
 import Header from "../layout/Header";
 import "./MinhasAtividades.css";
+import { API } from "../../config.js";
 
 
 const fontes = [
@@ -63,12 +63,19 @@ const MinhasAtividades = () => {
       // Cada tipo de atividade vem de uma rota diferente; falha em uma fonte não impede as demais.
       for (const fonte of fontes) {
         try {
-          const resposta = await chamarApi(fonte.listar);
+          const token = localStorage.getItem("token");
+          const resposta = await fetch(`${API}${fonte.listar}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
+        });
           const dados = await resposta.json();
           const lista = Array.isArray(dados) ? dados : [];
 
           for (const item of lista) {
-            // Recupera a área de registros antigos a partir do texto ou do mapa salvo no cadastro.
+          
             let areaItem = item.area || null;
             if (!areaItem && item.relacoes_interdisciplinares) {
               const m = String(item.relacoes_interdisciplinares).match(/Área:\s*(.+)/);
@@ -112,7 +119,14 @@ const MinhasAtividades = () => {
     if (!ok) return;
 
     try {
-      const resposta = await chamarApi(item.apagar, { method: "DELETE" });
+      const token = localStorage.getItem("token");
+      const resposta = await fetch(`${API}${item.apagar}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+      });
       if (resposta.ok || resposta.status === 204) {
         setMensagem("Atividade excluída.");
         setCarregando(true);

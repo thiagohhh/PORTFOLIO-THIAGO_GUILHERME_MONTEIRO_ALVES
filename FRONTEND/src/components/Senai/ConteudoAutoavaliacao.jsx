@@ -1,10 +1,10 @@
 
 
 import { useEffect, useState } from "react";
-import { chamarApi } from "../../api";
 import circuloAmarelo from "../../assets/imgs/senai/circulo-amarelo.png";
 import circuloBranco from "../../assets/imgs/senai/circulo-branco.png";
 import "./ConteudoAutoavaliacao.css";
+import { API } from "../../config.js";
 
 const ConteudoAutoavaliacao = () => {
   const [lista, setLista] = useState([]);
@@ -13,7 +13,12 @@ const ConteudoAutoavaliacao = () => {
   useEffect(() => {
     async function buscar() {
       try {
-        const resposta = await chamarApi("/senai/autoavaliacoes");
+        const resposta = await fetch(`${API}/senai/autoavaliacoes`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         const dados = await resposta.json();
         setLista(Array.isArray(dados) ? dados : []);
       } catch (erro) {

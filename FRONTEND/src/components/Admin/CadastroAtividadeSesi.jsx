@@ -4,7 +4,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Rodape from "../layout/Rodape";
-import { chamarApi } from "../../api";
 import estrelaAmarela from "../../assets/imgs/senai/estrela-amarela.png";
 import estrelaBranca from "../../assets/imgs/senai/estrela-branca.png";
 import iconeProjeto from "../../assets/imgs/senai/icone-projeto.svg";
@@ -13,6 +12,7 @@ import livro from "../../assets/imgs/book-solid-full.svg";
 import enivar from "../../assets/imgs/paper-plane-solid-full.svg";
 import Header from "../layout/Header";
 import "./CadastroAtividadeSesi.css";
+import { API } from "../../config.js";
 
 const secoes = [
   "Fundamentos teóricos",
@@ -178,8 +178,12 @@ const CadastroAtividadeSesi = () => {
           dados.append("foto", inputFoto.files[0]);
         }
 
-        resposta = await chamarApi(rotas[secaoAtiva], {
+        const token = localStorage.getItem("token");
+        resposta = await fetch(`${API}${rotas[secaoAtiva]}`, {
           method: "POST",
+          headers: {
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
           body: dados,
         });
       } else if (secaoAtiva === "Conexões interdisciplinares") {
@@ -191,9 +195,13 @@ const CadastroAtividadeSesi = () => {
           "\n" +
           (campos.relacoes_interdisciplinares || "");
 
-        resposta = await chamarApi(rotas[secaoAtiva], {
+        const token = localStorage.getItem("token");
+        resposta = await fetch(`${API}${rotas[secaoAtiva]}`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
           body: JSON.stringify({
             aluno_id: alunoId,
             relacoes_interdisciplinares: texto,
@@ -213,9 +221,13 @@ const CadastroAtividadeSesi = () => {
           dados.autoavaliacao = autoavaliacao;
         }
 
-        resposta = await chamarApi(rotas[secaoAtiva], {
+        const token = localStorage.getItem("token");
+        resposta = await fetch(`${API}${rotas[secaoAtiva]}`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
           body: JSON.stringify(dados),
         });
       }

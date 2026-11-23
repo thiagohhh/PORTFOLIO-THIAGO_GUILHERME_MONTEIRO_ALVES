@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { chamarApi } from "../../api";
 import "./ConteudoFundamentos.css";
+import { API } from "../../config.js";
 
 const ConteudoFundamentos = ({ bimestre }) => {
   const [lista, setLista] = useState([]);
@@ -14,7 +14,12 @@ const ConteudoFundamentos = ({ bimestre }) => {
     async function buscar() {
       setCarregando(true);
       try {
-        const resposta = await chamarApi("/sesi/fundamentosTeoricos");
+        const resposta = await fetch(`${API}/sesi/fundamentosTeoricos`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         const dados = await resposta.json();
         const todos = Array.isArray(dados) ? dados : [];
         const doBimestre = todos.filter(

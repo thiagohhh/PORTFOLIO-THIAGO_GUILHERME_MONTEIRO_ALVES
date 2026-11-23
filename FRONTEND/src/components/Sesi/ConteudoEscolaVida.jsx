@@ -3,9 +3,8 @@
 
 import { useEffect, useState } from "react";
 
-import { chamarApi } from "../../api";
-
 import "./ConteudoEscolaVida.css";
+import { API } from "../../config.js";
 
 const ConteudoEscolaVida = () => {
   const [lista, setLista] = useState([]);
@@ -14,7 +13,12 @@ const ConteudoEscolaVida = () => {
   useEffect(() => {
     async function buscar() {
       try {
-        const resposta = await chamarApi("/sesi/escolaParaVida");
+        const resposta = await fetch(`${API}/sesi/escolaParaVida`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         const dados = await resposta.json();
         setLista(Array.isArray(dados) ? dados : []);
       } catch (erro) {

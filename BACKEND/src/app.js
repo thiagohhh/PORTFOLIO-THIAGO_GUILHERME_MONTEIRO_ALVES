@@ -7,10 +7,10 @@ import senaiRoutes from "./router/senaiRoutes.js";
 import sesiRoutes from "./router/sesiRoutes.js";
 import quemSouEuRoutes from "./router/quemSouEuRoutes.js";
 import alunoRoutes from "./router/alunoRoutes.js";
+import authRoutes from "./router/authRoutes.js";
 import { tratarErro } from "./utils/errorHandle.js";
 
 const app = express();
-
 
 app.use(
   cors({
@@ -20,9 +20,7 @@ app.use(
   })
 );
 
-
 app.use(express.json());
-
 
 const pastaPublic = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -30,6 +28,10 @@ const pastaPublic = path.resolve(
 );
 app.use(express.static(pastaPublic));
 
+// Autenticação no estilo do professor
+app.use("/auth", authRoutes);
+
+// Mantém /alunos (cadastro + login antigo ainda funciona)
 app.use("/alunos", alunoRoutes);
 app.use("/senai", senaiRoutes);
 app.use("/sesi", sesiRoutes);
@@ -38,7 +40,6 @@ app.use("/quemSouEu", quemSouEuRoutes);
 app.use((error, request, response, _next) => {
   return tratarErro(error, response);
 });
-
 
 app.use((request, response) => {
   response.status(404).json({ message: "Rota não encontrada" });

@@ -1,15 +1,18 @@
 
 
 import { useEffect, useState } from "react";
-import { chamarApi } from "../../api";
 import "./ConteudoProjetos.css";
+import { API } from "../../config.js";
 
 const ConteudoProjetos = () => {
   const [projetos, setProjetos] = useState([]);
   const [carregando, setCarregando] = useState(true);
 
   useEffect(() => {
-    chamarApi("/senai/projetos")
+    fetch(`${API}/senai/projetos`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    })
       .then((resposta) => resposta.json())
       .then((dados) => {
        
@@ -37,7 +40,7 @@ const ConteudoProjetos = () => {
           <div className="placeholder-projeto">
             {projeto.foto ? (
               <img
-                src={`http://localhost:3333/${projeto.foto}`}
+                src={`${API}/${projeto.foto}`}
                 alt={projeto.titulo_projeto}
               />
             ) : (

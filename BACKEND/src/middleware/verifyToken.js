@@ -1,36 +1,33 @@
-import { getToken } from "../utils/getToken.js";
-import { getUserByToken } from "../utils/getUserByToken.js";
+import jwt from "jsonwebtoken";
 
-export const verifyToken = async (request, response, next) => {
+const JWT_SECRET = process.env.JWT_SECRET;
+
+/**
+ * Exige um token válido no header Authorization: Bearer <token>.
+ * Segue a lógica do professor (middleware autenticar).
+ * Sem token ou token inválido -> 401.
+ * Coloca o payload em request.usuario = { id, nome, email }
+ */
+export const verifyToken = (request, response, next) => {
+  const header = request.headers["authorization"];
+
+  if (!header || !header.startsWith("Bearer ")) {
+    return response.status(401).json({
+      erro: "Não autenticado",
+      message: "Envie o header Authorization no formato: Bearer <token>",
+    });
+  }
+
+  const token = header.slice("Bearer ".length);
+
   try {
-    const token = getToken(request);
-
-    if (!token) {
-      return response.status(401).json({
-        message:
-          "O cabeçalho 'Authorization' é obrigatório e deve conter um token Bearer",
-      });
-    }
-
-
-    request.usuario = await getUserByToken(token);
-
-
-    return next();
-  } catch (error) {
-    if (
-      error.name === "TokenExpiredError" ||
-      error.name === "JsonWebTokenError" ||
-      error.statusCode === 401
-    ) {
-      return response.status(401).json({
-        message:
-          error.name === "TokenExpiredError"
-            ? "Token expirado. Faça login novamente."
-            : "Token inválido.",
-      });
-    }
-
-    return response.status(500).json({ message: "Erro ao validar token." });
+    const payload = jwt.verify(token, JWT_SECRET);
+    request.usuario = payload; // { id, nome, email }
+    next();
+  } catch (err) {
+    return response.status(401).json({
+      erro: "Token inválido ou expirado",
+      message: "Faça login novamente em POST /auth/login",
+    });
   }
 };

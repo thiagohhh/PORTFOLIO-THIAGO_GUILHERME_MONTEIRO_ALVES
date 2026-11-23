@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { chamarApi } from "../../api";
 import "./ConteudoConexoesInterdisciplinares.css";
+import { API } from "../../config.js";
 
 function lerTexto(texto) {
   // Lê o formato legado "Área/Matérias" e separa o restante como explicação livre.
@@ -63,7 +63,12 @@ const ConteudoConexoesInterdisciplinares = ({ disciplina }) => {
   useEffect(() => {
     async function buscar() {
       try {
-        const resposta = await chamarApi("/sesi/conexoesInterdisciplinares");
+        const resposta = await fetch(`${API}/sesi/conexoesInterdisciplinares`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
         const dados = await resposta.json();
 

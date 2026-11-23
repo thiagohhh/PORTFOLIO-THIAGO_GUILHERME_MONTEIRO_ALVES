@@ -2,8 +2,8 @@
 
 
 import { useEffect, useState } from "react";
-import { chamarApi } from "../../api";
 import "./ConteudoProjetos.css";
+import { API } from "../../config.js";
 
 const ConteudoProjetos = ({ bimestre }) => {
   const [lista, setLista] = useState([]);
@@ -17,7 +17,12 @@ const ConteudoProjetos = ({ bimestre }) => {
     async function buscar() {
       setCarregando(true);
       try {
-        const resposta = await chamarApi("/sesi/projetosTrabalhos");
+        const resposta = await fetch(`${API}/sesi/projetosTrabalhos`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         const dados = await resposta.json();
         const todos = Array.isArray(dados) ? dados : [];
         setLista(
@@ -49,7 +54,7 @@ const ConteudoProjetos = ({ bimestre }) => {
             <div className="foto-projeto-sesi">
               {projeto.foto ? (
                 <img
-                  src={`http://localhost:3333/${projeto.foto}`}
+                  src={`${API}/${projeto.foto}`}
                   alt={projeto.titulo_projeto}
                 />
               ) : (

@@ -17,9 +17,7 @@
   --sombra-4: 4px 4px 0 var(--cor-preta);
 }
 
-*,
-*::before,
-*::after {
+* {
   box-sizing: border-box;
 }
 

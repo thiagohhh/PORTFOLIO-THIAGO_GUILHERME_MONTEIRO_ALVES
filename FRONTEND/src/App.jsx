@@ -21,7 +21,6 @@ import "./App.css";
 const RotaProtegida = ({ children }) => {
   const location = useLocation();
   const token = localStorage.getItem("token"); 
-  // Guarda a URL solicitada para que o login possa redirecionar de volta a ela.
   return token ? children : <Navigate to="/admin/login" replace state={{ from: location }} />;
 };
 

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { chamarApi } from "../api";
 import LinksIniciais from "./layout/LinksIniciais";
 import Rodape from "./layout/Rodape";
-import traco from "../assets/imgs/Traço.png";
-import simbolo from "../assets/imgs/Símbolo.png";
+import traco from "../assets/imgs/traco.png";
+import simbolo from "../assets/imgs/simbolo.png";
 import "./QuemSouEu.css";
+import { API } from "../config.js";
 
 const QuemSouEu = () => {
   const [dados, setDados] = useState(null);
@@ -14,7 +14,12 @@ const QuemSouEu = () => {
   useEffect(() => {
     async function buscar() {
       try {
-        const resposta = await chamarApi("/quemSouEu");
+        const resposta = await fetch(`${API}/quemSouEu`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         const lista = await resposta.json();
 
         // O perfil é único na página inicial; se a API devolver uma lista, usa o primeiro registro.
@@ -40,7 +45,7 @@ const QuemSouEu = () => {
     "Sou Thiago Guilherme, estudante do ensino médio e do curso Técnico em Informática para Internet. Neste portfólio, reúno atividades, projetos e reflexões da minha trajetória de aprendizagem, conectando os conhecimentos da escola ao universo da tecnologia.";
   const textoNegrito =
     dados?.texto_negrito || "Explore meu portfólio: Sesi ou Senai.";
-  const foto = dados?.foto ? `http://localhost:3333/${dados.foto}` : null;
+  const foto = dados?.foto ? `${API}/${dados.foto}` : null;
 
   return (
     <div className="pagina-inicial">

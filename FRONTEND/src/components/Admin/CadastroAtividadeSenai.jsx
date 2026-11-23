@@ -3,8 +3,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Rodape from "../layout/Rodape";
-import { chamarApi } from "../../api";
-
 import circuloAmarelo from "../../assets/imgs/senai/circulo-amarelo.png";
 import circuloBranco from "../../assets/imgs/senai/circulo-branco.png";
 import estrelaAmarela from "../../assets/imgs/senai/estrela-amarela.png";
@@ -18,6 +16,7 @@ import enivar from "../../assets/imgs/paper-plane-solid-full.svg"
 
 import "./CadastroAtividadeSenai.css";
 import Header from "../layout/Header";
+import { API } from "../../config.js";
 
 const abas = [
   "Projetos",
@@ -202,7 +201,14 @@ const CadastroAtividadeSenai = () => {
     }
 
     try {
-      const resposta = await chamarApi(rotas[abaAtiva], opcoes);
+      const token = localStorage.getItem("token");
+      const headers = { ...(opcoes.headers || {}) };
+      if (token) headers.Authorization = `Bearer ${token}`;
+      const resposta = await fetch(`${API}${rotas[abaAtiva]}`, {
+        method: opcoes.method || "POST",
+        headers,
+        body: opcoes.body,
+      });
       const resultado = await resposta.json();
 
       if (resposta.ok) {

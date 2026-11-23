@@ -7,6 +7,7 @@ Este guia explica o papel e o fluxo de cada componente. Os comentários no códi
 | Componente | Lógica |
 |---|---|
 | `src/App.jsx` | Declara as rotas do portfólio e do painel administrativo. `RotaProtegida` verifica o token salvo antes de mostrar uma tela restrita e guarda a rota pretendida para o login poder retornar a ela. |
+
 | `src/main.jsx` | Cria a raiz React e envolve a aplicação com `BrowserRouter`, habilitando a navegação por URL. |
 | `src/api.js` | Centraliza as chamadas HTTP para a API e acrescenta o token de autenticação quando existe uma sessão. |
 | `src/components/IntroAnimacao.jsx` | Executa a sequência de abertura com GSAP; ao terminar oculta a tela e interrompe a timeline se o componente for desmontado. |

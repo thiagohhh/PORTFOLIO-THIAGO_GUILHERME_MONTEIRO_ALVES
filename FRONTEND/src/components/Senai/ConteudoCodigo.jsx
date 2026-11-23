@@ -2,8 +2,8 @@
 
 
 import { useEffect, useState } from "react";
-import { chamarApi } from "../../api";
 import "./ConteudoCodigo.css";
+import { API } from "../../config.js";
 
 const ConteudoCodigo = () => {
   const [codigos, setCodigos] = useState([]);
@@ -12,7 +12,12 @@ const ConteudoCodigo = () => {
   useEffect(() => {
     async function buscar() {
       try {
-        const resposta = await chamarApi("/senai/codigos");
+        const resposta = await fetch(`${API}/senai/codigos`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         const dados = await resposta.json();
         setCodigos(Array.isArray(dados) ? dados : []);
       } catch (erro) {

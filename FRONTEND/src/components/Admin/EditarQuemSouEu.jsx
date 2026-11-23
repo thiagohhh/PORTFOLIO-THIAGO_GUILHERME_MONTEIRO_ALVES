@@ -4,13 +4,12 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Rodape from "../layout/Rodape";
 import LinksIniciais from "../layout/LinksIniciais";
-import { chamarApi } from "../../api";
 import "./EditarQuemSouEu.css";
 import usuario from "../../assets/imgs/user-solid-full.svg";
 import livro from "../../assets/imgs/book-solid-full.svg";
 import enivar from "../../assets/imgs/paper-plane-solid-full.svg";
 import Header from "../layout/Header";
-const API = "http://localhost:3333";
+import { API } from "../../config.js";
 
 const perfilVazio = {
   titulo: "",
@@ -28,7 +27,10 @@ const EditarQuemSouEu = () => {
   useEffect(() => {
     async function carregar() {
       try {
-        const resposta = await chamarApi("/quemSouEu");
+        const resposta = await fetch(`${API}/quemSouEu`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
         const lista = await resposta.json();
         const item = Array.isArray(lista) ? lista[0] : null;
         if (!item) return;
@@ -70,8 +72,12 @@ const EditarQuemSouEu = () => {
     const metodo = id ? "PUT" : "POST";
 
     try {
-      const resposta = await chamarApi(caminho, {
+      const token = localStorage.getItem("token");
+      const resposta = await fetch(`${API}${caminho}`, {
         method: metodo,
+        headers: {
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
         body: dados,
       });
       const resultado = await resposta.json();

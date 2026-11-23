@@ -1,11 +1,9 @@
-
-
-
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Rodape from "../layout/Rodape";
 import simboloArea from "../../assets/imgs/senai/area-aluno.svg";
 import "./Login.css";
+import { API } from "../../config.js";
 
 const Login = () => {
   const [mensagem, setMensagem] = useState("");
@@ -21,27 +19,36 @@ const Login = () => {
     const dados = new FormData(evento.currentTarget);
 
     try {
-      const resposta = await fetch("http://localhost:3333/alunos/login", {
+      // POST /auth/login — igual ao que o professor ensinou
+      const resposta = await fetch(`${API}/auth/login`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           email: dados.get("email"),
           senha: dados.get("senha"),
         }),
       });
+
       const resultado = await resposta.json();
 
       if (!resposta.ok) {
-        throw new Error(resultado.message || "Não foi possível entrar.");
+        throw new Error(
+          resultado.message ||
+            resultado.mensagem ||
+            resultado.erro ||
+            "Não foi possível entrar."
+        );
       }
 
+      // Resposta no estilo do professor: { token, usuario: { id, nome, email } }
       localStorage.setItem("token", resultado.token);
 
-      // A API pode retornar o ID do aluno em formatos diferentes; o restante do admin usa um único valor.
       const idDoAluno =
+        resultado.usuario?.id ||
         resultado.alunoId ||
         resultado.aluno?.id ||
-        resultado.usuario?.id ||
         resultado.id;
 
       if (!idDoAluno) {
@@ -52,14 +59,13 @@ const Login = () => {
 
       navigate(
         location.state?.from?.pathname || "/admin/atividades/nova/senai",
-        { replace: true },
+        { replace: true }
       );
-
     } catch (error) {
       setMensagem(
         error instanceof TypeError
           ? "Não foi possível conectar ao servidor."
-          : error.message,
+          : error.message
       );
     } finally {
       setEnviando(false);
