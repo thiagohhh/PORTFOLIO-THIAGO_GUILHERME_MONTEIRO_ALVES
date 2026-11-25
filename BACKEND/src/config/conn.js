@@ -1,4 +1,5 @@
 import { Sequelize } from "sequelize";
+import pg from "pg";
 import "dotenv/config";
 
 let conn;
@@ -7,6 +8,7 @@ if (process.env.DATABASE_URL) {
 
   conn = new Sequelize(process.env.DATABASE_URL, {
     dialect: "postgres",
+    dialectModule: pg,
     logging: false,
     dialectOptions: {
       ssl: {
