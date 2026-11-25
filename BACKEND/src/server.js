@@ -2,7 +2,7 @@ import "dotenv/config";
 import bcrypt from "bcrypt";
 import conn from "./config/conn.js";
 import app from "./app.js";
-import "./models/index.js"; // carrega os models
+import "./models/index.js"; 
 import Aluno from "./models/Aluno.js";
 
 const PORT = 3333;

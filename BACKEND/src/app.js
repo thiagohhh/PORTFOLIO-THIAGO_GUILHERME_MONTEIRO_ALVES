@@ -14,7 +14,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "*",
+    origin: "https://portfolio-thiago-4oefjufuv-tgbrabox.vercel.app",
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
   })
@@ -28,10 +28,9 @@ const pastaPublic = path.resolve(
 );
 app.use(express.static(pastaPublic));
 
-// Autenticação no estilo do professor
 app.use("/auth", authRoutes);
 
-// Mantém /alunos (cadastro + login antigo ainda funciona)
+
 app.use("/alunos", alunoRoutes);
 app.use("/senai", senaiRoutes);
 app.use("/sesi", sesiRoutes);

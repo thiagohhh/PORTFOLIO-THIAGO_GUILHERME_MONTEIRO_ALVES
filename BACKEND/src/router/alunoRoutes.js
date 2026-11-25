@@ -4,7 +4,7 @@ import { login } from "../controller/autenticacaoController.js";
 
 const router = Router();
 
-// Login antigo continua funcionando (compatibilidade)
+
 router.post("/login", login);
 router.post("/", criarAluno);
 

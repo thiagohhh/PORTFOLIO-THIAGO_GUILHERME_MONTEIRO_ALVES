@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-// Segue a lógica do professor: gera o token e devolve { token, usuario }
+
 export const createUserToken = (aluno, response) => {
   const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -21,7 +21,7 @@ export const createUserToken = (aluno, response) => {
       nome: aluno.nome,
       email: aluno.email,
     },
-    // mantido para o front que já usa alunoId
+   
     alunoId: aluno.id,
   });
 };

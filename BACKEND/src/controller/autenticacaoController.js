@@ -3,9 +3,7 @@ import { Aluno } from "../models/index.js";
 import { createUserToken } from "../utils/createUserToken.js";
 import { tratarErro } from "../utils/errorHandle.js";
 
-// POST /auth/login  (e também /alunos/login)
-// Body: { email, senha }
-// Resposta sucesso: { token, usuario: { id, nome, email } }
+
 export const login = async (request, response) => {
   try {
     const { email, senha } = request.body || {};
@@ -23,7 +21,7 @@ export const login = async (request, response) => {
       where: { email: emailLimpo },
     });
 
-    // Mesma mensagem para e-mail inexistente ou senha errada (como o professor)
+
     if (!aluno || !(await bcrypt.compare(senha, aluno.senha))) {
       return response.status(401).json({
         erro: "Credenciais inválidas",
