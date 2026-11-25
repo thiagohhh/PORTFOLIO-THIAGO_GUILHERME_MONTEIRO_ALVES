@@ -32,7 +32,6 @@ function lerTexto(texto) {
 }
 
 function normalizar(txt) {
-  // Uniformiza acentos e caixa para comparar disciplinas com nomes gravados manualmente.
   return String(txt || "")
     .toLowerCase()
     .normalize("NFD")
@@ -80,7 +79,7 @@ const ConteudoConexoesInterdisciplinares = ({ disciplina }) => {
           return mesmaArea(area, disciplina);
         });
 
-        // Prioriza a conexão mais recente da disciplina; se não houver, mostra a última disponível.
+    
         const escolhido = daArea.at(-1) || lista.at(-1) || null;
 
         setItem(escolhido);
