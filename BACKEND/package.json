@@ -13,6 +13,7 @@
   "description": "",
   "type": "module",
   "dependencies": {
+    "@supabase/supabase-js": "^2.119.2",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "dotenv": "^18.0.8",
@@ -20,8 +21,8 @@
     "jsonwebtoken": "^9.0.3",
     "multer": "^2.4.0",
     "mysql2": "^3.24.5",
-    "sequelize": "^6.37.8",
     "pg": "^8.13.1",
-    "pg-hstore": "^2.3.4"
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.8"
   }
 }

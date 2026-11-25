@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import "./ConteudoGaleria.css";
-import { API } from "../../config.js";
+import { API, mediaUrl } from "../../config.js";
 
 const ConteudoGaleria = () => {
   const [itens, setItens] = useState([]);
@@ -39,7 +39,7 @@ const ConteudoGaleria = () => {
           <div className="area-midia">
             {item.arquivo ? (
               <img
-                src={`${API}/${item.arquivo}`}
+                src={mediaUrl(item.arquivo)}
                 alt={item.titulo_midia}
               />
             ) : (

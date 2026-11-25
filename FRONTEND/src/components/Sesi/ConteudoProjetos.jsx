@@ -3,7 +3,7 @@
 
 import { useEffect, useState } from "react";
 import "./ConteudoProjetos.css";
-import { API } from "../../config.js";
+import { API, mediaUrl } from "../../config.js";
 
 const ConteudoProjetos = ({ bimestre }) => {
   const [lista, setLista] = useState([]);
@@ -54,7 +54,7 @@ const ConteudoProjetos = ({ bimestre }) => {
             <div className="foto-projeto-sesi">
               {projeto.foto ? (
                 <img
-                  src={`${API}/${projeto.foto}`}
+                  src={mediaUrl(projeto.foto)}
                   alt={projeto.titulo_projeto}
                 />
               ) : (

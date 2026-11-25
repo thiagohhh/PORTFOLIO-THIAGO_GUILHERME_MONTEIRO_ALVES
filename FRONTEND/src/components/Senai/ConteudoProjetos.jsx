@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import "./ConteudoProjetos.css";
-import { API } from "../../config.js";
+import { API, mediaUrl } from "../../config.js";
 
 const ConteudoProjetos = () => {
   const [projetos, setProjetos] = useState([]);
@@ -40,7 +40,7 @@ const ConteudoProjetos = () => {
           <div className="placeholder-projeto">
             {projeto.foto ? (
               <img
-                src={`${API}/${projeto.foto}`}
+                src={mediaUrl(projeto.foto)}
                 alt={projeto.titulo_projeto}
               />
             ) : (

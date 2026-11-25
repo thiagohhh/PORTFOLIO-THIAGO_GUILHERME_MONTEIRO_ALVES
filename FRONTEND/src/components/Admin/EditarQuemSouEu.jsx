@@ -9,7 +9,7 @@ import usuario from "../../assets/imgs/user-solid-full.svg";
 import livro from "../../assets/imgs/book-solid-full.svg";
 import enivar from "../../assets/imgs/paper-plane-solid-full.svg";
 import Header from "../layout/Header";
-import { API } from "../../config.js";
+import { API, mediaUrl } from "../../config.js";
 
 const perfilVazio = {
   titulo: "",
@@ -42,7 +42,7 @@ const EditarQuemSouEu = () => {
           paragrafo_biografia: item.paragrafo_biografia || "",
           texto_negrito: item.texto_negrito || "",
         });
-        if (item.foto) setFoto(`${API}/${item.foto}`);
+        if (item.foto) setFoto(mediaUrl(item.foto));
       } catch (erro) {
         console.error(erro);
       }

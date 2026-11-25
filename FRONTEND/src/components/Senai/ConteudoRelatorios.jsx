@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import iconeRelatorio from "../../assets/imgs/senai/icone-relatorio.png";
 import "./ConteudoRelatorios.css";
-import { API } from "../../config.js";
+import { API, mediaUrl } from "../../config.js";
 
 const ConteudoRelatorios = () => {
   const [lista, setLista] = useState([]);
@@ -44,7 +44,7 @@ const ConteudoRelatorios = () => {
           <div className="acoes-relatorio">
             <a
               className="botao-relatorio claro"
-              href={`${API}/${item.pdf}`}
+              href={mediaUrl(item.pdf)}
               target="_blank"
               rel="noreferrer"
             >
@@ -52,7 +52,7 @@ const ConteudoRelatorios = () => {
             </a>
             <a
               className="botao-relatorio escuro"
-              href={`${API}/${item.pdf}`}
+              href={mediaUrl(item.pdf)}
               download
             >
               Baixar PDF

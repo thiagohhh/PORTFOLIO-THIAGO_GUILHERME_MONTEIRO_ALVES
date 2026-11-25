@@ -5,7 +5,7 @@ import Rodape from "../layout/Rodape";
 import traco from "../../assets/imgs/Traço.png";   
 import simbolo from "../../assets/imgs/Símbolo.png"; 
 import "./QuemSouEu.css";
-import { API } from "../../config.js";
+import { API, mediaUrl } from "../../config.js";
 
 
 const QuemSouEu = () => {
@@ -42,7 +42,7 @@ const QuemSouEu = () => {
   const biografia = dados?.paragrafo_biografia || "Sou Thiago Guilherme, estudante do ensino médio e do curso Técnico em Informática para Internet. Neste portfólio, reúno atividades, projetos e reflexões da minha trajetória de aprendizagem, conectando os conhecimentos da escola ao universo da tecnologia.";
   const textoNegrito = dados?.texto_negrito || "Explore meu portfólio: Sesi ou Senai.";
 
-  const foto = dados?.foto ? `${API}/${dados.foto}` : null;
+  const foto = mediaUrl(dados?.foto);
 
   return (
     <div className="pagina-inicial">
