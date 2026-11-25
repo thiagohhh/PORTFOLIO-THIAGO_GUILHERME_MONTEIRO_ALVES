@@ -14,7 +14,10 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://portfolio-thiago-4oefjufuv-tgbrabox.vercel.app",
+    origin: [
+      "https://portfolio-thiago-xi.vercel.app",
+      "https://portfolio-thiago-13oywrlny-tgbrabox.vercel.app",
+    ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
   })
