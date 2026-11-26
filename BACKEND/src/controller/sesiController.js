@@ -129,6 +129,7 @@ export const criarEscolaParaVida = async (request, response) => {
   try {
     const {
       aluno_id,
+      area,
       reflexao_experiencia,
       aplicacao_conhecimentos,
       influencia_forma_agir_pensar,
@@ -157,6 +158,7 @@ export const criarEscolaParaVida = async (request, response) => {
 
     const escolaParaVida = await EscolaParaVida.create({
       aluno_id,
+      area,
       reflexao_experiencia,
       aplicacao_conhecimentos,
       influencia_forma_agir_pensar,
@@ -222,7 +224,7 @@ export const deletarEscolaParaVida = async (request, response) => {
 // Fundamento teórico
 export const criarFundamentoTeorico = async (request, response) => {
   try {
-    const { aluno_id, bimestre, resumo_teorico, teorias, conceitos, metodologias } =
+    const { aluno_id, bimestre, area, resumo_teorico, teorias, conceitos, metodologias } =
       request.body;
 
     if (!aluno_id) {
@@ -247,6 +249,7 @@ export const criarFundamentoTeorico = async (request, response) => {
     const fundamento = await FundamentoTeorico.create({
       aluno_id: Number(aluno_id),
       bimestre: Number(bimestre),
+      area,
       resumo_teorico,
       teorias,
       conceitos,
@@ -268,7 +271,7 @@ export const listarFundamentosTeoricos = async (request, response) => {
 export const atualizarFundamentoTeorico = async (request, response) => {
   try {
     const { id } = request.params;
-    const { aluno_id, bimestre, resumo_teorico, teorias, conceitos, metodologias } =
+    const { aluno_id, bimestre, area, resumo_teorico, teorias, conceitos, metodologias } =
       request.body;
 
     const fundamento = await FundamentoTeorico.findByPk(id);
@@ -279,6 +282,7 @@ export const atualizarFundamentoTeorico = async (request, response) => {
     await fundamento.update({
       aluno_id,
       bimestre,
+      area,
       resumo_teorico,
       teorias,
       conceitos,
@@ -308,6 +312,7 @@ export const criarParticipacaoEmSala = async (request, response) => {
     const {
       aluno_id,
       bimestre,
+      area,
       registro_atividades,
       o_que_chamou_atencao,
       reflexao_pratica,
@@ -340,6 +345,8 @@ export const criarParticipacaoEmSala = async (request, response) => {
     const participacao = await ParticipacaoEmSala.create({
       aluno_id,
       bimestre,
+      area,
+      area,
       registro_atividades,
       o_que_chamou_atencao,
       reflexao_pratica,
@@ -380,6 +387,7 @@ export const atualizarParticipacaoEmSala = async (request, response) => {
     await participacao.update({
       aluno_id,
       bimestre,
+      area,
       registro_atividades,
       o_que_chamou_atencao,
       reflexao_pratica,
@@ -407,7 +415,7 @@ export const deletarParticipacaoEmSala = async (request, response) => {
 // Projeto e trabalho
 export const criarProjetoTrabalho = async (request, response) => {
   try {
-    const { aluno_id, bimestre, titulo_projeto, texto_card } = request.body;
+    const { aluno_id, bimestre, area, titulo_projeto, texto_card } = request.body;
 
     const foto = request.file ? request.file.filename : null;
 
@@ -430,6 +438,7 @@ export const criarProjetoTrabalho = async (request, response) => {
     const projeto = await ProjetoTrabalho.create({
       aluno_id,
       bimestre,
+      area,
       titulo_projeto,
       texto_card,
       foto,
@@ -450,7 +459,7 @@ export const listarProjetosTrabalho = async (request, response) => {
 export const atualizarProjetoTrabalho = async (request, response) => {
   try {
     const { id } = request.params;
-    const { aluno_id, bimestre, titulo_projeto, texto_card } = request.body;
+    const { aluno_id, bimestre, area, titulo_projeto, texto_card } = request.body;
 
     const projeto = await ProjetoTrabalho.findByPk(id);
     if (!projeto) {
@@ -465,6 +474,7 @@ export const atualizarProjetoTrabalho = async (request, response) => {
     await projeto.update({
       aluno_id,
       bimestre,
+      area,
       titulo_projeto,
       texto_card,
       foto,
@@ -554,6 +564,7 @@ export const criarReflexaoCritica = async (request, response) => {
   try {
     const {
       aluno_id,
+      area,
       aprendizado_academico,
       aplicacao_pratica,
       melhorias_necessarias,
@@ -578,6 +589,7 @@ export const criarReflexaoCritica = async (request, response) => {
 
     const reflexao = await ReflexaoCritica.create({
       aluno_id,
+      area,
       aprendizado_academico,
       aplicacao_pratica,
       melhorias_necessarias,
