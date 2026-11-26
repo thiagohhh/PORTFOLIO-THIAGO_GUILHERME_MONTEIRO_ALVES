@@ -84,7 +84,7 @@ const MinhasAtividades = () => {
             try {
               const mapa = JSON.parse(localStorage.getItem("mapaAreasSesi") || "{}");
               const chave = fonte.instituicao + "-" + fonte.secao + "-" + item.id;
-              if (mapa[chave]) areaItem = mapa[chave];
+              if (!areaItem && mapa[chave]) areaItem = mapa[chave];
             } catch (erro) {
               console.error("Não foi possível ler o mapa de áreas do SESI.", erro);
             }
