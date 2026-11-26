@@ -62,7 +62,7 @@ Os painéis consultam uma rota própria e apresentam os dados recebidos, com est
 | Componente | Lógica |
 |---|---|
 | `src/components/Admin/Login.jsx` | Envia credenciais, guarda token e ID do aluno e retorna à rota protegida original quando disponível. A resposta da API pode fornecer o ID em mais de um formato. |
-| `src/components/Admin/CadastroAtividadeSenai.jsx` | Mantém dados separados por aba, valida a unidade curricular e monta o cadastro específico da seção. Projetos, galeria e relatórios usam `FormData` para arquivos; as outras abas usam JSON. |
+| `src/components/Admin/CadastroAtividadeSenai.jsx` | Mantém dados separados por aba, valida a unidade curricular e monta o cadastro específico da seção. Projetos e relatórios usam `FormData` para arquivos; as outras abas usam JSON. |
 | `src/components/Admin/CadastroAtividadeSesi.jsx` | Mantém a seção, bimestre, disciplina, campos e autoavaliação. Separa seções anuais das bimestrais e monta payloads diferentes para projeto com foto, conexão interdisciplinar e demais seções. |
 | `src/components/Admin/EditarAtividadeSenai.jsx` | Recebe seção e ID pela navegação, carrega o registro correspondente e envia atualização como multipart quando há arquivo ou JSON nas demais abas. |
 | `src/components/Admin/EditarAtividadeSesi.jsx` | Recebe seção, ID e bimestre pela navegação, carrega os dados editáveis e diferencia atualizações anuais, bimestrais e de projeto com foto. |
