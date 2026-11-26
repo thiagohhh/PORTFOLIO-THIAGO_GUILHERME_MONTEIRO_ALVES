@@ -2,7 +2,6 @@ import "./MenuSenai.css";
 
 const abas = [
   "Projetos",
-  "Galeria",
   "Código",
   "Relatórios",
   "Aprendizagens",
