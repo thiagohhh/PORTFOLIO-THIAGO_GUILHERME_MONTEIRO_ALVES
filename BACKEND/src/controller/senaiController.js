@@ -474,7 +474,6 @@ export const deletarDetalhe = async (request, response) => {
   }
 };
 
-// Galeria
 // Projeto
 export const criarProjeto = async (request, response) => {
   try {
