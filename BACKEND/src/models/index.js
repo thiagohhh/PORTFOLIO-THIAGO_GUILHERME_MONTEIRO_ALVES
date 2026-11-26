@@ -7,7 +7,6 @@ import Autoavaliacao from "./Senai/Autoavaliacao.js";
 import Codigo from "./Senai/Codigo.js";
 import Competencia from "./Senai/Competencia.js";
 import Detalhe from "./Senai/Detalhe.js";
-import Galeria from "./Senai/Galeria.js";
 import Projeto from "./Senai/Projeto.js";
 import Relatorio from "./Senai/Relatorio.js";
 
@@ -35,7 +34,6 @@ export {
     Codigo,
     Competencia,
     Detalhe,
-    Galeria,
     Projeto,
     Relatorio,
     ConexaoInterdisciplinar,
