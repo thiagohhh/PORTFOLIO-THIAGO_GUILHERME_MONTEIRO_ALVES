@@ -272,6 +272,7 @@ const EditarAtividadeSenai = () => {
     rotulo,
     nomeArquivo,
     setNomeArquivo,
+    previewAtual,
   }) {
     return (
       <div
