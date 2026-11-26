@@ -379,6 +379,7 @@ const MinhasAtividades = () => {
                         id: item.id,
                         secao: item.secao,
                         bimestre: item.bimestre,
+                        area: item.area,
                       }}
                     >
                       Editar
