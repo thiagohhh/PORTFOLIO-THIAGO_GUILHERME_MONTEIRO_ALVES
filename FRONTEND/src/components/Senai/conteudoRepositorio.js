@@ -52,65 +52,6 @@ export const projetosDoRepositorio = [
   },
 ];
 
-export const imagensDoRepositorio = [
-  {
-    id: "galeria-uiux-a4",
-    titulo_midia: "Atividade de UI/UX — A4",
-    explicado_a_midia: "Imagem enviada na unidade curricular Fundamentos de UI/UX.",
-    unidade_curricular: "Fundamentos de UI/UX",
-    tipo_midia: "Imagem",
-    arquivo: imagem("FUNDAMENTOS DE UI _ UX TEC-040-017/A4 - 1.png"),
-  },
-  {
-    id: "galeria-uiux-esportes",
-    titulo_midia: "Projeto Esportes Radicais",
-    explicado_a_midia: "Material visual desenvolvido e enviado na unidade curricular Fundamentos de UI/UX.",
-    unidade_curricular: "Fundamentos de UI/UX",
-    tipo_midia: "Imagem",
-    arquivo: imagem("FUNDAMENTOS DE UI _ UX TEC-040-017/ESPORTES RADICAIS.png"),
-  },
-  {
-    id: "galeria-uiux-alimentacao",
-    titulo_midia: "Projeto Comida Saudável",
-    explicado_a_midia: "Material visual enviado na unidade curricular Fundamentos de UI/UX.",
-    unidade_curricular: "Fundamentos de UI/UX",
-    tipo_midia: "Imagem",
-    arquivo: imagem("FUNDAMENTOS DE UI _ UX TEC-040-017/comida saudavel.png"),
-  },
-  {
-    id: "galeria-uiux-prototipo-iphone",
-    titulo_midia: "Protótipo de interface — iPhone",
-    explicado_a_midia: "Tela de protótipo salva entre as atividades de Fundamentos de UI/UX.",
-    unidade_curricular: "Fundamentos de UI/UX",
-    tipo_midia: "Imagem",
-    arquivo: imagem("FUNDAMENTOS DE UI _ UX TEC-040-017/iPhone 16 Pro Max - 1.png"),
-  },
-  {
-    id: "galeria-logica-fluxograma",
-    titulo_midia: "Fluxograma — Lógica Computacional",
-    explicado_a_midia: "Atividade visual de organização de etapas e raciocínio lógico.",
-    unidade_curricular: "Lógica Computacional",
-    tipo_midia: "Imagem",
-    arquivo: imagem("LÓGICA COMPUTACIONAL TEC-040-017/_Fluxograma.png"),
-  },
-  {
-    id: "galeria-logica-fluxograma-2",
-    titulo_midia: "Atividade de Fluxograma",
-    explicado_a_midia: "Outro registro de atividade enviado em Lógica Computacional.",
-    unidade_curricular: "Lógica Computacional",
-    tipo_midia: "Imagem",
-    arquivo: imagem("LÓGICA COMPUTACIONAL TEC-040-017/_Fluxograma (1).png"),
-  },
-  {
-    id: "galeria-logica-mural",
-    titulo_midia: "Atividade — Lógica Computacional",
-    explicado_a_midia: "Registro de atividade salvo na unidade curricular Lógica Computacional.",
-    unidade_curricular: "Lógica Computacional",
-    tipo_midia: "Imagem",
-    arquivo: imagem("LÓGICA COMPUTACIONAL TEC-040-017/Novo mural.png"),
-  },
-];
-
 export const relatoriosDoRepositorio = [
   {
     id: "repositorio-storyboard-battech",
