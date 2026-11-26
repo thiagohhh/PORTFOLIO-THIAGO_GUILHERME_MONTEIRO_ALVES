@@ -56,6 +56,7 @@ const EditarAtividadeSenai = () => {
   const [tituloProjeto, setTituloProjeto] = useState("");
   const [textoCard, setTextoCard] = useState("");
   const [nomeFoto, setNomeFoto] = useState("");
+  const [fotoAtual, setFotoAtual] = useState("");
   const [etiquetas, setEtiquetas] = useState([]);
   const [novaEtiqueta, setNovaEtiqueta] = useState("");
 
@@ -67,6 +68,7 @@ const EditarAtividadeSenai = () => {
   const [tituloMidia, setTituloMidia] = useState("");
   const [descricaoMidia, setDescricaoMidia] = useState("");
   const [nomeArquivoGaleria, setNomeArquivoGaleria] = useState("");
+  const [arquivoGaleriaAtual, setArquivoGaleriaAtual] = useState("");
 
   const [tituloRelatorio, setTituloRelatorio] = useState("");
   const [textoRelatorio, setTextoRelatorio] = useState("");
@@ -116,7 +118,7 @@ const EditarAtividadeSenai = () => {
         } else if (abaAtiva === "Galeria") {
           setTipoMidia(item.tipo_midia || "");
           setTituloMidia(item.titulo_midia || "");
-          setDescricaoMidia(item.explicado_a_midia || item.descricao || "");
+          setDescricaoMidia(item.explicado_a_midia || item.descricao || "");\n          setArquivoGaleriaAtual(item.arquivo || item.url_arquivo || "");
         } else if (abaAtiva === "Relatórios") {
           setTituloRelatorio(item.titulo_relatorio || "");
           setTextoRelatorio(item.texto_relatorio || "");
