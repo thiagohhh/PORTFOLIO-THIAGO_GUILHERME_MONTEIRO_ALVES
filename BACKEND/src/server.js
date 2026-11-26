@@ -1,5 +1,6 @@
 import "dotenv/config";
 import bcrypt from "bcrypt";
+import { DataTypes } from "sequelize";
 import conn from "./config/conn.js";
 import app from "./app.js";
 import "./models/index.js"; 
@@ -32,7 +33,7 @@ async function iniciarServidor() {
       const colunas = await queryInterface.describeTable(tabela);
       if (!colunas.area) {
         await queryInterface.addColumn(tabela, "area", {
-          type: conn.Sequelize?.STRING(100) || (await import("sequelize")).DataTypes.STRING(100),
+          type: DataTypes.STRING(100),
           allowNull: true,
         });
       }
