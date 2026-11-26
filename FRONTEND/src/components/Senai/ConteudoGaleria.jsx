@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./ConteudoGaleria.css";
 import { API, mediaUrl } from "../../config.js";
+import { imagensDoRepositorio } from "./conteudoRepositorio.js";
 
 const ConteudoGaleria = () => {
   const [itens, setItens] = useState([]);
@@ -15,7 +16,14 @@ const ConteudoGaleria = () => {
           headers: { "Content-Type": "application/json" },
         });
         const dados = await resposta.json();
-        setItens(Array.isArray(dados) ? dados : []);
+        const cadastrados = Array.isArray(dados) ? dados : [];
+        const chaves = new Set(cadastrados.map((item) =>
+          (item.titulo_midia || "").trim().toLowerCase() + "|" + (item.unidade_curricular || "").trim().toLowerCase()
+        ));
+        const complementares = imagensDoRepositorio.filter((item) =>
+          !chaves.has(item.titulo_midia.toLowerCase() + "|" + item.unidade_curricular.toLowerCase())
+        );
+        setItens([...cadastrados, ...complementares]);
       } catch (erro) {
         console.error(erro);
         setItens([]);
