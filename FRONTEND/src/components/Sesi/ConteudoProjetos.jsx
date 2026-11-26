@@ -12,6 +12,7 @@ function normalizarArea(valor) {
 const ConteudoProjetos = ({ bimestre, disciplina }) => {
   const [lista, setLista] = useState([]);
   const [carregando, setCarregando] = useState(true);
+  const [imagemAmpliada, setImagemAmpliada] = useState(null);
 
 
   const numeroBimestre =
@@ -48,6 +49,7 @@ const ConteudoProjetos = ({ bimestre, disciplina }) => {
   }
 
   return (
+    <>
     <div className="lista-projetos-sesi">
       {lista.map((projeto, index) => (
         <div key={projeto.id} className="item-projeto-sesi">
@@ -57,10 +59,21 @@ const ConteudoProjetos = ({ bimestre, disciplina }) => {
           <article className="cartao-projeto-sesi">
             <div className="foto-projeto-sesi">
               {projeto.foto ? (
-                <img
-                  src={mediaUrl(projeto.foto)}
-                  alt={projeto.titulo_projeto}
-                />
+                <button
+                  type="button"
+                  className="botao-foto-projeto-sesi"
+                  onClick={() => setImagemAmpliada({
+                    src: mediaUrl(projeto.foto),
+                    alt: projeto.titulo_projeto || "Imagem do projeto",
+                  })}
+                  aria-label={`Ampliar imagem de ${projeto.titulo_projeto || "projeto"}`}
+                >
+                  <img
+                    src={mediaUrl(projeto.foto)}
+                    alt={projeto.titulo_projeto || "Imagem do projeto"}
+                  />
+                  <span className="dica-ampliar-foto-sesi">Clique para ampliar</span>
+                </button>
               ) : (
                 "Sem imagem"
               )}
@@ -73,6 +86,30 @@ const ConteudoProjetos = ({ bimestre, disciplina }) => {
         </div>
       ))}
     </div>
+    {imagemAmpliada && (
+      <div
+        className="modal-foto-projeto-sesi"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Imagem ampliada do projeto"
+        onClick={() => setImagemAmpliada(null)}
+      >
+        <button
+          type="button"
+          className="fechar-modal-foto-sesi"
+          onClick={() => setImagemAmpliada(null)}
+          aria-label="Fechar imagem ampliada"
+        >
+          ×
+        </button>
+        <img
+          src={imagemAmpliada.src}
+          alt={imagemAmpliada.alt}
+          onClick={(evento) => evento.stopPropagation()}
+        />
+      </div>
+    )}
+    </>
   );
 };
 
