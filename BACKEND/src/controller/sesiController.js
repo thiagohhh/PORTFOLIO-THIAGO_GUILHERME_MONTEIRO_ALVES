@@ -198,6 +198,7 @@ export const atualizarEscolaParaVida = async (request, response) => {
 
     await registro.update({
       aluno_id,
+      area,
       reflexao_experiencia,
       aplicacao_conhecimentos,
       influencia_forma_agir_pensar,
@@ -628,6 +629,7 @@ export const atualizarReflexaoCritica = async (request, response) => {
 
     await reflexao.update({
       aluno_id,
+      area,
       aprendizado_academico,
       aplicacao_pratica,
       melhorias_necessarias,
