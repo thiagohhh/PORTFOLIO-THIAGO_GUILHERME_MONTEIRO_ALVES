@@ -14,9 +14,13 @@ const ConteudoProjetos = () => {
   useEffect(() => {
     async function buscar() {
       try {
-        const resposta = await fetch(`${API}/senai/projetos`);
-        if (!resposta.ok) throw new Error(`Falha ao carregar projetos: ${resposta.status}`);
-        const dados = await resposta.json();
+        const [respostaProjetos, respostaGaleria] = await Promise.all([
+          fetch(`${API}/senai/projetos`),
+          fetch(`${API}/senai/galeria`).catch(() => null),
+        ]);
+        if (!respostaProjetos.ok) throw new Error(`Falha ao carregar projetos: ${respostaProjetos.status}`);
+        const dados = await respostaProjetos.json();
+        const dadosGaleria = respostaGaleria?.ok ? await respostaGaleria.json() : [];
         const cadastrados = Array.isArray(dados)
           ? dados
           : dados.projetos || [];
@@ -28,7 +32,18 @@ const ConteudoProjetos = () => {
         const complementares = projetosDoRepositorio.filter((item) =>
           !chaves.has(item.titulo_projeto.toLowerCase() + "|" + item.unidade_curricular.toLowerCase())
         );
-        setProjetos([...comFoto, ...complementares]);
+        // Imagens antigas da Galeria são exibidas dentro de Projetos, sem recadastro.
+        const imagensGaleria = (Array.isArray(dadosGaleria) ? dadosGaleria : [])
+          .filter((item) => (item.tipo_midia || 'Imagem') === 'Imagem' && (item.arquivo || item.url_arquivo))
+          .map((item) => ({
+            id: 'galeria-' + item.id,
+            titulo_projeto: item.titulo_midia || 'Registro visual',
+            texto_card: item.explicado_a_midia || '',
+            unidade_curricular: item.unidade_curricular || 'Registro',
+            foto: item.arquivo || item.url_arquivo,
+            etiquetas: [],
+          }));
+        setProjetos([...comFoto, ...imagensGaleria, ...complementares]);
       } catch (erro) {
         console.error("Não foi possível consultar os projetos do servidor; exibindo os do repositório.", erro);
         setProjetos(projetosDoRepositorio);
