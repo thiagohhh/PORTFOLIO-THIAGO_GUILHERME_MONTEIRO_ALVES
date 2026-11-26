@@ -9,7 +9,6 @@ import estrelaAmarela from "../../assets/imgs/senai/estrela-amarela.png";
 import estrelaBranca from "../../assets/imgs/senai/estrela-branca.png";
 import iconeRelatorio from "../../assets/imgs/senai/icone-relatorio.png";
 import iconeProjeto from "../../assets/imgs/senai/icone-projeto.svg";
-import iconeGaleria from "../../assets/imgs/senai/icone-galeria.svg";
 import Header from "../layout/Header"
 
 import usuario from "../../assets/imgs/user-solid-full.svg";
@@ -22,7 +21,6 @@ import { API, mediaUrl } from "../../config.js";
 const abas = [
   "Projetos",
   "Códigos",
-  "Galeria",
   "Relatórios",
   "Aprendizagens",
   "Autoavaliação",
@@ -32,14 +30,13 @@ const abas = [
 const rotas = {
   Projetos: "/senai/projetos",
   Códigos: "/senai/codigos",
-  Galeria: "/senai/galeria",
   Relatórios: "/senai/relatorios",
   Aprendizagens: "/senai/aprendizagens",
   Autoavaliação: "/senai/autoavaliacoes",
   Competências: "/senai/competencias",
 };
 
-const abasComArquivo = ["Projetos", "Galeria", "Relatórios"];
+const abasComArquivo = ["Projetos", "Relatórios"];
 
 const EditarAtividadeSenai = () => {
   const location = useLocation();
