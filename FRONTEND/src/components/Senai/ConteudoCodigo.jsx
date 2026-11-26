@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 import "./ConteudoCodigo.css";
 import { API } from "../../config.js";
+import { codigosDoRepositorio } from "./conteudoRepositorio.js";
 
 const ConteudoCodigo = () => {
   const [codigos, setCodigos] = useState([]);
@@ -19,7 +20,14 @@ const ConteudoCodigo = () => {
           },
         });
         const dados = await resposta.json();
-        setCodigos(Array.isArray(dados) ? dados : []);
+        const cadastrados = Array.isArray(dados) ? dados : [];
+        const chaves = new Set(cadastrados.map((item) =>
+          (item.titulo_codigo || "").trim().toLowerCase() + "|" + (item.descricao_linguagem || "").trim().toLowerCase()
+        ));
+        const complementares = codigosDoRepositorio.filter((item) =>
+          !chaves.has(item.titulo_codigo.toLowerCase() + "|" + item.descricao_linguagem.toLowerCase())
+        );
+        setCodigos([...cadastrados, ...complementares]);
       } catch (erro) {
         console.error(erro);
         setCodigos([]);
