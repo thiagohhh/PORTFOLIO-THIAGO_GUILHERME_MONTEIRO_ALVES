@@ -5,7 +5,11 @@ import { useEffect, useState } from "react";
 import "./ConteudoProjetos.css";
 import { API, mediaUrl } from "../../config.js";
 
-const ConteudoProjetos = ({ bimestre }) => {
+function normalizarArea(valor) {
+  return String(valor || "").toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g, "").trim();
+}
+
+const ConteudoProjetos = ({ bimestre, disciplina }) => {
   const [lista, setLista] = useState([]);
   const [carregando, setCarregando] = useState(true);
 
@@ -26,7 +30,7 @@ const ConteudoProjetos = ({ bimestre }) => {
         const dados = await resposta.json();
         const todos = Array.isArray(dados) ? dados : [];
         setLista(
-          todos.filter((item) => Number(item.bimestre) === numeroBimestre)
+          todos.filter((item) => Number(item.bimestre) === numeroBimestre && normalizarArea(item.area) === normalizarArea(disciplina))
         );
       } catch (erro) {
         console.error(erro);
