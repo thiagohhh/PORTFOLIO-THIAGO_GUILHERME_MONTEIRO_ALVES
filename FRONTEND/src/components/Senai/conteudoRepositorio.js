@@ -1,7 +1,7 @@
 // Trabalhos e imagens selecionados do repositório classrom.
  // Somente arquivos do próprio aluno; imagens de referência dos desafios foram deixadas de fora.
 const imagem = (caminho) =>
-  `https://raw.githubusercontent.com/thiagohhh/classrom/main/${caminho
+  `https://cdn.jsdelivr.net/gh/thiagohhh/classrom@main/${caminho
     .split("/")
     .map(encodeURIComponent)
     .join("/")}`;
