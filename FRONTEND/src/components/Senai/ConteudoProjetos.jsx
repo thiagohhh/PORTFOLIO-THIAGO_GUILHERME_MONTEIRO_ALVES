@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import "./ConteudoProjetos.css";
 import { API, mediaUrl } from "../../config.js";
+import { projetosDoRepositorio } from "./conteudoRepositorio.js";
 
 const ConteudoProjetos = () => {
   const [projetos, setProjetos] = useState([]);
@@ -17,7 +18,14 @@ const ConteudoProjetos = () => {
       .then((resposta) => resposta.json())
       .then((dados) => {
        
-        setProjetos(Array.isArray(dados) ? dados : dados.projetos || []);
+        const cadastrados = Array.isArray(dados) ? dados : dados.projetos || [];
+        const chaves = new Set(cadastrados.map((item) =>
+          (item.titulo_projeto || "").trim().toLowerCase() + "|" + (item.unidade_curricular || "").trim().toLowerCase()
+        ));
+        const complementares = projetosDoRepositorio.filter((item) =>
+          !chaves.has(item.titulo_projeto.toLowerCase() + "|" + item.unidade_curricular.toLowerCase())
+        );
+        setProjetos([...cadastrados, ...complementares]);
       })
       .catch((erro) => {
         console.error("Erro ao buscar projetos:", erro);
@@ -39,6 +47,7 @@ const ConteudoProjetos = () => {
       <div className="grade-senai-projetos">
       {projetos.map((projeto) => (
         <article className="cartao-senai-projeto" key={projeto.id || projeto.titulo_projeto}>
+          {projeto.foto && (
           <div className="placeholder-projeto">
             {projeto.foto ? (
               <button
@@ -57,6 +66,7 @@ const ConteudoProjetos = () => {
               "Imagem do projeto"
             )}
           </div>
+          )}
           <h3>{projeto.titulo_projeto}</h3>
           <p>{projeto.texto_card || "Sem descrição"}</p>
           <div className="detalhes-projeto">
