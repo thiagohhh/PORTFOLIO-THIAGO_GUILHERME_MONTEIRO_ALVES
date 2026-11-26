@@ -105,3 +105,80 @@ export const relatoriosDoRepositorio = [
     pdf: imagem("FUNDAMENTOS DE UI _ UX TEC-040-017/Storybord-BATTECH.pdf"),
   },
 ];
+
+export const codigosDoRepositorio = [
+  {
+    id: "codigo-html-pagina-pessoal",
+    titulo_codigo: "Estrutura de uma página HTML",
+    descricao_linguagem: "HTML",
+    bloco_codigo: `<h1>Apresentação Pessoal</h1>
+<p>Olá! Meu nome é Thiago.</p>
+<hr>
+<p>Esta é minha primeira página.</p>`,
+  },
+  {
+    id: "codigo-html-cartao-qr",
+    titulo_codigo: "Cartão com imagem e textos",
+    descricao_linguagem: "HTML",
+    bloco_codigo: `<div class="caixa">
+  <img src="./images/image-qr-code.png" alt="QR Code">
+  <p><strong>Melhore suas habilidades</strong></p>
+  <p>Escaneie o QR Code para continuar.</p>
+</div>`,
+  },
+  {
+    id: "codigo-css-centralizar-cartao",
+    titulo_codigo: "Centralização e estilo de um cartão",
+    descricao_linguagem: "CSS",
+    bloco_codigo: `body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #d6e2f0;
+}
+
+.caixa {
+  width: 350px;
+  background-color: white;
+  border-radius: 20px;
+  text-align: center;
+}`,
+  },
+  {
+    id: "codigo-react-estado",
+    titulo_codigo: "Estado e interação com botão",
+    descricao_linguagem: "React",
+    bloco_codigo: `import { useState } from "react";
+
+function Contador() {
+  const [cliques, setCliques] = useState(0);
+
+  return (
+    <div>
+      <p>Cliques: {cliques}</p>
+      <button onClick={() => setCliques(cliques + 1)}>
+        Adicionar
+      </button>
+    </div>
+  );
+}
+
+export default Contador;`,
+  },
+  {
+    id: "codigo-sql-consulta",
+    titulo_codigo: "Criar tabela e consultar dados",
+    descricao_linguagem: "SQL",
+    bloco_codigo: `CREATE DATABASE loja_roupas;
+
+USE loja_roupas;
+
+CREATE TABLE roupas (
+  cor VARCHAR(255),
+  tamanho VARCHAR(2),
+  pr_quem VARCHAR(255)
+);
+
+SELECT * FROM roupas;`,
+  },
+];
