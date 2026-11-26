@@ -11,6 +11,25 @@ import {
 
 import tratarErros from "../utils/tratarErros.js";
 
+// As etiquetas dos projetos SENAI usam a tabela senai_detalhes já existente.
+function obterEtiquetasProjeto(body = {}) {
+  const valor = body["etiquetas[]"] ?? body.etiquetas;
+  if (valor == null) return null;
+  const lista = Array.isArray(valor) ? valor : [valor];
+  return [...new Set(lista.map((tag) => String(tag).trim()).filter(Boolean))];
+}
+
+async function salvarEtiquetasProjeto(projetoId, etiquetas) {
+  await Detalhe.destroy({ where: { item_id: projetoId, tipo_origem: "projeto" } });
+  if (etiquetas.length) {
+    await Detalhe.bulkCreate(etiquetas.map((tag) => ({
+      item_id: projetoId,
+      tipo_origem: "projeto",
+      tag_identificacao: tag,
+    })));
+  }
+}
+
 // Aprendizagens
 export const criarAprendizagem = async (request, response) => {
   try {
@@ -611,7 +630,17 @@ export const criarProjeto = async (request, response) => {
       texto_card,
       foto,
     });
-    return response.status(201).json(projeto);
+
+    const etiquetas = obterEtiquetasProjeto(request.body) || [];
+    if (etiquetas.length) {
+      await Detalhe.bulkCreate(etiquetas.map((tag) => ({
+        item_id: projeto.id,
+        tipo_origem: "projeto",
+        tag_identificacao: tag,
+      })));
+    }
+
+    return response.status(201).json({ ...projeto.toJSON(), etiquetas });
   } catch (err) {
   
     return response.status(500).json({ 
@@ -622,7 +651,20 @@ export const criarProjeto = async (request, response) => {
 export const listarProjetos = async (request, response) => {
   try {
     const projetos = await Projeto.findAll();
-    return response.status(200).json(projetos);
+    const detalhes = await Detalhe.findAll({ where: { tipo_origem: "projeto" } });
+    const etiquetasPorProjeto = new Map();
+
+    detalhes.forEach((detalhe) => {
+      const chave = String(detalhe.item_id);
+      const etiquetas = etiquetasPorProjeto.get(chave) || [];
+      etiquetas.push(detalhe.tag_identificacao);
+      etiquetasPorProjeto.set(chave, etiquetas);
+    });
+
+    return response.status(200).json(projetos.map((projeto) => ({
+      ...projeto.toJSON(),
+      etiquetas: etiquetasPorProjeto.get(String(projeto.id)) || [],
+    })));
   } catch {
     return tratarErros(request, response);
   }
@@ -650,7 +692,20 @@ export const atualizarProjeto = async (request, response) => {
       texto_card,
       foto,
     });
-    return response.status(200).json(projeto);
+
+    // Clientes antigos que não enviam etiquetas não apagam as já cadastradas.
+    if (request.body.etiquetas_enviadas === "true") {
+      const etiquetas = obterEtiquetasProjeto(request.body) || [];
+      await salvarEtiquetasProjeto(projeto.id, etiquetas);
+    }
+
+    const detalhes = await Detalhe.findAll({
+      where: { item_id: projeto.id, tipo_origem: "projeto" },
+    });
+    return response.status(200).json({
+      ...projeto.toJSON(),
+      etiquetas: detalhes.map((detalhe) => detalhe.tag_identificacao),
+    });
   } catch {
     return tratarErros(request, response);
   }
