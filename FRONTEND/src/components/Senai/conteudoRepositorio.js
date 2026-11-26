@@ -26,6 +26,22 @@ export const projetosDoRepositorio = [
     etiquetas: ["Back-end"],
   },
   {
+    id: "repositorio-uiux-esportes",
+    titulo_projeto: "Projeto Esportes Radicais",
+    texto_card: "Projeto visual desenvolvido e enviado na unidade curricular Fundamentos de UI/UX.",
+    unidade_curricular: "Fundamentos de UI/UX",
+    foto: imagem("FUNDAMENTOS DE UI _ UX TEC-040-017/ESPORTES RADICAIS.png"),
+    etiquetas: ["UI/UX", "Protótipo visual"],
+  },
+  {
+    id: "repositorio-uiux-comida",
+    titulo_projeto: "Projeto Comida Saudável",
+    texto_card: "Projeto visual desenvolvido e enviado na unidade curricular Fundamentos de UI/UX.",
+    unidade_curricular: "Fundamentos de UI/UX",
+    foto: imagem("FUNDAMENTOS DE UI _ UX TEC-040-017/comida saudavel.png"),
+    etiquetas: ["UI/UX", "Protótipo visual"],
+  },
+  {
     id: "repositorio-desenvolvimento-apis",
     titulo_projeto: "Atividade de Desenvolvimento de APIs",
     texto_card:
