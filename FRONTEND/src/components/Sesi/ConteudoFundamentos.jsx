@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import "./ConteudoFundamentos.css";
 import { API } from "../../config.js";
 
-const ConteudoFundamentos = ({ bimestre }) => {
+function normalizarArea(valor) {
+  return String(valor || "").toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g, "").trim();
+}
+
+const ConteudoFundamentos = ({ bimestre, disciplina }) => {
   const [lista, setLista] = useState([]);
   const [carregando, setCarregando] = useState(true);
 
@@ -23,7 +27,7 @@ const ConteudoFundamentos = ({ bimestre }) => {
         const dados = await resposta.json();
         const todos = Array.isArray(dados) ? dados : [];
         const doBimestre = todos.filter(
-          (item) => Number(item.bimestre) === numeroBimestre,
+          (item) => Number(item.bimestre) === numeroBimestre && normalizarArea(item.area) === normalizarArea(disciplina),
         );
         setLista(doBimestre);
       } catch (erro) {
