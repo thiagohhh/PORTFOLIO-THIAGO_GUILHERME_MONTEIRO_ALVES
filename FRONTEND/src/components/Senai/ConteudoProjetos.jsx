@@ -20,6 +20,7 @@ const ConteudoProjetos = () => {
         const cadastrados = Array.isArray(dados)
           ? dados
           : dados.projetos || [];
+        // Mantém os projetos cadastrados e complementa com os registros do repositório.
         const comFoto = cadastrados.filter((item) => item.foto || item.url_foto);
         const chaves = new Set(comFoto.map((item) =>
           (item.titulo_projeto || "").trim().toLowerCase() + "|" +
