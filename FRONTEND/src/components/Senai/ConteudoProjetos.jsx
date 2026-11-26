@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./ConteudoProjetos.css";
 import { API, mediaUrl } from "../../config.js";
-import { projetosDoRepositorio } from "./conteudoRepositorio.js";
+import { projetosDoRepositorio, imagensDoRepositorio } from "./conteudoRepositorio.js";
 
 const ConteudoProjetos = () => {
   const [projetos, setProjetos] = useState([]);
@@ -43,7 +43,7 @@ const ConteudoProjetos = () => {
             foto: item.arquivo || item.url_arquivo,
             etiquetas: [],
           }));
-        setProjetos([...comFoto, ...imagensGaleria, ...complementares]);
+        const imagensRepositorio = imagensDoRepositorio.map((item) => ({\n          id: item.id,\n          titulo_projeto: item.titulo_midia,\n          texto_card: item.explicado_a_midia || "",\n          unidade_curricular: item.unidade_curricular || "Registro",\n          foto: item.arquivo,\n          etiquetas: [],\n        }));\n        const titulosExistentes = new Set([...comFoto, ...imagensGaleria].map((p) => (p.titulo_projeto || "").trim().toLowerCase()));\n        const imagensRepositorioFiltradas = imagensRepositorio.filter((p) => !titulosExistentes.has((p.titulo_projeto || "").trim().toLowerCase()));\n        setProjetos([...comFoto, ...imagensGaleria, ...imagensRepositorioFiltradas, ...complementares]);
       } catch (erro) {
         console.error("Não foi possível consultar os projetos do servidor; exibindo os do repositório.", erro);
         setProjetos(projetosDoRepositorio);
