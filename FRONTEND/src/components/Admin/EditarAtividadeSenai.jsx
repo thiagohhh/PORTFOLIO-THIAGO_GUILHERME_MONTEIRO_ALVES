@@ -123,11 +123,13 @@ const EditarAtividadeSenai = () => {
         } else if (abaAtiva === "Aprendizagens") {
           setTituloAprendizagem(item.titulo_aprendizagem || "");
           setDescricaoAprendizagem(item.descricao_aprendizagem || item.descricao || "");
-          setEstrelas(Number(item.estrelas || 0));
+          setEstrelas(Number(item.nivel_estrelas || 0));
         } else if (abaAtiva === "Autoavaliação") {
-          setBolinhas(Number(item.bolinhas || item.nota || 0));
+          setBolinhas(Number(item.nota_bolinhas || 0));
           setPercentual(item.percentual != null ? String(item.percentual) : "");
-          setJustificativa(item.justificativa || "");
+          setJustificativa(item.justificativa_texto || "");
+        } else if (abaAtiva === "Competências") {
+          setTituloCompetencia(item.titulo_competencia || "");
         }
       } catch {
         setMensagem("Erro ao carregar atividade.");
