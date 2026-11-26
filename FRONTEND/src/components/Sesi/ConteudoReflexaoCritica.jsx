@@ -4,7 +4,11 @@ import { useEffect, useState } from "react";
 import "./ConteudoReflexaoCritica.css";
 import { API } from "../../config.js";
 
-const ConteudoReflexaoCritica = () => {
+function normalizarArea(valor) {
+  return String(valor || "").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").trim();
+}
+
+const ConteudoReflexaoCritica = ({ disciplina }) => {
   const [lista, setLista] = useState([]);
   const [carregando, setCarregando] = useState(true);
 
@@ -18,7 +22,8 @@ const ConteudoReflexaoCritica = () => {
           },
         });
         const dados = await resposta.json();
-        setLista(Array.isArray(dados) ? dados : []);
+        const todos = Array.isArray(dados) ? dados : [];
+        setLista(todos.filter((item) => normalizarArea(item.area) === normalizarArea(disciplina)));
       } catch (erro) {
         console.error(erro);
         setLista([]);
@@ -27,7 +32,7 @@ const ConteudoReflexaoCritica = () => {
       }
     }
     buscar();
-  }, []);
+  }, [disciplina]);
 
   if (carregando) return <p>Carregando...</p>;
   if (lista.length === 0) {

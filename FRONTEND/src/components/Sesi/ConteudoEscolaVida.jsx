@@ -6,7 +6,11 @@ import { useEffect, useState } from "react";
 import "./ConteudoEscolaVida.css";
 import { API } from "../../config.js";
 
-const ConteudoEscolaVida = () => {
+function normalizarArea(valor) {
+  return String(valor || "").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").trim();
+}
+
+const ConteudoEscolaVida = ({ disciplina }) => {
   const [lista, setLista] = useState([]);
   const [carregando, setCarregando] = useState(true);
 
@@ -20,7 +24,8 @@ const ConteudoEscolaVida = () => {
           },
         });
         const dados = await resposta.json();
-        setLista(Array.isArray(dados) ? dados : []);
+        const todos = Array.isArray(dados) ? dados : [];
+        setLista(todos.filter((item) => normalizarArea(item.area) === normalizarArea(disciplina)));
       } catch (erro) {
         console.error(erro);
         setLista([]);
@@ -29,7 +34,7 @@ const ConteudoEscolaVida = () => {
       }
     }
     buscar();
-  }, []);
+  }, [disciplina]);
 
   if (carregando) return <p>Carregando...</p>;
   if (lista.length === 0) {

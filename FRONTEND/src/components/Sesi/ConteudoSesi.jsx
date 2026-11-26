@@ -86,9 +86,9 @@ const ConteudoSesi = ({ disciplina }) => {
     if (secaoAtiva === "Fundamentos teóricos") return <ConteudoFundamentos bimestre={bimestreAtivo} disciplina={disciplina}/>; 
     if (secaoAtiva === "Participação em sala") return <ConteudoParticipacao bimestre={bimestreAtivo} disciplina={disciplina}/>;
     if (secaoAtiva === "Projetos e trabalhos") return <ConteudoProjetos bimestre={bimestreAtivo} disciplina={disciplina}/>;
-    if (secaoAtiva === "Reflexão crítica") return <ConteudoReflexaoCritica/>; 
+    if (secaoAtiva === "Reflexão crítica") return <ConteudoReflexaoCritica disciplina={disciplina}/>; 
     if (secaoAtiva === "Conexões interdisciplinares") return <ConteudoConexoesInterdisciplinares disciplina={disciplina} />; 
-    if (secaoAtiva === "Da escola para a vida") return <ConteudoEscolaVida/>; 
+    if (secaoAtiva === "Da escola para a vida") return <ConteudoEscolaVida disciplina={disciplina}/>; 
     return null; 
   }
 

@@ -17,6 +17,10 @@ const EscolaParaVida = conn.define("EscolaParaVida", {
             min: { args: [1], msg: "O ID do aluno deve ser maior que zero." }
         }
     },
+    area: {
+        type: DataTypes.STRING(100),
+        allowNull: true
+    },
     reflexao_experiencia: {
         type: DataTypes.TEXT,
         allowNull: false,

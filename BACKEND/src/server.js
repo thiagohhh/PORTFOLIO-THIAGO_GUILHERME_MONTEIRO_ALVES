@@ -1,5 +1,6 @@
 import "dotenv/config";
 import bcrypt from "bcrypt";
+import { DataTypes } from "sequelize";
 import conn from "./config/conn.js";
 import app from "./app.js";
 import "./models/index.js"; 
@@ -18,6 +19,25 @@ async function iniciarServidor() {
 
    
     await conn.sync();
+
+    // Adiciona a coluna area às tabelas existentes sem apagar os registros antigos.
+    const queryInterface = conn.getQueryInterface();
+    const tabelasComArea = [
+      "fundamentos_teoricos",
+      "participacao_sala",
+      "projetos_trabalhos_sesi",
+      "reflexao_critica",
+      "escola_para_vida",
+    ];
+    for (const tabela of tabelasComArea) {
+      const colunas = await queryInterface.describeTable(tabela);
+      if (!colunas.area) {
+        await queryInterface.addColumn(tabela, "area", {
+          type: DataTypes.STRING(100),
+          allowNull: true,
+        });
+      }
+    }
     // await conn.sync({ force: true }); 
 
     const totalAlunos = await Aluno.count();

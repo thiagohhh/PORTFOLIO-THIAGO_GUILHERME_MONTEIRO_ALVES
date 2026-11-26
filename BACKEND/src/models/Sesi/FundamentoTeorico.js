@@ -17,6 +17,10 @@ const FundamentoTeorico = conn.define("FundamentoTeorico", {
             min: { args: [1], msg: "O ID do aluno deve ser maior que zero." }
         }
     },
+    area: {
+        type: DataTypes.STRING(100),
+        allowNull: true
+    },
     bimestre: {
         type: DataTypes.INTEGER,
         allowNull: false,

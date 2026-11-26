@@ -15,6 +15,8 @@ import Header from "../layout/Header"
 import "./EditarAtividadeSesi.css";
 import { API } from "../../config.js";
 
+const areas = ["Ciências da Natureza", "Linguagens", "Ciências Humanas", "Matemática"];
+
 const secoes = [
   "Fundamentos teóricos",
   "Participação em sala",
@@ -50,6 +52,7 @@ const EditarAtividadeSesi = () => {
   const [bimestreAtivo, setBimestreAtivo] = useState(
     estadoInicial.bimestre ? Number(estadoInicial.bimestre) : 1,
   );
+  const [areaAtiva, setAreaAtiva] = useState(estadoInicial.area || "Matemática");
   const [idItem, setIdItem] = useState(
     estadoInicial.id != null ? String(estadoInicial.id) : "",
   );
@@ -87,8 +90,10 @@ const EditarAtividadeSesi = () => {
         const resto = { ...item };
         delete resto.id;
         delete resto.aluno_id;
+        delete resto.area;
         setCampos(resto);
         if (item.bimestre != null) setBimestreAtivo(Number(item.bimestre));
+        if (item.area) setAreaAtiva(item.area);
         if (item.autoavaliacao != null) setAutoavaliacao(Number(item.autoavaliacao));
       } catch {
         setMensagem("Deu erro ao carregar a atividade.");
@@ -131,6 +136,7 @@ const EditarAtividadeSesi = () => {
         const dadosForm = new FormData(evento.currentTarget);
         dadosForm.append("aluno_id", alunoId);
         dadosForm.append("bimestre", bimestreAtivo);
+        dadosForm.append("area", areaAtiva);
 
         const token = localStorage.getItem("token");
         resposta = await fetch(`${API}${caminhoApi}`, {
@@ -143,6 +149,7 @@ const EditarAtividadeSesi = () => {
       } else {
         const dadosJson = {
           aluno_id: alunoId,
+          area: areaAtiva,
           ...campos,
         };
 
@@ -248,8 +255,17 @@ const EditarAtividadeSesi = () => {
             </div>
 
             <div className="grupo-selecao-admin">
+              <p className="titulo-grupo"><span className="numero-etapa-admin">2</span>Área</p>
+              <div className="opcoes-admin">
+                {areas.map((area) => (
+                  <button key={area} type="button" className={"opcao-admin " + (areaAtiva === area ? "selecionada" : "")} onClick={() => setAreaAtiva(area)}>{area}</button>
+                ))}
+              </div>
+            </div>
+
+            <div className="grupo-selecao-admin">
               <p className="titulo-grupo">
-                <span className="numero-etapa-admin">2</span>Seção
+                <span className="numero-etapa-admin">3</span>Seção
               </p>
               <div className="opcoes-admin opcoes-secoes-admin">
                 {secoes.map((secao) => (
@@ -292,7 +308,7 @@ const EditarAtividadeSesi = () => {
             <div className="bloco-conteudo-admin">
               <p className="titulo-grupo">
                 <span className="numero-etapa-admin">
-                  {ehSecaoAnual ? 3 : 4}
+                  {ehSecaoAnual ? 4 : 5}
                 </span>
                 Conteúdo
               </p>
@@ -615,7 +631,7 @@ const EditarAtividadeSesi = () => {
               )}
 
               <p className="destino-atividade-admin">
-                Vai atualizar em: Sesi › {secaoAtiva}{" "}
+                Vai atualizar em: Sesi › {areaAtiva} › {secaoAtiva}{" "}
                 {!ehSecaoAnual && ` › ${bimestreAtivo}º bimestre`}
               </p>
 

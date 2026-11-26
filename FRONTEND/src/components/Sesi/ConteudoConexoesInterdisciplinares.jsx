@@ -80,7 +80,7 @@ const ConteudoConexoesInterdisciplinares = ({ disciplina }) => {
         });
 
     
-        const escolhido = daArea.at(-1) || lista.at(-1) || null;
+        const escolhido = daArea.at(-1) || null;
 
         setItem(escolhido);
       } catch {
