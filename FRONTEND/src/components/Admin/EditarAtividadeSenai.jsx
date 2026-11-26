@@ -293,7 +293,7 @@ const EditarAtividadeSenai = () => {
         }}
       >
         <img src={icone} alt="" />
-        {previewAtual && !nomeArquivo && (abaAtiva !== "Galeria" || tipoMidia === "Imagem") && <img className="preview-arquivo-existente" src={previewAtual} alt="Arquivo atual" onError={(e) => { e.currentTarget.style.display = "none"; }} />}
+        {previewAtual && !nomeArquivo && (abaAtiva !== "Galeria" || tipoMidia === "Imagem") && <><img className="preview-arquivo-existente" src={previewAtual} alt="Arquivo atual" onError={(e) => { e.currentTarget.style.display = "none"; const aviso = document.createElement("p"); aviso.textContent = "Não foi possível carregar a imagem. O endereço salvo pode estar inválido ou inacessível."; aviso.className = "aviso-preview-falha"; e.currentTarget.parentElement.insertBefore(aviso, e.currentTarget.nextSibling); }} /><small className="endereco-preview-debug">Endereço do arquivo: {previewAtual}</small></>}
         <strong>Clique ou arraste para enviar ({rotulo})</strong>
         <span>{nomeArquivo || "Nenhum arquivo selecionado"}</span>
         <input
