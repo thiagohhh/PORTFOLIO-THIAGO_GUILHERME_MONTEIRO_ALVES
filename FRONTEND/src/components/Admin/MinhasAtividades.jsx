@@ -19,6 +19,7 @@ const fontes = [
   { tipo: "Senai · Relatórios", listar: "/senai/relatorios", apagar: "/senai/relatorios", editarRota: "/admin/atividades/editar/senai", secao: "Relatórios", instituicao: "Senai", titulo: (i) => i.titulo_relatorio },
   { tipo: "Senai · Aprendizagens", listar: "/senai/aprendizagens", apagar: "/senai/aprendizagens", editarRota: "/admin/atividades/editar/senai", secao: "Aprendizagens", instituicao: "Senai", titulo: (i) => i.titulo_aprendizagem },
   { tipo: "Senai · Autoavaliação", listar: "/senai/autoavaliacoes", apagar: "/senai/autoavaliacoes", editarRota: "/admin/atividades/editar/senai", secao: "Autoavaliação", instituicao: "Senai", titulo: (i) => i.unidade_curricular },
+  { tipo: "Senai · Competências", listar: "/senai/competencias", apagar: "/senai/competencias", editarRota: "/admin/atividades/editar/senai", secao: "Competências", instituicao: "Senai", titulo: (i) => i.titulo_competencia },
   { tipo: "Sesi · Fundamentos", listar: "/sesi/fundamentosTeoricos", apagar: "/sesi/fundamentosTeoricos", editarRota: "/admin/atividades/editar/sesi", secao: "Fundamentos teóricos", instituicao: "Sesi", titulo: (i) => "Fundamentos · " + (i.bimestre || "") + "º bim" },
   { tipo: "Sesi · Participação", listar: "/sesi/participacoesEmSala", apagar: "/sesi/participacoesEmSala", editarRota: "/admin/atividades/editar/sesi", secao: "Participação em sala", instituicao: "Sesi", titulo: (i) => "Participação · " + (i.bimestre || "") + "º bim" },
   { tipo: "Sesi · Projetos", listar: "/sesi/projetosTrabalhos", apagar: "/sesi/projetosTrabalhos", editarRota: "/admin/atividades/editar/sesi", secao: "Projetos e trabalhos", instituicao: "Sesi", titulo: (i) => i.titulo_projeto },
@@ -28,7 +29,7 @@ const fontes = [
 ];
 
 
-const SECOES_SENAI = ["Projetos", "Códigos", "Galeria", "Relatórios", "Aprendizagens", "Autoavaliação"];
+const SECOES_SENAI = ["Projetos", "Códigos", "Galeria", "Relatórios", "Aprendizagens", "Autoavaliação", "Competências"];
 const SECOES_SESI = [
   "Fundamentos teóricos",
   "Participação em sala",
