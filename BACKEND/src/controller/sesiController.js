@@ -374,6 +374,7 @@ export const atualizarParticipacaoEmSala = async (request, response) => {
     const {
       aluno_id,
       bimestre,
+      area,
       registro_atividades,
       o_que_chamou_atencao,
       reflexao_pratica,
