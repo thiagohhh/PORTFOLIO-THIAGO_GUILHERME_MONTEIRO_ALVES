@@ -53,7 +53,6 @@ Os painéis consultam uma rota própria e apresentam os dados recebidos, com est
 |---|---|
 | `src/components/Senai/ConteudoProjetos.jsx` | Aceita a lista de projetos tanto diretamente quanto dentro da propriedade `projetos`; apresenta foto, título e descrição. |
 | `src/components/Senai/ConteudoCodigo.jsx` | Lista os códigos com linguagem e bloco de código formatado. |
-| `src/components/Senai/ConteudoGaleria.jsx` | Lista mídias e constrói o endereço de cada arquivo armazenado no backend. |
 | `src/components/Senai/ConteudoRelatorios.jsx` | Lista relatórios com links para abrir ou baixar o PDF. |
 | `src/components/Senai/ConteudoAprendizagens.jsx` | Lista aprendizagens e representa o nível de estrelas com ícones preenchidos ou vazios. |
 | `src/components/Senai/ConteudoAutoavaliacao.jsx` | Lista autoavaliações, converte nota em marcadores e percentual em largura de barra de progresso. |
