@@ -106,8 +106,7 @@ const EditarAtividadeSenai = () => {
           setTituloCodigo(item.titulo_codigo || "");
           setLinguagem(item.linguagem || "");
           setBlocoCodigo(item.codigo || item.bloco_codigo || "");
-        } else if (abaAtiva === "Galeria") {
-        } else if (abaAtiva === "Relatórios") {
+ else if (abaAtiva === "Relatórios") {
           setTituloRelatorio(item.titulo_relatorio || "");
           setTextoRelatorio(item.texto_relatorio || "");
         } else if (abaAtiva === "Aprendizagens") {
