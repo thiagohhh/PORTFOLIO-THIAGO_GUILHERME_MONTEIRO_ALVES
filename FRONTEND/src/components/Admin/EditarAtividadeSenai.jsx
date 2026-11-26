@@ -108,6 +108,7 @@ const EditarAtividadeSenai = () => {
         if (abaAtiva === "Projetos") {
           setTituloProjeto(item.titulo_projeto || "");
           setTextoCard(item.texto_card || "");
+          setEtiquetas(Array.isArray(item.etiquetas) ? item.etiquetas : []);
         } else if (abaAtiva === "Códigos") {
           setTituloCodigo(item.titulo_codigo || "");
           setLinguagem(item.linguagem || "");
@@ -195,7 +196,10 @@ const EditarAtividadeSenai = () => {
       if (abasComArquivo.includes(abaAtiva)) {
         const dados = new FormData(evento.currentTarget);
         dados.append("aluno_id", alunoId);
-        etiquetas.forEach((et) => dados.append("etiquetas[]", et));
+        if (abaAtiva === "Projetos") {
+          dados.append("etiquetas_enviadas", "true");
+          etiquetas.forEach((et) => dados.append("etiquetas[]", et));
+        }
 
         const token = localStorage.getItem("token");
         resposta = await fetch(`${API}${caminho}`, {
