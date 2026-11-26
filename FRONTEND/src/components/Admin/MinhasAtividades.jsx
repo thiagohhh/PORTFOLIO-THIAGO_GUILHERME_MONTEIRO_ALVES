@@ -15,7 +15,6 @@ import { API } from "../../config.js";
 const fontes = [
   { tipo: "Senai · Projetos", listar: "/senai/projetos", apagar: "/senai/projetos", editarRota: "/admin/atividades/editar/senai", secao: "Projetos", instituicao: "Senai", titulo: (i) => i.titulo_projeto },
   { tipo: "Senai · Códigos", listar: "/senai/codigos", apagar: "/senai/codigos", editarRota: "/admin/atividades/editar/senai", secao: "Códigos", instituicao: "Senai", titulo: (i) => i.titulo_codigo },
-  { tipo: "Senai · Galeria", listar: "/senai/galeria", apagar: "/senai/galeria", editarRota: "/admin/atividades/editar/senai", secao: "Galeria", instituicao: "Senai", titulo: (i) => i.titulo_midia },
   { tipo: "Senai · Relatórios", listar: "/senai/relatorios", apagar: "/senai/relatorios", editarRota: "/admin/atividades/editar/senai", secao: "Relatórios", instituicao: "Senai", titulo: (i) => i.titulo_relatorio },
   { tipo: "Senai · Aprendizagens", listar: "/senai/aprendizagens", apagar: "/senai/aprendizagens", editarRota: "/admin/atividades/editar/senai", secao: "Aprendizagens", instituicao: "Senai", titulo: (i) => i.titulo_aprendizagem },
   { tipo: "Senai · Autoavaliação", listar: "/senai/autoavaliacoes", apagar: "/senai/autoavaliacoes", editarRota: "/admin/atividades/editar/senai", secao: "Autoavaliação", instituicao: "Senai", titulo: (i) => i.unidade_curricular },
@@ -29,7 +28,7 @@ const fontes = [
 ];
 
 
-const SECOES_SENAI = ["Projetos", "Códigos", "Galeria", "Relatórios", "Aprendizagens", "Autoavaliação", "Competências"];
+const SECOES_SENAI = ["Projetos", "Códigos", "Relatórios", "Aprendizagens", "Autoavaliação", "Competências"];
 const SECOES_SESI = [
   "Fundamentos teóricos",
   "Participação em sala",
