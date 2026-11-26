@@ -8,6 +8,9 @@ const ConteudoProjetos = () => {
   const [carregando, setCarregando] = useState(true);
   const [imagemAmpliada, setImagemAmpliada] = useState(null);
 
+  // Imagens locais do frontend devem usar a própria URL do site, não a API do backend.
+  const urlImagem = (foto) => foto?.startsWith("/images/senai/") ? foto : mediaUrl(foto);
+
   useEffect(() => {
     async function buscar() {
       try {
@@ -50,11 +53,11 @@ const ConteudoProjetos = () => {
                 <div className="placeholder-projeto">
                   <button type="button" className="botao-imagem-projeto"
                     onClick={() => setImagemAmpliada({
-                      src: mediaUrl(foto),
+                      src: urlImagem(foto),
                       alt: projeto.titulo_projeto || "Imagem do projeto",
                     })}
                     aria-label={`Ampliar imagem de ${projeto.titulo_projeto || "projeto"}`}>
-                    <img src={mediaUrl(foto)} alt={projeto.titulo_projeto || "Imagem do projeto"}
+                    <img src={urlImagem(foto)} alt={projeto.titulo_projeto || "Imagem do projeto"}
                       loading="lazy" />
                     <span className="dica-ampliar-imagem">Clique para ampliar</span>
                   </button>
