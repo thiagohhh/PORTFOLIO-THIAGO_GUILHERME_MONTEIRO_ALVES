@@ -1,5 +1,3 @@
-
-
 import "./MenuSenai.css";
 
 const abas = [
@@ -9,6 +7,7 @@ const abas = [
   "Relatórios",
   "Aprendizagens",
   "Autoavaliação",
+  "Competências",
 ];
 
 const MenuSenai = ({ abaAtual, aoClicarNaAba }) => {
