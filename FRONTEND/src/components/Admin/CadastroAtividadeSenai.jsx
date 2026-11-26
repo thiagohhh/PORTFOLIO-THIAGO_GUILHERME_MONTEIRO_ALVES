@@ -51,13 +51,6 @@ const CadastroAtividadeSenai = () => {
   const [tituloCodigo, setTituloCodigo] = useState("");
   const [linguagem, setLinguagem] = useState("");
   const [blocoCodigo, setBlocoCodigo] = useState("");
-
-  const [tipoMidia, setTipoMidia] = useState("");
-  const [tituloMidia, setTituloMidia] = useState("");
-  const [descricaoMidia, setDescricaoMidia] = useState("");
-  const [nomeArquivoGaleria, setNomeArquivoGaleria] = useState("");
-  const [arquivoGaleria, setArquivoGaleria] = useState(null);
-
   const [tituloRelatorio, setTituloRelatorio] = useState("");
   const [textoRelatorio, setTextoRelatorio] = useState("");
   const [nomePdf, setNomePdf] = useState("");
@@ -95,10 +88,6 @@ const CadastroAtividadeSenai = () => {
     setTituloCodigo("");
     setLinguagem("");
     setBlocoCodigo("");
-    setTipoMidia("");
-    setTituloMidia("");
-    setDescricaoMidia("");
-    setNomeArquivoGaleria("");
     setTituloRelatorio("");
     setTextoRelatorio("");
     setNomePdf("");
@@ -141,16 +130,6 @@ const CadastroAtividadeSenai = () => {
           dados.append("foto", fotoArquivo);
         }
         etiquetas.forEach((et) => dados.append("etiquetas[]", et));
-      }
-
-      if (abaAtiva === "Galeria") {
-        dados.append("tipo_midia", tipoMidia);
-        dados.append("titulo_midia", tituloMidia);
-        dados.append("explicado_a_midia", descricaoMidia);
-
-        if (arquivoGaleria) {
-          dados.append("arquivo", arquivoGaleria);
-        }
       }
 
       if (abaAtiva === "Relatórios") {
@@ -379,53 +358,7 @@ const CadastroAtividadeSenai = () => {
         </>
       );
     }
-    if (abaAtiva === "Galeria") {
-      return (
-        <>
-          <div className="campo-senai">
-            <select
-              name="tipo_midia"
-              value={tipoMidia}
-              onChange={(e) => setTipoMidia(e.target.value)}
-            >
-              <option value="">Selecione tipo de mídia...</option>
-              <option value="Imagem">Imagem</option>
-              <option value="Vídeo">Vídeo</option>
-            </select>
-          </div>
-          <div className="campo-senai">
-            <input
-              name="titulo_midia"
-              type="text"
-              placeholder="Digite o título da mídia..."
-              value={tituloMidia}
-              onChange={(e) => setTituloMidia(e.target.value)}
-            />
-          </div>
-          <div className="campo-senai">
-            <textarea
-              name="explicado_a_midia"
-              rows={2}
-              placeholder="Escreva a descrição da mídia aqui..."
-              value={descricaoMidia}
-              onChange={(e) => setDescricaoMidia(e.target.value)}
-            />
-          </div>
-          <div className="campo-senai">
-            <AreaArquivo
-              id="arquivo-galeria"
-              name="arquivo"
-              accept="image/*,video/*"
-              icone={iconeGaleria}
-              rotulo="arquivo da galeria"
-              nomeArquivo={nomeArquivoGaleria}
-              setNomeArquivo={setNomeArquivoGaleria}
-              setFotoArquivo={setArquivoGaleria}
-            />
-          </div>
-        </>
-      );
-    }
+
     if (abaAtiva === "Relatórios") {
       return (
         <>
