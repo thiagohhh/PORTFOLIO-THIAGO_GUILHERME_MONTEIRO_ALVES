@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./ConteudoProjetos.css";
 import { API, mediaUrl } from "../../config.js";
-import { projetosDoRepositorio, imagensDoRepositorio } from "./conteudoRepositorio.js";
+import { projetosDoRepositorio } from "./conteudoRepositorio.js";
 
 const ConteudoProjetos = () => {
   const [projetos, setProjetos] = useState([]);
@@ -28,39 +28,10 @@ const ConteudoProjetos = () => {
         const complementares = projetosDoRepositorio.filter((item) =>
           !chaves.has(item.titulo_projeto.toLowerCase() + "|" + item.unidade_curricular.toLowerCase())
         );
-        const imagensRepositorio = imagensDoRepositorio.map((item) => ({
-          id: item.id,
-          titulo_projeto: item.titulo_midia,
-          texto_card: item.explicado_a_midia || "",
-          unidade_curricular: item.unidade_curricular || "Registro",
-          foto: item.arquivo,
-          etiquetas: [],
-        }));
-        // Para estes sete registros, os arquivos do GitHub são a fonte oficial.
-        // Não deixar uma URL antiga do banco/Supabase ocultar a imagem correta do repositório.
-        const titulosOficiais = new Set(imagensRepositorio.map((p) => (p.titulo_projeto || "").trim().toLowerCase()));
-        const projetosDoBancoFiltrados = comFoto.filter((p) =>
-          !titulosOficiais.has((p.titulo_projeto || "").trim().toLowerCase())
-        );
-        const complementaresFiltrados = complementares.filter((p) =>
-          !titulosOficiais.has((p.titulo_projeto || "").trim().toLowerCase())
-        );
-        setProjetos([...imagensRepositorio, ...projetosDoBancoFiltrados, ...complementaresFiltrados]);
+        setProjetos([...comFoto, ...complementares]);
       } catch (erro) {
         console.error("Não foi possível consultar os projetos do servidor; exibindo os do repositório.", erro);
-        const imagensFallback = imagensDoRepositorio.map((item) => ({
-          id: item.id,
-          titulo_projeto: item.titulo_midia,
-          texto_card: item.explicado_a_midia || "",
-          unidade_curricular: item.unidade_curricular || "Registro",
-          foto: item.arquivo,
-          etiquetas: [],
-        }));
-        const titulosOficiais = new Set(imagensFallback.map((p) => (p.titulo_projeto || "").trim().toLowerCase()));
-        const projetosSemDuplicatas = projetosDoRepositorio.filter((p) =>
-          !titulosOficiais.has((p.titulo_projeto || "").trim().toLowerCase())
-        );
-        setProjetos([...imagensFallback, ...projetosSemDuplicatas]);
+        setProjetos(projetosDoRepositorio);
       } finally {
         setCarregando(false);
       }
