@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: start;
-  gap: 12px;
+  gap: 0;
 }
 
 .cartao-codigo {
@@ -11,7 +11,7 @@
   padding: 14px;
   border: 2px solid var(--cor-preta);
   background: var(--cor-branca);
-  box-shadow: 3px 3px 0 var(--cor-preta);
+  box-shadow: none;
   margin: 0;
 }
 
