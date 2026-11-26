@@ -170,6 +170,7 @@ const CadastroAtividadeSesi = () => {
         const dados = new FormData();
         dados.append("aluno_id", String(alunoId));
         dados.append("bimestre", String(bimestreAtivo));
+        dados.append("area", areaAtiva);
         dados.append("titulo_projeto", campos.titulo_projeto || "");
         dados.append("texto_card", campos.texto_card || "");
 
@@ -210,6 +211,7 @@ const CadastroAtividadeSesi = () => {
       } else {
         const dados = {
           aluno_id: alunoId,
+          area: areaAtiva,
           ...campos,
         };
 
