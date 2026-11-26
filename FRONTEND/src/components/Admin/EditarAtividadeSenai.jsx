@@ -468,6 +468,7 @@ const EditarAtividadeSenai = () => {
               rotulo="arquivo da galeria"
               nomeArquivo={nomeArquivoGaleria}
               setNomeArquivo={setNomeArquivoGaleria}
+              previewAtual={arquivoGaleriaAtual}
             />
           </div>
         </>
