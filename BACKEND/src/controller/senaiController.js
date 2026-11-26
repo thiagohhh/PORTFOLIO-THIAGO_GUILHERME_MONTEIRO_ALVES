@@ -4,7 +4,6 @@ import {
   Codigo,
   Competencia,
   Detalhe,
-  Galeria,
   Projeto,
   Relatorio,
 } from "../models/index.js";
@@ -476,119 +475,6 @@ export const deletarDetalhe = async (request, response) => {
 };
 
 // Galeria
-export const criarItemGaleria = async (request, response) => {
-  try {
-    const {
-      aluno_id,
-      unidade_curricular,
-      tipo_midia,
-      titulo_midia,
-      explicado_a_midia,
-    } = request.body;
-
-    const arquivo = request.file ? request.file.filename : null;
-
-    if (!aluno_id) {
-      return response
-        .status(400)
-        .json({ message: "O ID do aluno é obrigatório." });
-    }
-    if (!unidade_curricular) {
-      return response
-        .status(400)
-        .json({ message: "A unidade curricular é obrigatória." });
-    }
-    if (!tipo_midia) {
-      return response
-        .status(400)
-        .json({ message: "O tipo de mídia é obrigatório." });
-    }
-    if (!titulo_midia) {
-      return response
-        .status(400)
-        .json({ message: "O título da mídia é obrigatório." });
-    }
-    if (!explicado_a_midia) {
-      return response
-        .status(400)
-        .json({ message: "A explicação da mídia é obrigatória." });
-    }
-    if (!arquivo) {
-      return response.status(400).json({ message: "O arquivo é obrigatório." });
-    }
-
-    const itemGaleria = await Galeria.create({
-      aluno_id,
-      unidade_curricular,
-      tipo_midia,
-      titulo_midia,
-      explicado_a_midia,
-      arquivo,
-    });
-    return response.status(201).json(itemGaleria);
-  } catch {
-    return tratarErros(request, response);
-  }
-};
-export const listarItensGaleria = async (request, response) => {
-  try {
-    const itensGaleria = await Galeria.findAll();
-    return response.status(200).json(itensGaleria);
-  } catch {
-    return tratarErros(request, response);
-  }
-};
-export const atualizarItemGaleria = async (request, response) => {
-  try {
-    const { id } = request.params;
-    const {
-      aluno_id,
-      unidade_curricular,
-      tipo_midia,
-      titulo_midia,
-      explicado_a_midia,
-    } = request.body;
-
-    const itemGaleria = await Galeria.findByPk(id);
-    if (!itemGaleria) {
-      return response
-        .status(404)
-        .json({ message: "Item da galeria não encontrado." });
-    }
-
-    let arquivo = itemGaleria.arquivo;
-    if (request.file) {
-      arquivo = request.file.filename;
-    }
-
-    await itemGaleria.update({
-      aluno_id,
-      unidade_curricular,
-      tipo_midia,
-      titulo_midia,
-      explicado_a_midia,
-      arquivo,
-    });
-    return response.status(200).json(itemGaleria);
-  } catch {
-    return tratarErros(request, response);
-  }
-};
-export const deletarItemGaleria = async (request, response) => {
-  try {
-    const itemGaleria = await Galeria.findByPk(request.params.id);
-    if (!itemGaleria) {
-      return response
-        .status(404)
-        .json({ message: "Item da galeria não encontrado." });
-    }
-    await itemGaleria.destroy();
-    return response.status(204).send();
-  } catch {
-    return tratarErros(request, response);
-  }
-};
-
 // Projeto
 export const criarProjeto = async (request, response) => {
   try {
