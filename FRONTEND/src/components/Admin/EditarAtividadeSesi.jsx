@@ -90,6 +90,7 @@ const EditarAtividadeSesi = () => {
         const resto = { ...item };
         delete resto.id;
         delete resto.aluno_id;
+        delete resto.area;
         setCampos(resto);
         if (item.bimestre != null) setBimestreAtivo(Number(item.bimestre));
         if (item.area) setAreaAtiva(item.area);
