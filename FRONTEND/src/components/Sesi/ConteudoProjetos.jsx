@@ -6,7 +6,7 @@ import "./ConteudoProjetos.css";
 import { API, mediaUrl } from "../../config.js";
 
 function normalizarArea(valor) {
-  return String(valor || "").toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g, "").trim();
+  return String(valor || "").toLowerCase().normalize("NFD").replace(/\\p{Diacritic}/gu, "").trim();
 }
 
 const ConteudoProjetos = ({ bimestre, disciplina }) => {
@@ -40,7 +40,7 @@ const ConteudoProjetos = ({ bimestre, disciplina }) => {
       }
     }
     buscar();
-  }, [numeroBimestre]);
+  }, [numeroBimestre, disciplina]);
 
   if (carregando) return <p>Carregando projetos...</p>;
   if (lista.length === 0) {
