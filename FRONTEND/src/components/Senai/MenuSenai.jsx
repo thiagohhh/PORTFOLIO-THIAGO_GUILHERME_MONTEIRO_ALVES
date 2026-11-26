@@ -1,5 +1,7 @@
 import "./MenuSenai.css";
 
+// Atualização para publicar a versão mais recente do portfólio.
+
 const abas = [
   "Projetos",
   "Código",
