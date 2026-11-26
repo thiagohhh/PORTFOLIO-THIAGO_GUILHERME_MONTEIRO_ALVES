@@ -35,7 +35,8 @@ const ConteudoProjetos = () => {
   }
 
   return (
-    <div className="grade-senai-projetos">
+    <>
+      <div className="grade-senai-projetos">
       {projetos.map((projeto) => (
         <article className="cartao-senai-projeto" key={projeto.id || projeto.titulo_projeto}>
           <div className="placeholder-projeto">
@@ -96,6 +97,7 @@ const ConteudoProjetos = () => {
           />
         </div>
       )}
+    </>
   );
 };
 
