@@ -348,7 +348,6 @@ export const criarParticipacaoEmSala = async (request, response) => {
       aluno_id,
       bimestre,
       area,
-      area,
       registro_atividades,
       o_que_chamou_atencao,
       reflexao_pratica,
