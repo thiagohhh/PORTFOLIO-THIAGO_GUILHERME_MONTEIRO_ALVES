@@ -183,6 +183,7 @@ export const atualizarEscolaParaVida = async (request, response) => {
     const { id } = request.params;
     const {
       aluno_id,
+      area,
       reflexao_experiencia,
       aplicacao_conhecimentos,
       influencia_forma_agir_pensar,
@@ -613,6 +614,7 @@ export const atualizarReflexaoCritica = async (request, response) => {
     const { id } = request.params;
     const {
       aluno_id,
+      area,
       aprendizado_academico,
       aplicacao_pratica,
       melhorias_necessarias,
