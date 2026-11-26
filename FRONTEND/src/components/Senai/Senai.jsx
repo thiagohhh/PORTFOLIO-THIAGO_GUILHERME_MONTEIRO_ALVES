@@ -3,7 +3,6 @@ import Header from "../layout/Header";
 import Rodape from "../layout/Rodape";
 import MenuSenai from "./MenuSenai";
 import ConteudoProjetos from "./ConteudoProjetos";
-import ConteudoGaleria from "./ConteudoGaleria";
 import ConteudoCodigo from "./ConteudoCodigo";
 import ConteudoRelatorios from "./ConteudoRelatorios";
 import ConteudoAprendizagens from "./ConteudoAprendizagens";
@@ -16,7 +15,6 @@ const Senai = () => {
 
   function mostrarConteudo() {
     if (abaAtual === "Projetos") return <ConteudoProjetos />;
-    if (abaAtual === "Galeria") return <ConteudoGaleria />;
     if (abaAtual === "Código") return <ConteudoCodigo />;
     if (abaAtual === "Relatórios") return <ConteudoRelatorios />;
     if (abaAtual === "Aprendizagens") return <ConteudoAprendizagens />;
