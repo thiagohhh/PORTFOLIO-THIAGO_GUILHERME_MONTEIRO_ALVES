@@ -17,6 +17,10 @@ const ReflexaoCritica = conn.define("ReflexaoCritica", {
             min: { args: [1], msg: "O ID do aluno deve ser maior que zero." }
         }
     },
+    area: {
+        type: DataTypes.STRING(100),
+        allowNull: true
+    },
     aprendizado_academico: {
         type: DataTypes.TEXT,
         allowNull: false,
