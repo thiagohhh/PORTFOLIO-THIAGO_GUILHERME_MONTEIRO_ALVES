@@ -56,7 +56,15 @@ const ConteudoProjetos = () => {
         setProjetos([...comFoto, ...imagensGaleria, ...imagensRepositorioFiltradas, ...complementares]);
       } catch (erro) {
         console.error("Não foi possível consultar os projetos do servidor; exibindo os do repositório.", erro);
-        setProjetos(projetosDoRepositorio);
+        const imagensFallback = imagensDoRepositorio.map((item) => ({
+          id: item.id,
+          titulo_projeto: item.titulo_midia,
+          texto_card: item.explicado_a_midia || "",
+          unidade_curricular: item.unidade_curricular || "Registro",
+          foto: item.arquivo,
+          etiquetas: [],
+        }));
+        setProjetos([...projetosDoRepositorio, ...imagensFallback]);
       } finally {
         setCarregando(false);
       }
