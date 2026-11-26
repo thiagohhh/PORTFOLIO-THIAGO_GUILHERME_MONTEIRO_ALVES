@@ -2,27 +2,28 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: start;
-  gap: 22px;
+  gap: 12px;
 }
 
 .cartao-codigo {
   min-width: 0;
   height: fit-content;
-  padding: 18px;
+  padding: 14px;
   border: 2px solid var(--cor-preta);
   background: var(--cor-branca);
   box-shadow: 3px 3px 0 var(--cor-preta);
+  margin: 0;
 }
 
 .cartao-codigo h3 {
-  margin: 0 0 10px;
+  margin: 0 0 6px;
   font-size: 19px;
 }
 
 .cartao-codigo p {
   margin: 0;
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 1.45;
 }
 
 .cartao-codigo pre {
@@ -30,13 +31,13 @@
   width: 100%;
   max-width: 100%;
   overflow-x: auto;
-  padding: 14px;
+  padding: 12px;
   border: 2px solid var(--cor-preta);
-  margin: 12px 0 0;
+  margin: 8px 0 0;
   background: #171717;
   color: #dfb135;
   font-size: 13px;
-  line-height: 1.55;
+  line-height: 1.45;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
@@ -49,5 +50,6 @@
 @media (max-width: 600px) {
   .grade-senai-codigo {
     grid-template-columns: 1fr;
+    gap: 10px;
   }
 }
