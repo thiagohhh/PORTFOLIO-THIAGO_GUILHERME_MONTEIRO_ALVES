@@ -110,6 +110,7 @@ const EditarAtividadeSenai = () => {
         if (abaAtiva === "Projetos") {
           setTituloProjeto(item.titulo_projeto || "");
           setTextoCard(item.texto_card || "");
+          setFotoAtual(item.foto || item.url_foto || "");
           setEtiquetas(Array.isArray(item.etiquetas) ? item.etiquetas : []);
         } else if (abaAtiva === "Códigos") {
           setTituloCodigo(item.titulo_codigo || "");
@@ -118,7 +119,8 @@ const EditarAtividadeSenai = () => {
         } else if (abaAtiva === "Galeria") {
           setTipoMidia(item.tipo_midia || "");
           setTituloMidia(item.titulo_midia || "");
-          setDescricaoMidia(item.explicado_a_midia || item.descricao || "");\n          setArquivoGaleriaAtual(item.arquivo || item.url_arquivo || "");
+          setDescricaoMidia(item.explicado_a_midia || item.descricao || "");
+          setArquivoGaleriaAtual(item.arquivo || item.url_arquivo || "");
         } else if (abaAtiva === "Relatórios") {
           setTituloRelatorio(item.titulo_relatorio || "");
           setTextoRelatorio(item.texto_relatorio || "");
@@ -159,6 +161,7 @@ const EditarAtividadeSenai = () => {
     setTituloProjeto("");
     setTextoCard("");
     setNomeFoto("");
+    setFotoAtual("");
     setEtiquetas([]);
     setNovaEtiqueta("");
     setTituloCodigo("");
@@ -168,6 +171,7 @@ const EditarAtividadeSenai = () => {
     setTituloMidia("");
     setDescricaoMidia("");
     setNomeArquivoGaleria("");
+    setArquivoGaleriaAtual("");
     setTituloRelatorio("");
     setTextoRelatorio("");
     setNomePdf("");
@@ -288,6 +292,7 @@ const EditarAtividadeSenai = () => {
         }}
       >
         <img src={icone} alt="" />
+        {previewAtual && !nomeArquivo && <img className="preview-arquivo-existente" src={previewAtual} alt="Arquivo atual" />}
         <strong>Clique ou arraste para enviar ({rotulo})</strong>
         <span>{nomeArquivo || "Nenhum arquivo selecionado"}</span>
         <input
