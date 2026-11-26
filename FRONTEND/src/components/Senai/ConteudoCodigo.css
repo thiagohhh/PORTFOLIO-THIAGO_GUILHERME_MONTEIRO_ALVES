@@ -1,12 +1,13 @@
 .grade-senai-codigo {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
   gap: 22px;
 }
 
 .cartao-codigo {
   min-width: 0;
-  min-height: 280px;
+  height: fit-content;
   padding: 18px;
   border: 2px solid var(--cor-preta);
   background: var(--cor-branca);
@@ -25,25 +26,28 @@
 }
 
 .cartao-codigo pre {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
   overflow-x: auto;
-  min-height: 170px;
-  padding: 16px;
+  padding: 14px;
   border: 2px solid var(--cor-preta);
   margin: 12px 0 0;
   background: #171717;
-  color: #dfb135; 
-  font-size: 14px;
-  line-height: 1.7;
+  color: #dfb135;
+  font-size: 13px;
+  line-height: 1.55;
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.cartao-codigo pre code {
+  color: #dfb135;
+  font-family: Consolas, "Courier New", monospace;
 }
 
 @media (max-width: 600px) {
   .grade-senai-codigo {
     grid-template-columns: 1fr;
   }
-}
-
-.cartao-codigo pre code {
-  color: #dfb135;
-  font-family: inherit;
 }
