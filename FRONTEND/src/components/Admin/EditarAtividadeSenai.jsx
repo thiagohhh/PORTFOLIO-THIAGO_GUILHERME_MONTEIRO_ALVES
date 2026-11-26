@@ -60,13 +60,6 @@ const EditarAtividadeSenai = () => {
   const [tituloCodigo, setTituloCodigo] = useState("");
   const [linguagem, setLinguagem] = useState("");
   const [blocoCodigo, setBlocoCodigo] = useState("");
-
-  const [tipoMidia, setTipoMidia] = useState("");
-  const [tituloMidia, setTituloMidia] = useState("");
-  const [descricaoMidia, setDescricaoMidia] = useState("");
-  const [nomeArquivoGaleria, setNomeArquivoGaleria] = useState("");
-  const [arquivoGaleriaAtual, setArquivoGaleriaAtual] = useState("");
-
   const [tituloRelatorio, setTituloRelatorio] = useState("");
   const [textoRelatorio, setTextoRelatorio] = useState("");
   const [nomePdf, setNomePdf] = useState("");
@@ -114,10 +107,6 @@ const EditarAtividadeSenai = () => {
           setLinguagem(item.linguagem || "");
           setBlocoCodigo(item.codigo || item.bloco_codigo || "");
         } else if (abaAtiva === "Galeria") {
-          setTipoMidia(item.tipo_midia || "");
-          setTituloMidia(item.titulo_midia || "");
-          setDescricaoMidia(item.explicado_a_midia || item.descricao || "");
-          setArquivoGaleriaAtual(mediaUrl(item.arquivo || item.url_arquivo || "") || "");
         } else if (abaAtiva === "Relatórios") {
           setTituloRelatorio(item.titulo_relatorio || "");
           setTextoRelatorio(item.texto_relatorio || "");
@@ -164,11 +153,6 @@ const EditarAtividadeSenai = () => {
     setTituloCodigo("");
     setLinguagem("");
     setBlocoCodigo("");
-    setTipoMidia("");
-    setTituloMidia("");
-    setDescricaoMidia("");
-    setNomeArquivoGaleria("");
-    setArquivoGaleriaAtual("");
     setTituloRelatorio("");
     setTextoRelatorio("");
     setNomePdf("");
@@ -290,7 +274,7 @@ const EditarAtividadeSenai = () => {
         }}
       >
         <img src={icone} alt="" />
-        {previewAtual && !nomeArquivo && (abaAtiva !== "Galeria" || tipoMidia === "Imagem") && <><img className="preview-arquivo-existente" src={previewAtual} alt="Arquivo atual" onError={(e) => { e.currentTarget.style.display = "none"; const aviso = document.createElement("p"); aviso.textContent = "Não foi possível carregar a imagem. O endereço salvo pode estar inválido ou inacessível."; aviso.className = "aviso-preview-falha"; e.currentTarget.parentElement.insertBefore(aviso, e.currentTarget.nextSibling); }} /><small className="endereco-preview-debug">Endereço do arquivo: {previewAtual}</small></>}
+        {previewAtual && !nomeArquivo && <><img className="preview-arquivo-existente" src={previewAtual} alt="Arquivo atual" onError={(e) => { e.currentTarget.style.display = "none"; const aviso = document.createElement("p"); aviso.textContent = "Não foi possível carregar a imagem. O endereço salvo pode estar inválido ou inacessível."; aviso.className = "aviso-preview-falha"; e.currentTarget.parentElement.insertBefore(aviso, e.currentTarget.nextSibling); }} /><small className="endereco-preview-debug">Endereço do arquivo: {previewAtual}</small></>}
         <strong>Clique ou arraste para enviar ({rotulo})</strong>
         <span>{nomeArquivo || "Nenhum arquivo selecionado"}</span>
         <input
@@ -419,54 +403,6 @@ const EditarAtividadeSenai = () => {
               placeholder="Código..."
               value={blocoCodigo}
               onChange={(e) => setBlocoCodigo(e.target.value)}
-            />
-          </div>
-        </>
-      );
-    }
-
-    if (abaAtiva === "Galeria") {
-      return (
-        <>
-          <div className="campo-senai">
-            <select
-              name="tipo_midia"
-              value={tipoMidia}
-              onChange={(e) => setTipoMidia(e.target.value)}
-            >
-              <option value="">Selecione tipo de mídia...</option>
-              <option value="Imagem">Imagem</option>
-              <option value="Vídeo">Vídeo</option>
-            </select>
-          </div>
-          <div className="campo-senai">
-            <input
-              name="titulo_midia"
-              type="text"
-              placeholder="Título da mídia..."
-              value={tituloMidia}
-              onChange={(e) => setTituloMidia(e.target.value)}
-            />
-          </div>
-          <div className="campo-senai">
-            <textarea
-              name="explicado_a_midia"
-              rows={2}
-              placeholder="Descrição da mídia..."
-              value={descricaoMidia}
-              onChange={(e) => setDescricaoMidia(e.target.value)}
-            />
-          </div>
-          <div className="campo-senai">
-            <AreaArquivo
-              id="arquivo-editar-galeria"
-              name="arquivo"
-              accept="image/*,video/*"
-              icone={iconeGaleria}
-              rotulo="arquivo da galeria"
-              nomeArquivo={nomeArquivoGaleria}
-              setNomeArquivo={setNomeArquivoGaleria}
-              previewAtual={arquivoGaleriaAtual}
             />
           </div>
         </>
