@@ -6,7 +6,7 @@ import "./ConteudoParticipacao.css";
 import { API } from "../../config.js";
 
 function normalizarArea(valor) {
-  return String(valor || "").toLowerCase().normalize("NFD").replace(/\\p{Diacritic}/gu, "").trim();
+  return String(valor || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
 }
 
 const ConteudoParticipacao = ({ bimestre, disciplina }) => {
