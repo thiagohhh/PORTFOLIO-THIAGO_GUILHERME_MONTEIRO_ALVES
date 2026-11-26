@@ -91,7 +91,7 @@ const ConteudoProjetos = () => {
                     })}
                     aria-label={`Ampliar imagem de ${projeto.titulo_projeto || "projeto"}`}>
                     <img src={urlImagem(foto)} alt={projeto.titulo_projeto || "Imagem do projeto"}
-                      loading="lazy" />
+                      loading="lazy" onError={(evento) => { const img = evento.currentTarget; if (img.src.includes("cdn.jsdelivr.net/gh/thiagohhh/classrom@main/")) { img.onerror = null; img.src = img.src.replace("cdn.jsdelivr.net/gh/thiagohhh/classrom@main/", "raw.githubusercontent.com/thiagohhh/classrom/main/"); } }} />
                     <span className="dica-ampliar-imagem">Clique para ampliar</span>
                   </button>
                 </div>
