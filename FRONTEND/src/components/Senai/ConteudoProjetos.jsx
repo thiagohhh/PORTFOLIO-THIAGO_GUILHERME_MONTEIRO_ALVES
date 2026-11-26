@@ -51,9 +51,19 @@ const ConteudoProjetos = () => {
           foto: item.arquivo,
           etiquetas: [],
         }));
-        const titulosExistentes = new Set([...comFoto, ...imagensGaleria].map((p) => (p.titulo_projeto || "").trim().toLowerCase()));
-        const imagensRepositorioFiltradas = imagensRepositorio.filter((p) => !titulosExistentes.has((p.titulo_projeto || "").trim().toLowerCase()));
-        setProjetos([...comFoto, ...imagensGaleria, ...imagensRepositorioFiltradas, ...complementares]);
+        // Para estes sete registros, os arquivos do GitHub são a fonte oficial.
+        // Não deixar uma URL antiga do banco/Supabase ocultar a imagem correta do repositório.
+        const titulosOficiais = new Set(imagensRepositorio.map((p) => (p.titulo_projeto || "").trim().toLowerCase()));
+        const projetosDoBancoFiltrados = comFoto.filter((p) =>
+          !titulosOficiais.has((p.titulo_projeto || "").trim().toLowerCase())
+        );
+        const galeriaFiltrada = imagensGaleria.filter((p) =>
+          !titulosOficiais.has((p.titulo_projeto || "").trim().toLowerCase())
+        );
+        const complementaresFiltrados = complementares.filter((p) =>
+          !titulosOficiais.has((p.titulo_projeto || "").trim().toLowerCase())
+        );
+        setProjetos([...imagensRepositorio, ...projetosDoBancoFiltrados, ...galeriaFiltrada, ...complementaresFiltrados]);
       } catch (erro) {
         console.error("Não foi possível consultar os projetos do servidor; exibindo os do repositório.", erro);
         const imagensFallback = imagensDoRepositorio.map((item) => ({
@@ -64,7 +74,11 @@ const ConteudoProjetos = () => {
           foto: item.arquivo,
           etiquetas: [],
         }));
-        setProjetos([...projetosDoRepositorio, ...imagensFallback]);
+        const titulosOficiais = new Set(imagensFallback.map((p) => (p.titulo_projeto || "").trim().toLowerCase()));
+        const projetosSemDuplicatas = projetosDoRepositorio.filter((p) =>
+          !titulosOficiais.has((p.titulo_projeto || "").trim().toLowerCase())
+        );
+        setProjetos([...imagensFallback, ...projetosSemDuplicatas]);
       } finally {
         setCarregando(false);
       }
