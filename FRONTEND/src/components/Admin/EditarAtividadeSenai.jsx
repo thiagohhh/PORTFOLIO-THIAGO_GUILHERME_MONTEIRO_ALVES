@@ -17,7 +17,7 @@ import livro from "../../assets/imgs/book-solid-full.svg";
 import enivar from "../../assets/imgs/paper-plane-solid-full.svg";
 
 import "./EditarAtividadeSenai.css";
-import { API } from "../../config.js";
+import { API, mediaUrl } from "../../config.js";
 
 const abas = [
   "Projetos",
@@ -110,7 +110,7 @@ const EditarAtividadeSenai = () => {
         if (abaAtiva === "Projetos") {
           setTituloProjeto(item.titulo_projeto || "");
           setTextoCard(item.texto_card || "");
-          setFotoAtual(item.foto || item.url_foto || "");
+          setFotoAtual(mediaUrl(item.foto || item.url_foto || "") || "");
           setEtiquetas(Array.isArray(item.etiquetas) ? item.etiquetas : []);
         } else if (abaAtiva === "Códigos") {
           setTituloCodigo(item.titulo_codigo || "");
@@ -120,7 +120,7 @@ const EditarAtividadeSenai = () => {
           setTipoMidia(item.tipo_midia || "");
           setTituloMidia(item.titulo_midia || "");
           setDescricaoMidia(item.explicado_a_midia || item.descricao || "");
-          setArquivoGaleriaAtual(item.arquivo || item.url_arquivo || "");
+          setArquivoGaleriaAtual(mediaUrl(item.arquivo || item.url_arquivo || "") || "");
         } else if (abaAtiva === "Relatórios") {
           setTituloRelatorio(item.titulo_relatorio || "");
           setTextoRelatorio(item.texto_relatorio || "");
@@ -293,7 +293,7 @@ const EditarAtividadeSenai = () => {
         }}
       >
         <img src={icone} alt="" />
-        {previewAtual && !nomeArquivo && <img className="preview-arquivo-existente" src={previewAtual} alt="Arquivo atual" />}
+        {previewAtual && !nomeArquivo && (abaAtiva !== "Galeria" || tipoMidia === "Imagem") && <img className="preview-arquivo-existente" src={previewAtual} alt="Arquivo atual" onError={(e) => { e.currentTarget.style.display = "none"; }} />}
         <strong>Clique ou arraste para enviar ({rotulo})</strong>
         <span>{nomeArquivo || "Nenhum arquivo selecionado"}</span>
         <input
@@ -357,6 +357,7 @@ const EditarAtividadeSenai = () => {
               rotulo="foto do projeto"
               nomeArquivo={nomeFoto}
               setNomeArquivo={setNomeFoto}
+              previewAtual={fotoAtual}
             />
           </div>
           <div className="campo-senai">
