@@ -13,7 +13,7 @@ export const projetosDoRepositorio = [
     texto_card:
       "Registro visual do trabalho enviado na unidade curricular Projeto de Front-end. O material original e os arquivos do projeto estão no repositório de atividades.",
     unidade_curricular: "Projeto de Front-end",
-    foto: imagem("PROJETO DE FRONT-END TEC-040-017/Captura de tela 2026-05-30 115025.png"),
+    foto: "/images/senai/senai-projeto-front-end.png",
     etiquetas: ["Front-end"],
   },
   {
@@ -22,7 +22,7 @@ export const projetosDoRepositorio = [
     texto_card:
       "Registro visual da atividade enviada na unidade curricular Projeto de Back-end. O arquivo original permanece no repositório de atividades.",
     unidade_curricular: "Projeto de Back-end",
-    foto: imagem("PROJETO DE BACK-END TEC-040-017/Captura de tela 2026-09-14 160047.png"),
+    foto: "/images/senai/senai-projeto-back-end.png",
     etiquetas: ["Back-end"],
   },
   {
@@ -30,7 +30,7 @@ export const projetosDoRepositorio = [
     titulo_projeto: "Projeto Esportes Radicais",
     texto_card: "Projeto visual desenvolvido e enviado na unidade curricular Fundamentos de UI/UX.",
     unidade_curricular: "Fundamentos de UI/UX",
-    foto: imagem("FUNDAMENTOS DE UI _ UX TEC-040-017/ESPORTES RADICAIS.png"),
+    foto: "/images/senai/senai-esportes-radicais.png",
     etiquetas: ["UI/UX", "Protótipo visual"],
   },
   {
@@ -38,7 +38,7 @@ export const projetosDoRepositorio = [
     titulo_projeto: "Projeto Comida Saudável",
     texto_card: "Projeto visual desenvolvido e enviado na unidade curricular Fundamentos de UI/UX.",
     unidade_curricular: "Fundamentos de UI/UX",
-    foto: imagem("FUNDAMENTOS DE UI _ UX TEC-040-017/comida saudavel.png"),
+    foto: "/images/senai/senai-comida-saudavel.png",
     etiquetas: ["UI/UX", "Protótipo visual"],
   },
   {
@@ -47,7 +47,7 @@ export const projetosDoRepositorio = [
     texto_card:
       "Registro visual de uma atividade da unidade curricular Desenvolvimento de APIs, conforme o material salvo no repositório.",
     unidade_curricular: "Desenvolvimento de APIs",
-    foto: imagem("DESENVOLVIMENTO DE APIS TEC-040-017/Captura de tela 2026-06-08 172405.png"),
+    foto: "/images/senai/senai-desenvolvimento-apis.png",
     etiquetas: ["APIs"],
   },
 ];
