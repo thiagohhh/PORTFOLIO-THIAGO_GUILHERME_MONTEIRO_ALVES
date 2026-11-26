@@ -3,7 +3,7 @@ import "./ConteudoFundamentos.css";
 import { API } from "../../config.js";
 
 function normalizarArea(valor) {
-  return String(valor || "").toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g, "").trim();
+  return String(valor || "").toLowerCase().normalize("NFD").replace(/\\p{Diacritic}/gu, "").trim();
 }
 
 const ConteudoFundamentos = ({ bimestre, disciplina }) => {
@@ -38,7 +38,7 @@ const ConteudoFundamentos = ({ bimestre, disciplina }) => {
       }
     }
     buscar();
-  }, [numeroBimestre]);
+  }, [numeroBimestre, disciplina]);
 
   if (carregando) return <p>Carregando...</p>;
   if (lista.length === 0) {
