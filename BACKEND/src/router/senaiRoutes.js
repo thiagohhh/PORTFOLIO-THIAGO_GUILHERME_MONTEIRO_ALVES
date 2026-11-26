@@ -20,10 +20,6 @@ import {
   listarDetalhes,
   atualizarDetalhe,
   deletarDetalhe,
-  criarItemGaleria,
-  listarItensGaleria,
-  atualizarItemGaleria,
-  deletarItemGaleria,
   criarProjeto,
   listarProjetos,
   atualizarProjeto,
@@ -65,11 +61,6 @@ router.post("/detalhes", verifyToken, criarDetalhe);
 router.get("/detalhes", listarDetalhes);
 router.put("/detalhes/:id", verifyToken, atualizarDetalhe);
 router.delete("/detalhes/:id", verifyToken, deletarDetalhe);
-
-router.post("/galeria", verifyToken, upload.single("arquivo"), criarItemGaleria);
-router.get("/galeria", listarItensGaleria);
-router.put("/galeria/:id", verifyToken, upload.single("arquivo"), atualizarItemGaleria);
-router.delete("/galeria/:id", verifyToken, deletarItemGaleria);
 
 router.post("/projetos", verifyToken, upload.single("foto"), criarProjeto);
 router.get("/projetos", listarProjetos);
