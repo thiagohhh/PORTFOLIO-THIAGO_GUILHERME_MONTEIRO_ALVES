@@ -86,8 +86,11 @@ test("atualiza uma aprendizagem", async () => {
 });
 
 test("deleta uma aprendizagem", async () => {
+  let deletado = false;
   const aprendizagem = {
-    destroy: async () => {},
+    destroy: async () => {
+      deletado = true;
+    },
   };
 
   const busca = vi.spyOn(Aprendizagens, "findByPk").mockResolvedValue(aprendizagem);
@@ -100,6 +103,7 @@ test("deleta uma aprendizagem", async () => {
   await deletarAprendizagem(request, response);
 
   expect(response.codigo).toBe(204);
+  expect(deletado).toBe(true);
 
   busca.mockRestore();
 });
