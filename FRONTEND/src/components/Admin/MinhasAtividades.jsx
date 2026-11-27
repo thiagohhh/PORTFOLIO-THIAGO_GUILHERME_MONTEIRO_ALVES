@@ -153,8 +153,8 @@ const MinhasAtividades = () => {
   const secoesDaTela = instituicao === "Senai" ? SECOES_SENAI : SECOES_SESI;
 
   const unidadesEncontradas = [
-    ...new Set(daInstituicao.map((i) => i.unidade).filter(Boolean)),
-  ].sort();
+    ...new Set(daInstituicao.map((i) => String(i.unidade || "").trim()).filter(Boolean)),
+  ].sort((a, b) => a.localeCompare(b, "pt-BR"));
 
   const itensFiltrados = daInstituicao.filter((item) => {
     if (busca.trim() && !String(item.titulo || "").toLowerCase().includes(busca.trim().toLowerCase())) return false;
@@ -329,17 +329,19 @@ const MinhasAtividades = () => {
                   </button>
                 ))}
 
-              {instituicao === "Senai" &&
-                unidadesEncontradas.map((u) => (
-                  <button
-                    key={u}
-                    type="button"
-                    className={"chip-filtro" + (filtroExtra === u ? " on" : "")}
-                    onClick={() => setFiltroExtra(u)}
-                  >
-                    {u}
-                  </button>
-                ))}
+              {instituicao === "Senai" && (
+                <select
+                  className="select-unidade-atividade"
+                  value={filtroExtra}
+                  onChange={(e) => setFiltroExtra(e.target.value)}
+                  aria-label="Filtrar por unidade curricular"
+                >
+                  <option value="Todos">Todas as unidades curriculares</option>
+                  {unidadesEncontradas.map((u) => (
+                    <option key={u} value={u}>{u}</option>
+                  ))}
+                </select>
+              )}
             </div>
           </div>
 
