@@ -49,6 +49,7 @@ const MinhasAtividades = () => {
   const [itens, setItens] = useState([]);
   const [carregando, setCarregando] = useState(true);
   const [mensagem, setMensagem] = useState("");
+  const [busca, setBusca] = useState("");
   const [recarregar, setRecarregar] = useState(0);
 
   const [instituicao, setInstituicao] = useState("Senai"); 
@@ -155,7 +156,7 @@ const MinhasAtividades = () => {
     ...new Set(daInstituicao.map((i) => i.unidade).filter(Boolean)),
   ].sort();
 
-  const itensFiltrados = daInstituicao.filter((item) => {
+  const itensFiltrados = daInstituicao.filter((item) => {\n    if (busca.trim() && !String(item.titulo || "").toLowerCase().includes(busca.trim().toLowerCase())) return false;
     if (filtroSecao !== "Todas" && item.secao !== filtroSecao) return false;
 
     if (instituicao === "Sesi" && filtroArea !== "Todas") {
