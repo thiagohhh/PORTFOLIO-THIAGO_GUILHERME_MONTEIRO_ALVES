@@ -4,13 +4,8 @@ Portfólio de atividades e trabalhos do SESI e do SENAI.
 
 ## Para rodar no computador
 
-### 1. O que precisa instalar
 
-- Node.js 22.12 ou mais recente
-- MySQL
-- Git
-
-### 2. Baixe o projeto
+### 1. Baixe o projeto
 
 Abra o terminal e rode:
 
@@ -19,7 +14,7 @@ git clone https://github.com/thiagohhh/PORTFOLIO-THIAGO_GUILHERME_MONTEIRO_ALVES
 cd PORTFOLIO-THIAGO_GUILHERME_MONTEIRO_ALVES
 ```
 
-### 3. Prepare o banco
+### 2. Prepare o banco
 
 1. Abra o MySQL Workbench.
 2. Crie um banco chamado `portifolio_senaiEsesi`.
@@ -45,7 +40,7 @@ Use seus próprios dados. O usuário é criado automaticamente quando a tabela d
 
 **Importante:** não coloque `DATABASE_URL` nem dados de acesso do Supabase no arquivo. Assim o projeto usa o banco e os arquivos do próprio computador.
 
-### 4. Inicie o backend
+### 3. Inicie o backend
 
 Abra um terminal na pasta `BACKEND` e rode:
 
@@ -56,7 +51,7 @@ npm run dev
 
 Deixe esse terminal aberto. O endereço do backend é `http://localhost:3333`.
 
-### 5. Inicie o site
+### 4. Inicie o site
 
 Abra outro terminal na pasta `FRONTEND` e rode:
 
@@ -78,13 +73,12 @@ npm run dev
 
 Abra no navegador o endereço mostrado no terminal (normalmente `http://localhost:5173`).
 
-### 6. Entre no sistema
+### 5. Entre no sistema
 
 Use o e-mail e a senha que você colocou em `USER_EMAIL` e `USER_PASSWORD` no arquivo `BACKEND/.env`.
 
 ## Observações
 
-- Mantenha os dois terminais abertos enquanto estiver usando o sistema.
 - Os cadastros ficam no MySQL local.
 - Com `STORAGE_LOCAL=true`, fotos e arquivos ficam em `BACKEND/public/uploads`.
 - Não compartilhe o arquivo `.env`.
