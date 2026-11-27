@@ -38,7 +38,6 @@ async function iniciarServidor() {
         });
       }
     }
-    // await conn.sync({ force: true }); 
 
     const totalAlunos = await Aluno.count();
     if (totalAlunos === 0 && process.env.USER_NAME && process.env.USER_EMAIL && process.env.USER_PASSWORD) {
