@@ -15,6 +15,8 @@ const app = express();
 app.use(
   cors({
     origin: [
+      "http://localhost:5173",
+      "http://127.0.0.1:5173",
       "https://portfolio-thiago-xi.vercel.app",
       "https://portfolio-thiago-13oywrlny-tgbrabox.vercel.app",
     ],
@@ -32,8 +34,6 @@ const pastaPublic = path.resolve(
 app.use(express.static(pastaPublic));
 
 app.use("/auth", authRoutes);
-
-
 app.use("/alunos", alunoRoutes);
 app.use("/senai", senaiRoutes);
 app.use("/sesi", sesiRoutes);
