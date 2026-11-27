@@ -41,12 +41,15 @@ const ConteudoProjetos = () => {
   }, []);
 
   if (carregando) return <p className="carregando-projetos">Carregando projetos...</p>;
-  const projetosFiltrados = projetos.filter((projeto) => [projeto.titulo_projeto, projeto.texto_card, projeto.unidade_curricular, ...(Array.isArray(projeto.etiquetas) ? projeto.etiquetas : [])].filter(Boolean).join(" ").toLowerCase().includes(busca.trim().toLowerCase()));\n  if (projetos.length === 0) return <p className="sem-projetos">Nenhum projeto com imagem cadastrado ainda.</p>;
+  const projetosFiltrados = projetos.filter((projeto) => [projeto.titulo_projeto, projeto.texto_card, projeto.unidade_curricular, ...(Array.isArray(projeto.etiquetas) ? projeto.etiquetas : [])].filter(Boolean).join(" ").toLowerCase().includes(busca.trim().toLowerCase()));\n  const projetosFiltrados = projetos.filter((projeto) => [projeto.titulo_projeto, projeto.texto_card, projeto.unidade_curricular, ...(Array.isArray(projeto.etiquetas) ? projeto.etiquetas : [])].filter(Boolean).join(" ").toLowerCase().includes(busca.trim().toLowerCase()));
+  if (projetos.length === 0) return <p className="sem-projetos">Nenhum projeto com imagem cadastrado ainda.</p>;
 
   return (
     <>
+      <div className="busca-projetos-senai"><input type="search" value={busca} onChange={(e) => setBusca(e.target.value)} placeholder="Buscar projeto..." aria-label="Buscar projeto" /></div>
+      {projetosFiltrados.length === 0 && <p className="sem-projetos">Nenhum projeto encontrado com essa busca.</p>}
       <div className="grade-senai-projetos">
-        {projetos.map((projeto) => {
+        {projetosFiltrados.map((projeto) => {
           const foto = projeto.foto || projeto.url_foto;
           return (
             <article className="cartao-senai-projeto" key={projeto.id || projeto.titulo_projeto}>
