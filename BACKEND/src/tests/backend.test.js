@@ -1,6 +1,6 @@
+import "dotenv/config";
 import { test, expect, afterAll } from "vitest";
 import mysql from "mysql2/promise";
-import bcrypt from "bcrypt";
 
 // Os testes usam um banco separado para não mexer nos dados do projeto.
 const bancoDeTeste = (process.env.DB_NAME || "portifolio_senaiEsesi") + "_testes";
