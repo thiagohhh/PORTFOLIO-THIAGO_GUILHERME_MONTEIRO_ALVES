@@ -1,5 +1,4 @@
-import { test } from "node:test";
-import assert from "node:assert/strict";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { tratarErro } from "../utils/errorHandle.js";
 
 const criarResposta = () => {
@@ -19,29 +18,30 @@ const criarResposta = () => {
   return response;
 };
 
-test("retorna erro 400 quando o JSON está incorreto", () => {
-  const response = criarResposta();
-  const error = { type: "entity.parse.failed" };
+describe("tratarErro", () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
 
-  tratarErro(error, response);
+  it("retorna erro 400 quando o JSON está incorreto", () => {
+    const response = criarResposta();
+    const error = { type: "entity.parse.failed" };
 
-  assert.equal(response.statusCode, 400);
-  assert.equal(response.dados.message, "O corpo da requisição contém JSON inválido.");
-});
-
-test("retorna erro 500 quando acontece um erro inesperado", () => {
-  const response = criarResposta();
-  const error = new Error("Erro de teste");
-  const consoleOriginal = console.error;
-
-  console.error = () => {};
-
-  try {
     tratarErro(error, response);
-  } finally {
-    console.error = consoleOriginal;
-  }
 
-  assert.equal(response.statusCode, 500);
-  assert.equal(response.dados.message, "Erro interno do servidor.");
+    expect(response.statusCode).toBe(400);
+    expect(response.dados.message).toBe("O corpo da requisição contém JSON inválido.");
+  });
+
+  it("retorna erro 500 quando acontece um erro inesperado", () => {
+    const response = criarResposta();
+    const error = new Error("Erro de teste");
+
+    vi.spyOn(console, "error").mockImplementation(() => {});
+
+    tratarErro(error, response);
+
+    expect(response.statusCode).toBe(500);
+    expect(response.dados.message).toBe("Erro interno do servidor.");
+  });
 });
