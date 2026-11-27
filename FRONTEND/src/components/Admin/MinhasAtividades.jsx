@@ -45,6 +45,43 @@ const AREAS_SESI = [
   "Ciências Humanas",
 ];
 
+// Padroniza variações de nomes sem alterar os registros já cadastrados.
+const normalizarTextoUnidade = (valor) =>
+  String(valor || "").trim().toLocaleLowerCase("pt-BR").normalize("NFD").replace(/[\\u0300-\\u036f]/g, "").replace(/\\s+/g, " ");
+
+const aliasesUnidades = {
+  "projeto de back-end": "Projeto de Back-end",
+  "projeto back-end": "Projeto de Back-end",
+  "projeto para back-end": "Projeto de Back-end",
+  "projeto de backend": "Projeto de Back-end",
+  "projeto backend": "Projeto de Back-end",
+  "projeto para backend": "Projeto de Back-end",
+  "codificacao back-end": "Codificação Back-end",
+  "codificacao para back-end": "Codificação Back-end",
+  "codificacao backend": "Codificação Back-end",
+  "codificacao para backend": "Codificação Back-end",
+  "codificacao front-end": "Codificação Front-end",
+  "codificacao para front-end": "Codificação Front-end",
+  "codificacao frontend": "Codificação Front-end",
+  "codificacao para frontend": "Codificação Front-end",
+  "testes back-end": "Testes de Back-end",
+  "testes de back-end": "Testes de Back-end",
+  "testes backend": "Testes de Back-end",
+  "testes de backend": "Testes de Back-end",
+  "testes front-end": "Testes de Front-end",
+  "testes de front-end": "Testes de Front-end",
+  "testes frontend": "Testes de Front-end",
+  "testes de frontend": "Testes de Front-end",
+  "versionamento": "Versionamento e Colaboração",
+  "versionamento e colaboracao": "Versionamento e Colaboração",
+  "ui/ux": "Fundamentos de UI/UX"
+};
+
+const unidadeCanonica = (valor) => {
+  const chave = normalizarTextoUnidade(valor);
+  return aliasesUnidades[chave] || String(valor || "").trim();
+};
+
 const MinhasAtividades = () => {
   const [itens, setItens] = useState([]);
   const [carregando, setCarregando] = useState(true);
@@ -153,7 +190,7 @@ const MinhasAtividades = () => {
   const secoesDaTela = instituicao === "Senai" ? SECOES_SENAI : SECOES_SESI;
 
   const unidadesEncontradas = [
-    ...new Set(daInstituicao.map((i) => String(i.unidade || "").trim()).filter(Boolean)),
+    ...new Set(daInstituicao.map((i) => unidadeCanonica(i.unidade)).filter(Boolean)),
   ].sort((a, b) => a.localeCompare(b, "pt-BR"));
 
   const itensFiltrados = daInstituicao.filter((item) => {
@@ -169,7 +206,7 @@ const MinhasAtividades = () => {
         if (item.bimestre == null) return false;
         if (String(item.bimestre) !== String(filtroExtra)) return false;
       } else {
-        if (!item.unidade || item.unidade !== filtroExtra) return false;
+        if (!item.unidade || unidadeCanonica(item.unidade) !== filtroExtra) return false;
       }
     }
     return true;
