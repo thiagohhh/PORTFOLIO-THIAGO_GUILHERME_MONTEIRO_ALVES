@@ -166,4 +166,5 @@
   }
 }
 
-.busca-projetos-senai { margin-bottom: 18px; }\n.busca-projetos-senai input { width: 100%; box-sizing: border-box; padding: 11px 14px; border: 2px solid var(--cor-preta); border-radius: 8px; background: var(--cor-branca); color: var(--cor-preta); font: inherit; }\n
+.busca-projetos-senai { margin-bottom: 18px; }
+.busca-projetos-senai input { width: 100%; box-sizing: border-box; padding: 11px 14px; border: 2px solid var(--cor-preta); border-radius: 8px; background: var(--cor-branca); color: var(--cor-preta); font: inherit; }
