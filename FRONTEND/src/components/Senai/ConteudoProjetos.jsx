@@ -6,7 +6,8 @@ import { projetosDoRepositorio } from "./conteudoRepositorio.js";
 const ConteudoProjetos = () => {
   const [projetos, setProjetos] = useState([]);
   const [carregando, setCarregando] = useState(true);
-  const [imagemAmpliada, setImagemAmpliada] = useState(null);\n  const [busca, setBusca] = useState("");
+  const [imagemAmpliada, setImagemAmpliada] = useState(null);
+  const [busca, setBusca] = useState("");
 
   // Imagens locais do frontend devem usar a própria URL do site, não a API do backend.
   const urlImagem = (foto) => foto?.startsWith("/images/senai/") ? foto : mediaUrl(foto);
@@ -41,7 +42,7 @@ const ConteudoProjetos = () => {
   }, []);
 
   if (carregando) return <p className="carregando-projetos">Carregando projetos...</p>;
-  const projetosFiltrados = projetos.filter((projeto) => [projeto.titulo_projeto, projeto.texto_card, projeto.unidade_curricular, ...(Array.isArray(projeto.etiquetas) ? projeto.etiquetas : [])].filter(Boolean).join(" ").toLowerCase().includes(busca.trim().toLowerCase()));\n  const projetosFiltrados = projetos.filter((projeto) => [projeto.titulo_projeto, projeto.texto_card, projeto.unidade_curricular, ...(Array.isArray(projeto.etiquetas) ? projeto.etiquetas : [])].filter(Boolean).join(" ").toLowerCase().includes(busca.trim().toLowerCase()));
+  const projetosFiltrados = projetos.filter((projeto) => [projeto.titulo_projeto, projeto.texto_card, projeto.unidade_curricular, ...(Array.isArray(projeto.etiquetas) ? projeto.etiquetas : [])].filter(Boolean).join(" ").toLowerCase().includes(busca.trim().toLowerCase()));
   if (projetos.length === 0) return <p className="sem-projetos">Nenhum projeto com imagem cadastrado ainda.</p>;
 
   return (
