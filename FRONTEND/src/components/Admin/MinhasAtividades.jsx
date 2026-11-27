@@ -156,7 +156,8 @@ const MinhasAtividades = () => {
     ...new Set(daInstituicao.map((i) => i.unidade).filter(Boolean)),
   ].sort();
 
-  const itensFiltrados = daInstituicao.filter((item) => {\n    if (busca.trim() && !String(item.titulo || "").toLowerCase().includes(busca.trim().toLowerCase())) return false;
+  const itensFiltrados = daInstituicao.filter((item) => {
+    if (busca.trim() && !String(item.titulo || "").toLowerCase().includes(busca.trim().toLowerCase())) return false;\n    if (busca.trim() && !String(item.titulo || "").toLowerCase().includes(busca.trim().toLowerCase())) return false;
     if (filtroSecao !== "Todas" && item.secao !== filtroSecao) return false;
 
     if (instituicao === "Sesi" && filtroArea !== "Todas") {
@@ -228,6 +229,10 @@ const MinhasAtividades = () => {
             </h1>
             <p className="selo-instituicao">{selo}</p>
           </header>
+
+          <div className="campo-busca-atividades">
+            <input type="search" value={busca} onChange={(e) => setBusca(e.target.value)} placeholder="Buscar atividade pelo título..." aria-label="Buscar atividade" />
+          </div>
 
           <div className="filtros-linha">
             <span className="filtros-label">Instituição</span>
