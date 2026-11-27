@@ -48,7 +48,7 @@ Use seus próprios dados. O usuário é criado automaticamente quando a tabela d
 Abra um terminal na pasta `BACKEND` e rode:
 
 ```bash
-npm install
+npm i
 npm run dev
 ```
 
@@ -59,7 +59,7 @@ Deixe esse terminal aberto. O endereço do backend é `http://localhost:3333`.
 Abra outro terminal na pasta `FRONTEND` e rode:
 
 ```bash
-npm install
+npm i
 ```
 
 Copie `.env.example` para um arquivo chamado `.env`. Confira se ele contém:
