@@ -47,7 +47,7 @@ const AREAS_SESI = [
 
 // Padroniza variações de nomes sem alterar os registros já cadastrados.
 const normalizarTextoUnidade = (valor) =>
-  String(valor || "").trim().toLocaleLowerCase("pt-BR").normalize("NFD").replace(/[\\u0300-\\u036f]/g, "").replace(/\\s+/g, " ");
+  String(valor || "").trim().toLocaleLowerCase("pt-BR").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ");
 
 const aliasesUnidades = {
   "projeto de back-end": "Projeto de Back-end",
@@ -74,7 +74,8 @@ const aliasesUnidades = {
   "testes de frontend": "Testes de Front-end",
   "versionamento": "Versionamento e Colaboração",
   "versionamento e colaboracao": "Versionamento e Colaboração",
-  "ui/ux": "Fundamentos de UI/UX"
+  "ui/ux": "Fundamentos de UI/UX",
+  "fundamentos de ui/ux": "Fundamentos de UI/UX"
 };
 
 const unidadeCanonica = (valor) => {
