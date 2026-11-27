@@ -22,7 +22,7 @@ cd PORTFOLIO-THIAGO_GUILHERME_MONTEIRO_ALVES
 3. Copie `BACKEND/.env.example` para `BACKEND/.env`.
 4. No `.env`, informe a senha do seu MySQL, uma chave `JWT_SECRET` e as credenciais de administrador local (`USER_NAME`, `USER_EMAIL`, `USER_PASSWORD`).
 5. **Não configure `DATABASE_URL`** se quiser usar o MySQL local. O backend usa o banco local quando essa variável não existe.
-6. O administrador inicial é criado quando o banco está sem registros de alunos. A conta é criada nesse banco local, não no banco online, desde que você não configure uma conexão com o banco online.
+6. O administrador inicial é criado quando o banco está sem registros de alunos.
 
 ## Executar o backend
 
@@ -61,7 +61,7 @@ Abra o endereço que o Vite mostrar (normalmente http://localhost:5173).
 
 ## Observações
 
-- O banco local do avaliador é separado do banco online se ele configurar o MySQL local e não usar `DATABASE_URL` apontando para o banco remoto.
-- Os dados cadastrados localmente não alteram automaticamente os dados do banco online.
-- O recurso de upload de arquivos que depende do Supabase Storage pode exigir credenciais próprias do Storage; sem elas, algumas funcionalidades de mídia podem não funcionar.
+- O banco e os arquivos ficam no computador de quem está rodando o projeto.
+- Não coloque dados de acesso do banco online no arquivo `.env`.
+- Com `STORAGE_LOCAL=true`, fotos e arquivos ficam na pasta `BACKEND/public/uploads`.
 - Não compartilhe nem envie o arquivo `.env`. Ele contém credenciais privadas.
