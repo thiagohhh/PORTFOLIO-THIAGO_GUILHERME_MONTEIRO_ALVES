@@ -311,4 +311,5 @@
 }
 
 
-.campo-busca-atividades { margin: 0 0 18px; }\n.campo-busca-atividades input { width: 100%; box-sizing: border-box; padding: 11px 14px; border: 2px solid var(--cor-preta); border-radius: 8px; background: var(--cor-branca); color: var(--cor-preta); font: inherit; }\n
+.campo-busca-atividades { margin: 0 0 18px; }
+.campo-busca-atividades input { width: 100%; box-sizing: border-box; padding: 11px 14px; border: 2px solid var(--cor-preta); border-radius: 8px; background: var(--cor-branca); color: var(--cor-preta); font: inherit; }
