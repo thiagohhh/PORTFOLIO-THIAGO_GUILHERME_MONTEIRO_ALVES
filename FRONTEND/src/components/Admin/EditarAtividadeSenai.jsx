@@ -83,10 +83,18 @@ const EditarAtividadeSenai = () => {
         // A API lista os registros da seção; o item é localizado pelo ID recebido via navegação.
         const base = rotas[abaAtiva];
         if (!base) return;
+        const token = localStorage.getItem("token");
         const res = await fetch(`${API}${base}`, {
           method: "GET",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
         });
+        if (!res.ok) {
+          setMensagem(`Erro ao carregar atividade (HTTP ${res.status}).`);
+          return;
+        }
         const dados = await res.json();
         const lista = Array.isArray(dados) ? dados : [];
         const item = lista.find((x) => String(x.id) === String(idItem));
