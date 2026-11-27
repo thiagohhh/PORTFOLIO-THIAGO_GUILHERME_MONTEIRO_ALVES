@@ -4,7 +4,7 @@ Portfólio de atividades e trabalhos do SESI e do SENAI.
 
 ## Ver o site publicado
 
-Acesse a versão online do portfólio: https://portfolio-thiago-git-main-tgbrabox.vercel.app
+Acesse a versão online do portfólio: https://portfolio-thiago-xi.vercel.app
 
 ## Para rodar no computador
 
