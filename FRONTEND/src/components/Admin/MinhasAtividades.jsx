@@ -157,7 +157,7 @@ const MinhasAtividades = () => {
   ].sort();
 
   const itensFiltrados = daInstituicao.filter((item) => {
-    if (busca.trim() && !String(item.titulo || "").toLowerCase().includes(busca.trim().toLowerCase())) return false;\n    if (busca.trim() && !String(item.titulo || "").toLowerCase().includes(busca.trim().toLowerCase())) return false;
+    if (busca.trim() && !String(item.titulo || "").toLowerCase().includes(busca.trim().toLowerCase())) return false;
     if (filtroSecao !== "Todas" && item.secao !== filtroSecao) return false;
 
     if (instituicao === "Sesi" && filtroArea !== "Todas") {
