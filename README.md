@@ -1,67 +1,91 @@
 # Meu portfólio
 
-Portfólio de atividades e trabalhos do SESI e do SENAI. O projeto possui frontend e backend separados.
+Portfólio de atividades e trabalhos do SESI e do SENAI.
 
-## Requisitos
+## Para rodar no computador
 
-- Node.js (versão compatível com Vite 8; Node 20.19+ ou 22.12+ recomendado)
-- MySQL instalado e iniciado para execução local independente
-- Git (opcional, para clonar)
+### 1. O que precisa instalar
 
-## Clonar o repositório
+- Node.js 22.12 ou mais recente
+- MySQL
+- Git
+
+### 2. Baixe o projeto
+
+Abra o terminal e rode:
 
 ```bash
 git clone https://github.com/thiagohhh/PORTFOLIO-THIAGO_GUILHERME_MONTEIRO_ALVES.git
 cd PORTFOLIO-THIAGO_GUILHERME_MONTEIRO_ALVES
 ```
 
-## Preparar o banco local
+### 3. Prepare o banco
 
-1. Instale e inicie o MySQL.
-2. Crie o banco de dados `portifolio_senaiEsesi` (ou use outro nome e ajuste o arquivo `BACKEND/.env`).
-3. Copie `BACKEND/.env.example` para `BACKEND/.env`.
-4. No `.env`, informe a senha do seu MySQL, uma chave `JWT_SECRET` e as credenciais de administrador local (`USER_NAME`, `USER_EMAIL`, `USER_PASSWORD`).
-5. **Não configure `DATABASE_URL`** se quiser usar o MySQL local. O backend usa o banco local quando essa variável não existe.
-6. O administrador inicial é criado quando o banco está sem registros de alunos.
+1. Abra o MySQL Workbench.
+2. Crie um banco chamado `portifolio_senaiEsesi`.
+3. Entre na pasta `BACKEND` e copie o arquivo `.env.example`.
+4. Renomeie a cópia para `.env`.
+5. Abra o `.env` e coloque a senha do seu MySQL. Escolha também o nome, e-mail e senha que vai usar para entrar no sistema.
 
-## Executar o backend
+Exemplo:
 
-Em um terminal:
+```env
+JWT_SECRET=minha_chave_local
+DB_NAME=portifolio_senaiEsesi
+DB_USER=root
+DB_PASSWORD=sua_senha_do_mysql
+DB_HOST=localhost
+STORAGE_LOCAL=true
+USER_NAME=Professor
+USER_EMAIL=professor@local.test
+USER_PASSWORD=senha123
+```
+
+Use seus próprios dados. O usuário é criado automaticamente quando a tabela de usuários está vazia.
+
+**Importante:** não coloque `DATABASE_URL` nem dados de acesso do Supabase no arquivo. Assim o projeto usa o banco e os arquivos do próprio computador.
+
+### 4. Inicie o backend
+
+Abra um terminal na pasta `BACKEND` e rode:
 
 ```bash
-cd BACKEND
 npm install
 npm run dev
 ```
 
-O backend inicia em http://localhost:3333.
+Deixe esse terminal aberto. O endereço do backend é `http://localhost:3333`.
 
-## Executar o frontend
+### 5. Inicie o site
 
-Em outro terminal, na raiz do repositório:
+Abra outro terminal na pasta `FRONTEND` e rode:
 
 ```bash
-cd FRONTEND
 npm install
 ```
 
-Copie `FRONTEND/.env.example` para `FRONTEND/.env` e mantenha a URL da API local:
+Copie `.env.example` para um arquivo chamado `.env`. Confira se ele contém:
 
 ```env
 VITE_API_URL=http://localhost:3333
 ```
 
-Depois:
+Depois rode:
 
 ```bash
 npm run dev
 ```
 
-Abra o endereço que o Vite mostrar (normalmente http://localhost:5173).
+Abra no navegador o endereço mostrado no terminal (normalmente `http://localhost:5173`).
+
+### 6. Entre no sistema
+
+Use o e-mail e a senha que você colocou em `USER_EMAIL` e `USER_PASSWORD` no arquivo `BACKEND/.env`.
 
 ## Observações
 
-- O banco e os arquivos ficam no computador de quem está rodando o projeto.
-- Não coloque dados de acesso do banco online no arquivo `.env`.
-- Com `STORAGE_LOCAL=true`, fotos e arquivos ficam na pasta `BACKEND/public/uploads`.
-- Não compartilhe nem envie o arquivo `.env`. Ele contém credenciais privadas.
+- Mantenha os dois terminais abertos enquanto estiver usando o sistema.
+- Os cadastros ficam no MySQL local.
+- Com `STORAGE_LOCAL=true`, fotos e arquivos ficam em `BACKEND/public/uploads`.
+- Não compartilhe o arquivo `.env`.
+- Não use `force: true` no banco: essa opção apaga as tabelas e os dados.
