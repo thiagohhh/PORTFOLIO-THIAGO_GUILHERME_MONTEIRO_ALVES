@@ -1,31 +1,32 @@
-import { test } from "node:test";
-import assert from "node:assert/strict";
+import { describe, expect, it } from "vitest";
 import { getToken } from "../utils/getToken.js";
 
-test("retorna o token quando ele está correto", () => {
-  const request = {
-    headers: {
-      authorization: "Bearer meu-token",
-    },
-  };
+describe("getToken", () => {
+  it("retorna o token quando ele está correto", () => {
+    const request = {
+      headers: {
+        authorization: "Bearer meu-token",
+      },
+    };
 
-  assert.equal(getToken(request), "meu-token");
-});
+    expect(getToken(request)).toBe("meu-token");
+  });
 
-test("retorna null quando não existe token", () => {
-  const request = {
-    headers: {},
-  };
+  it("retorna null quando não existe token", () => {
+    const request = {
+      headers: {},
+    };
 
-  assert.equal(getToken(request), null);
-});
+    expect(getToken(request)).toBeNull();
+  });
 
-test("retorna null quando o formato do token está incorreto", () => {
-  const request = {
-    headers: {
-      authorization: "meu-token",
-    },
-  };
+  it("retorna null quando o formato do token está incorreto", () => {
+    const request = {
+      headers: {
+        authorization: "meu-token",
+      },
+    };
 
-  assert.equal(getToken(request), null);
+    expect(getToken(request)).toBeNull();
+  });
 });
