@@ -12,21 +12,23 @@ import {
 } from "../controller/sesiController.js";
 
 const criarResposta = () => {
-  return {
+  const resposta = {
     codigo: 200,
     dados: null,
     status(codigo) {
-      this.codigo = codigo;
-      return this;
+      resposta.codigo = codigo;
+      return resposta;
     },
     json(dados) {
-      this.dados = dados;
-      return this;
+      resposta.dados = dados;
+      return resposta;
     },
     send() {
-      return this;
+      return resposta;
     },
   };
+
+  return resposta;
 };
 
 test("valida os dados de conexão interdisciplinar", async () => {
