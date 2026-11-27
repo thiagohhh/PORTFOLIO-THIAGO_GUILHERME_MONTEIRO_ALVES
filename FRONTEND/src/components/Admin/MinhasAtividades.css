@@ -313,3 +313,6 @@
 
 .campo-busca-atividades { margin: 0 0 18px; }
 .campo-busca-atividades input { width: 100%; box-sizing: border-box; padding: 11px 14px; border: 2px solid var(--cor-preta); border-radius: 8px; background: var(--cor-branca); color: var(--cor-preta); font: inherit; }
+
+
+.select-unidade-atividade { max-width: 100%; min-width: min(320px, 100%); padding: 9px 12px; border: 2px solid var(--cor-preta); border-radius: 8px; background: var(--cor-branca); color: var(--cor-preta); font: inherit; font-size: 14px; font-weight: 600; }
